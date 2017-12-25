@@ -1,0 +1,18 @@
+<div class="content-edit-mdal">
+    <div class="modal-header">
+        <h4 class="modal-title">填写项目相近内容</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <p class="description">（研究对象及目标、主要成果及预期水平、技术路线或关键技术方法等）</p>
+            <div class="form-item">
+                <label>相近内容</label>
+                <textarea class="form-control" ng-model="updateInfo.relateContent"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-line" ng-click="submitEdit()">保存</button>
+    </div>
+</div>

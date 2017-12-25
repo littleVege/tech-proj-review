@@ -1,0 +1,27 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>用户名</th>
+        <th>用户类型</th>
+        <th>最后登录时间</th>
+        <th>最后登录IP</th>
+        <th>创建时间</th>
+        <th>修改时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in list">
+        <td>{{$index+1}}</td>
+        <td>{{i.userName}}</td>
+        <td>{{i.roleId}}</td>
+        <td>{{i.lastLoginTime | date:'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{i.lastLoginIp}}</td>
+        <td>{{i.addedDate | date:'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{i.updatedDate | date:'yyyy-MM-dd HH:mm'}}</td>
+        <td><button class="btn btn-default" ng-click="changePassword(i)">重置密码</button></td>
+    </tr>
+    </tbody>
+</table>
+<ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>

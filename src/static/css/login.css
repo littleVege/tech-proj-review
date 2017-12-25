@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+  position: relative; }
+
+.login-page {
+  background: url("../img/bg.jpg") no-repeat center;
+  -webkit-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  position: relative; }
+
+.login-logo {
+  position: absolute;
+  left: 81px;
+  top: 150px;
+  z-index: 100;
+  background: url("../img/logo-all.png") no-repeat center;
+  width: 520px;
+  height: 68px; }
+
+.login-form {
+  position: absolute;
+  right: 160px;
+  height: 400px;
+  width: 360px;
+  margin-top: -200px;
+  top: 50%; }
+  .login-form h1 {
+    font-size: 33px;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 45px;
+    font-weight: normal; }
+  .login-form .form-control {
+    background: #fff;
+    color: #444444;
+    font-size: 15px;
+    line-height: 25px;
+    margin-left: 40px;
+    margin-bottom: 30px;
+    width: 280px;
+    height: 45px;
+    border-radius: 0;
+    border: 1px solid #B4B4B4; }
+  .login-form .btn-wrapper {
+    margin: 0 40px 20px 40px; }
+    .login-form .btn-wrapper .btn {
+      background: #00A1FF;
+      padding: 9px 12px; }
+  .login-form a {
+    font-size: 14px;
+    color: #00A1FF;
+    float: right; }
+
+/*# sourceMappingURL=login.css.map */

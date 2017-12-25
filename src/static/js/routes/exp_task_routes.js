@@ -1,0 +1,23 @@
+export default ($stateProvider, $urlRouterProvider) => {
+    $stateProvider
+        .state('expTaskList',{
+            url:'/exp/task/list',
+            templateUrl:'templates/exp-tasks/task-list.html',
+            controller:'ExpTaskListCtrl'
+        })
+        .state('expTaskDetail',{
+            url:'/exp/task/detail?taskId&expertId',
+            templateUrl:'templates/exp-tasks/task-detail.html',
+            controller:'ExpTaskDetailCtrl'
+        })
+        .state('expTaskDetail.groups',{
+            url:'/groups',
+            templateUrl:'templates/exp-tasks/task-detail-groups.html',
+            controller:'ExpTaskGroupsCtrl'
+        })
+        .state('expTaskDetail.projects',{
+            url:'/projects',
+            templateUrl:'templates/exp-tasks/task-detail-projects.html',
+            controller:'ExpTaskProjectsCtrl'
+        })
+}

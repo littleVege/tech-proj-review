@@ -1,0 +1,43 @@
+<h3>已指派的专家</h3>
+<div class="table-actions">
+    <button class="btn btn-line" ng-click="showExpertSelectPanel()">指派专家</button>
+    <span ng-if="hasMultiSelectOne()">|<button class="btn btn-line btn-line-red">全部删除</button></span>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th><input type="checkbox" ng-click="toggleCheckAll()"></th>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>工作单位</th>
+        <th>担任职位</th>
+        <th>手机号</th>
+        <th>专业</th>
+        <th>擅长领域</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in groupExperts">
+        <td><input type="checkbox" ng-model="i.checked"></td>
+        <td>{{$index+1}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.sex}}</td>
+        <td>{{i.age}}</td>
+        <td>{{i.university}}</td>
+        <td>{{i.jobTitle}}</td>
+        <td>{{i.phone}}</td>
+        <td>{{i.major}}</td>
+        <td>{{i.researchArea}}</td>
+        <td>
+            <button class="btn btn-clear btn-sm btn-clear-red">删除</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="page-action">
+    <button class="btn btn-default" ui-sref="groupEdit.step2({taskId:taskId,groupId:groupId})">上一步</button>
+    <button class="btn btn-line" ui-sref="taskDetail({taskId:taskId})">完成</button>
+</div>

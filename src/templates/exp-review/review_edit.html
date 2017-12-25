@@ -1,0 +1,64 @@
+<div class="page-wrapper page-no-tab page-sys-project-list">
+    <h1>评估项目列表</h1>
+    <div class="page">
+        <table class="info-table">
+            <tbody>
+            <tr>
+                <td colspan="3"><label>项目编号</label> {{projectInfo.projectSerialNumber}}</td>
+            </tr>
+            <tr>
+                <td><label>项目标题</label> {{projectInfo.name}}</td>
+                <td><label>项目负责人</label> {{projectInfo.manager}}</td>
+                <td><label>分类</label> {{projectInfo.category}}</td>
+            </tr>
+            <tr>
+                <td><label>机构</label> {{projectInfo.category}}</td>
+                <td><label>内容关键字</label> {{projectInfo.keywords}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>项目简介</label>
+                        <div class="item-content">
+                            {{projectInfo.introduction}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>项目附件</label>
+                        <a ng-repeat="i in projectFiles" ng-href="{{i.fileUrl}}">{{i.fileOriginName}}</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+    <div class="create-steps guideline-steps" style="margin-top: 20px">
+        <ul class="clearfix" style="margin: 0 auto;width: 400px;">
+            <li>
+                <div class="step-item active">
+                    <div class="step-icon"></div>
+                    <label>项目评分</label>
+                </div>
+            </li>
+            <li>
+                <div class="step-item">
+                    <div class="step-icon"></div>
+                    <label>三库查重</label>
+                </div>
+            </li>
+            <!--<li>-->
+                <!--<div class="step-item">-->
+                    <!--<div class="step-icon"></div>-->
+                    <!--<label></label>-->
+                <!--</div>-->
+            <!--</li>-->
+        </ul>
+    </div>
+    <div class="page" ui-view></div>
+</div>

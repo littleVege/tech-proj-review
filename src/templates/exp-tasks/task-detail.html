@@ -1,0 +1,38 @@
+<div class="page-wrapper page-no-tab page-project-detail">
+    <h1>任务详情</h1>
+    <div class="page">
+        <table class="info-table">
+            <tbody>
+            <tr><td colspan="3"><label>任务名称</label> {{taskInfo.name}}</td>
+
+            </tr>
+            <tr>
+                <td><label>任务编号</label> {{taskInfo.id}}</td>
+                <td><label>承担单位</label> {{taskInfo.organization}}</td>
+                <td><label>负责人</label> {{taskInfo.manager}}</td>
+            </tr>
+            <tr>
+                <td><label>开始时间</label> {{taskInfo.startDate|date:'yyyy-MM-dd'}}</td>
+                <td><label>截止时间</label> {{taskInfo.endDate|date:'yyyy-MM-dd'}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>任务简介</label>
+                        <div class="item-content">
+                            {{taskInfo.introduction}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="nav nav-tabs">
+            <li role="presentation" ui-sref="expTaskDetail.groups" ui-sref-active="active"><a ui-sref-active="active" style="margin-left: 0">任务分组</a></li>
+            <li role="presentation" ui-sref="expTaskDetail.projects"  ui-sref-active="active"><a ui-sref-active="active">项目列表</a></li>
+        </ul>
+        <div class="nav-content" ui-view></div>
+    </div>
+
+</div>

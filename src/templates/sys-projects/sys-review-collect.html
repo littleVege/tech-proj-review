@@ -1,0 +1,94 @@
+<div class="page-wrapper page-no-tab page-project-detail">
+    <h1>项目详情</h1>
+    <div class="page">
+        <table class="info-table">
+            <tbody>
+            <tr>
+                <td colspan="3"><label>项目编号</label> {{updateInfo.projectSerialNumber}}</td>
+            </tr>
+            <tr>
+                <td><label>项目标题</label> {{updateInfo.name}}</td>
+                <td><label>项目负责人</label> {{updateInfo.manager}}</td>
+                <td><label>分类</label> {{updateInfo.category}}</td>
+            </tr>
+            <tr>
+                <td><label>机构</label> {{updateInfo.category}}</td>
+                <td><label>内容关键字</label> {{updateInfo.keywords}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>项目简介</label>
+                        <div class="item-content">
+                            {{updateInfo.introduction}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>项目附件</label>
+                        <a ng-repeat="i in projectFiles" ng-href="{{i.fileUrl}}">{{i.fileOriginName}}</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div ng-if="updateInfo.projectStatus>2">
+            <hr>
+            <div class="review-block">
+                <h3>专家评估详情</h3>
+                <ul class="review-timeline">
+                    <li ng-repeat="i in reviews">
+                        <div class="review-label">
+                            <h4>专家{{$index+1}}</h4>
+                            <label>评估意见</label>
+                        </div>
+                        <div class="review-content">
+                            <h5>{{i.evaluationTime | date: 'yyyy.MM.dd HH:mm'}}</h5>
+                            <p ng-bind-html="i.evaluationSuggestion"></p>
+                            <p class="review-score">评分：{{i.evaluationScore}}</p>
+                            <p class="review-score">等级：{{i.evaluationLevel}}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+            <div class="collect-block">
+                <h3>最终评估结果</h3>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-item item-with-unit">
+                            <label>评估分数</label>
+                            <input type="text" class="form-control" ng-model="updateInfo.evaluationScore" placeholder="请输入分数">
+                            <span>分</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-item">
+                            <label>项目等级</label>
+                            <select class="form-control" ng-model="updateInfo.evaluationLevel">
+                                <option value="">请选择项目等级</option>
+                                <option ng-value="'A'">A级</option>
+                                <option ng-value="'B'">B级</option>
+                                <option ng-value="'C'">C级</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-action" style="margin-top: 20px">
+                <button class="btn btn-default" ng-click="goBack()">取消</button>
+                <button class="btn btn-primary" ng-click="submitEdit()">完成并提交</button>
+            </div>
+        </div>
+        <div ng-if="updateInfo.projectStatus<=2">
+            <div class="page-action" style="margin-top: 20px">
+                <button class="btn btn-default" ng-click="goBack()">返回</button>
+            </div>
+        </div>
+    </div>
+
+</div>

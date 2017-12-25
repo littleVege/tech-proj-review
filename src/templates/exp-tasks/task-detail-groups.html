@@ -1,0 +1,25 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>项目组名称</th>
+        <th>所属领域</th>
+        <th>项目数量</th>
+        <th>创建时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in list">
+        <td>{{$index+1}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.projectCnt}}</td>
+        <td>{{i.majorCategoryId}}</td>
+        <td>{{i.addedDate | date: 'yyyy-MM-dd'}}</td>
+        <td><button class="btn btn-clear btn-sm">项目列表</button></td>
+    </tr>
+    </tbody>
+</table>
+<div class="clearfix">
+    <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
+</div>

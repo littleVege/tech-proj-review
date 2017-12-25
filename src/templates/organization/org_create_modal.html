@@ -1,0 +1,102 @@
+<div class="content-edit-mdal">
+    <div class="create-org-step1" ng-if="!info">
+        <div class="modal-header">
+            <h4 class="modal-title">创建机构</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-item">
+                    <label>机构名称</label>
+                    <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.name">
+                </div>
+                <div class="form-item">
+                    <label>机构简称</label>
+                    <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.shortName">
+                    <p class="description">* 机构简称的拼音全拼将成为机构的登录账户名</p>
+                </div>
+                <div class="form-item">
+                    <label>所属区域</label>
+                    <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.adcode">
+                </div>
+                <div class="form-item">
+                    <label>机构性质</label>
+                    <select class="form-control" ng-model="updateInfo.nature">
+                        <option value="">请选择机构性质</option>
+                        <option ng-value="1">国家部门</option>
+                        <option ng-value="2">地方科技厅（委、局）</option>
+                        <option ng-value="3">高校院所</option>
+                        <option ng-value="4">企业</option>
+                        <option ng-value="5">其他</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label>联系人</label>
+                    <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.contactName">
+                </div>
+                <div class="form-item">
+                    <label>联系电话</label>
+                    <input type="tel" class="form-control" placeholder="请输入" ng-model="updateInfo.contactPhoneNumber">
+                    <p class="description">* 必填</p>
+                </div>
+                <div class="form-item">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="请输入" ng-model="updateInfo.email">
+                    <p class="description">* 必填</p>
+                </div>
+                <div class="form-item">
+                    <label>简介</label>
+                    <textarea class="form-control" ng-model="updateInfo.remark"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="cancel()">取消</button>
+            <button class="btn btn-line" ng-click="submitEdit()">保存</button>
+        </div>
+    </div>
+    <div class="create-org-step2" ng-if="info">
+        <div class="modal-header">
+            <h4 class="modal-title">创建成功</h4>
+        </div>
+        <div class="modal-body">
+            <h4>机构信息</h4>
+            <table class="info-table">
+                <tr>
+                    <td>机构名称</td>
+                    <td>{{info.org.name}}</td>
+                    <td>机构简称</td>
+                    <td>{{info.org.shortName}}</td>
+                    <td>机构性质</td>
+                    <td>{{info.org.nature}}</td>
+                </tr>
+                <tr>
+                    <td>联系人</td>
+                    <td>{{info.org.contactName}}</td>
+                    <td>联系电话</td>
+                    <td>{{info.org.contactPhoneNumber}}</td>
+                    <td>Email</td>
+                    <td>{{info.org.email}}</td>
+                </tr>
+                <tr>
+                    <td>简介</td>
+                    <td colspan="5">{{info.org.remark}}</td>
+                </tr>
+            </table>
+            <h4>用户信息</h4>
+            <p class="description">* 请牢记用户名及密码信息</p>
+            <table class="info-table">
+                <tr>
+                    <td>用户ID</td>
+                    <td>{{info.account.id}}</td>
+                    <td>用户名</td>
+                    <td>{{info.account.userName}}</td>
+                    <td>密码</td>
+                    <td>{{info.account.password}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default" ng-click="cancel()">好的</button>
+        </div>
+    </div>
+</div>

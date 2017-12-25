@@ -1,0 +1,12 @@
+<% for(var i=0; i<files.length; i++) {%>
+   import <%=files[i].serviceName%> from './<%=files[i].fileName%>'
+<% } %>
+
+let services = angular.module('tpr.services',[]);
+services
+<% for(var i=0; i<files.length; i++) {%>
+   .service('<%=files[i].serviceNameUpper%>', <%=files[i].serviceName%>)
+<% } %>
+;
+
+export default services;

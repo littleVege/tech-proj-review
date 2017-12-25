@@ -1,0 +1,48 @@
+<div class="page-wrapper page-no-tab page-sys-project-list">
+    <h1>三库项目列表</h1>
+    <div class="page">
+        <div class="query-action-wrapper">
+            <div class="searcher">
+                <input class="form-control" placeholder="输入关键字进行搜索">
+                <button class="btn btn-primary btn-right">搜索</button>
+            </div>
+        </div>
+        <div class="form-item">
+            <label>项目来源</label>
+            <ul>
+                <li ng-click="setSource(null)" ng-class="queryInfo.source == null && 'active'">全部</li>
+                <li ng-click="setSource('国家科技成果转化项目库')" ng-class="queryInfo.source == '国家科技成果转化项目库' && 'active'">国家科技成果转化项目库</li>
+                <li ng-click="setSource('国家科技报告数据库')" ng-class="queryInfo.source == '国家科技报告数据库' && 'active'">国家科技报告数据库</li>
+                <li ng-click="setSource('国家科技成果库')" ng-class="queryInfo.source == '国家科技成果库' && 'active'">国家科技成果库</li>
+                <li ng-click="setSource('国家自然科学基金库')" ng-class="queryInfo.source == '国家自然科学基金库' && 'active'">国家自然科学基金库</li>
+            </ul>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>项目标题</th>
+                <th>类型</th>
+                <th>关键词</th>
+                <th>来源</th>
+                <th>抓取时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="i in list">
+                <td>{{$index+1}}</td>
+                <td  style="text-align: left" title="{{i.description}}">{{i.title}}</td>
+                <td  style="text-align: left">{{i.reportType || '--'}}</td>
+                <td style="text-align: left">{{i.keywords}}</td>
+                <td>{{i.source}}</td>
+                <td>{{i.addedDate | date: 'yyyy.MM.dd'}}</td>
+                <td><button class="btn btn-clear" ui-sref="relationProjectDetail({rProjectId:i.id})">查看详情</button></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
+        </div>
+    </div>
+</div>

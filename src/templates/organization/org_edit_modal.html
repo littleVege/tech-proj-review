@@ -1,0 +1,52 @@
+<div class="content-edit-mdal">
+    <div class="modal-header">
+        <h4 class="modal-title">机构信息编辑</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-item">
+                <label>机构名称</label>
+                <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.name">
+            </div>
+            <div class="form-item">
+                <label>机构简称</label>
+                <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.shortName">
+            </div>
+            <div class="form-item">
+                <label>所属区域</label>
+                <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.adcode">
+            </div>
+            <div class="form-item">
+                <label>机构性质</label>
+                <select class="form-control" ng-model="updateInfo.nature">
+                    <option value="">请选择机构性质</option>
+                    <option ng-value="1">国家部门</option>
+                    <option ng-value="2">地方科技厅（委、局）</option>
+                    <option ng-value="3">高校院所</option>
+                    <option ng-value="4">企业</option>
+                    <option ng-value="5">其他</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label>联系人</label>
+                <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.contactName">
+            </div>
+            <div class="form-item">
+                <label>联系电话</label>
+                <input type="tel" class="form-control" placeholder="请输入" ng-model="updateInfo.contactPhoneNumber">
+            </div>
+            <div class="form-item">
+                <label>Email</label>
+                <input type="email" class="form-control" placeholder="请输入" ng-model="updateInfo.email">
+            </div>
+            <div class="form-item">
+                <label>简介</label>
+                <textarea class="form-control" ng-model="updateInfo.remark"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-line" ng-click="submitEdit()">保存</button>
+    </div>
+</div>

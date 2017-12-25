@@ -1,0 +1,30 @@
+<div class="form">
+    <div class="form-item">
+        <label>项目组编号</label>
+        <input type="text" class="form-control" placeholder="请输入" disabled ng-model="groupInfo.id">
+    </div>
+    <div class="form-item">
+        <label>项目组名称</label>
+        <input type="text" class="form-control" placeholder="请输入" ng-model="groupInfo.name">
+    </div>
+    <div class="form-item">
+        <label>所属任务</label>
+        <input type="text" class="form-control" placeholder="请输入" disabled ng-model="taskInfo.name">
+    </div>
+
+    <div class="form-item">
+        <label>所属领域</label>
+        <select ng-model="groupInfo.majorCategoryId" class="form-control" style="width: 300px">
+            <option value="">请选择主要领域</option>
+            <option ng-value="i.id" ng-repeat="i in $root.Categories">{{i.categoryName}}</option>
+        </select>
+    </div>
+    <div class="form-item">
+        <label>简介</label>
+        <textarea class="form-control" ng-model="groupInfo.remark"></textarea>
+    </div>
+    <div class="page-action">
+        <button class="btn btn-default" ui-sref="taskDetail({taskId:taskId})">取消</button>
+        <button class="btn btn-line" ng-click="submitStepOne()">保存并下一步</button>
+    </div>
+</div>

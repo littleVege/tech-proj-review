@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="tpr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三库</title>
+    <link rel="stylesheet" href="static/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/lib/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="static/lib/sweetalert/dist/sweetalert.css">
+    <link rel="stylesheet" href="static/css/app.css">
+</head>
+<body>
+<aside class="sidebar">
+    <div class="logo"></div>
+    <ul class="inited">
+        <li ng-if="$root.User.roleId == 1"><a ui-sref="projects.unchecked"><span class="iconset icon-line1-4"></span>项目管理</a></li>
+        <li ng-if="$root.User.roleId == 1"><a><span class="iconset icon-line1-4"></span>历史项目</a></li>
+        <li ng-if="$root.User.roleId == 1"><a><span class="iconset icon-line1-4"></span>设置中心</a></li>
+
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active="active" ui-sref="sysProjs"><span class="iconset icon-line1-4"></span>项目管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active="active" ui-sref="taskList"><span class="iconset icon-line1-4"></span>评估任务管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active="active" ui-sref="reviewTmpls"><span class="iconset icon-line1-4"></span>评估模板管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref="relationProjects" ui-sref-active="active"><span class="iconset icon-line1-4"></span>三库查询</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active="active" ui-sref="expert.list"><span class="iconset icon-line1-4"></span>专家管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active="active" ui-sref="org.list"><span class="iconset icon-line1-4"></span>机构管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active="active" ui-sref="sysMailTmpls"><span class="iconset icon-line1-4"></span>邮件模板</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active="active" ui-sref="sysManager.account"><span class="iconset icon-line1-4"></span>系统管理</a></li>
+
+
+        <li ng-if="$root.User.roleId == 2"><a ui-sref="expTaskList" ui-sref-active="active"><span class="iconset icon-line1-4"></span>评审任务</a></li>
+        <li ng-if="$root.User.roleId == 2"><a ui-sref="review" ui-sref-active="active"><span class="iconset icon-line1-4"></span>待审项目</a></li>
+        <li ng-if="$root.User.roleId == 2"><a ui-sref="relationProjects" ui-sref-active="active"><span class="iconset icon-line1-4"></span>三库查询</a></li>
+        <li ng-if="$root.User.roleId == 2"><a><span class="iconset icon-line1-4"></span>个人中心</a></li>
+
+    </ul>
+</aside>
+<div class="main-container">
+    <nav class="navbar navbar-default">
+        <span uib-dropdown class="user-profile">
+            <a uib-dropdown-toggle href="javascript:void(0)"><span class="iconset icon-line2-6"></span> {{$root.User.userName}}</a>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li>
+                    <a href="javascript:void(0)" ng-click="$root.logout()">退出登录</a>
+                </li>
+            </ul>
+        </span>
+    </nav>
+    <div class="main-content" ui-view>
+
+    </div>
+</div>
+<script src="static/lib/ckeditor/ckeditor.js"></script>
+<script src="static/lib/sweetalert/dist/sweetalert.min.js"></script>
+<script src="static/lib/flatpickr/dist/l10n/zh.js"></script>
+<script src="static/lib/flatpickr/dist/flatpickr.js"></script>
+<script src="static/js/bundle.js"></script>
+</body>
+</html>

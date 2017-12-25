@@ -1,0 +1,29 @@
+<div class="content-edit-mdal">
+    <div class="modal-header">
+        <h4 class="modal-title">邮件/短信模板编辑</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-item">
+                <label>模板名称</label>
+                <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.name">
+            </div>
+            <div class="form-item">
+                <label>类型</label>
+                <select class="form-control" ng-model="updateInfo.type" style="width: 200px">
+                    <option value="">请选择模板类型</option>
+                    <option ng-value="'sms'">短信模板</option>
+                    <option ng-value="'mail'">邮件模板</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label>模板内容</label>
+                <ng-ckeditor ng-model="updateInfo.content" height="400px"></ng-ckeditor>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-line" ng-click="submitEdit()">保存</button>
+    </div>
+</div>

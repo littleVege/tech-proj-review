@@ -1,0 +1,99 @@
+<div class="page-wrapper page-no-tab page-sys-project-list" style="overflow: auto">
+    <h1>评分模板编辑</h1>
+    <div class="page">
+        <h4>基础信息</h4>
+        <div class="form-item">
+            <label>模板名称</label>
+            <input type="text" class="form-control" ng-model="updateInfo.category.name">
+        </div>
+        <div class="form-item">
+            <label>是否查重</label>
+            <div class="checkbox" style="padding: 5px 0;margin-left: -15px;">
+                <label>
+                    <input type="radio" ng-value="1" ng-model="updateInfo.category.isCheck"> 是
+                </label>
+                <label>
+                    <input type="radio" ng-value="0" ng-model="updateInfo.category.isCheck"> 否
+                </label>
+            </div>
+        </div>
+        <div class="form-item">
+            <label>简介</label>
+            <textarea class="form-control" ng-model="updateInfo.category.introduction"></textarea>
+        </div>
+        <!--<div class="form-item">-->
+            <!--<label>总分</label>-->
+            <!--<input class="form-control" ng-model="updateInfo.category.score" type="number">-->
+        <!--</div>-->
+
+        <hr>
+        <h4>评分模板</h4>
+        <div class="table-actions">
+            <button class="btn btn-default" ng-click="editTmpl()">添加指标</button>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 50px">序号</th>
+                <th style="width: 100px">一级指标</th>
+                <th>二级指标</th>
+                <th>描述</th>
+                <th style="width: 70px">总分</th>
+                <th style="width: 70px">操作</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="i in reformatedItems">
+            <tr ng-repeat="c in i.children" ng-if="i.children && i.children.length>0">
+                <td>{{c.id}}</td>
+                <td ng-if="$first" rowspan="{{i.children.length}}">
+                    <p>{{i.name}}</p>
+                    <p>({{i.maxScore}})</p>
+                </td>
+                <td>{{c.name}}</td>
+                <td>{{c.remark}}</td>
+                <td>{{c.maxScore}}</td>
+                <td ng-if="$first" rowspan="{{i.children.length}}">
+                    <button class="btn btn-clear" ng-click="editTmpl(i)">编辑</button>
+                </td>
+            </tr>
+            <tr ng-if="!i.children || i.children.length<1">
+                <td>{{i.id}}</td>
+                <td colspan="2">
+                    {{i.name}}
+                </td>
+                <td>{{i.remark}}</td>
+                <td>{{i.maxScore}}</td>
+                <td>
+                    <button class="btn btn-clear" ng-click="editTmpl(i)">编辑</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <h4>评级</h4>
+        <div class="table-actions">
+            <button class="btn btn-default" ng-click="editTmpl()">添加评级项</button>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>等级</th>
+                <th>最低分</th>
+                <th>最高分</th>
+                <th>描述</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="i in updateInfo.level">
+                <td>{{$index+1}}</td>
+                <td>{{i.evaluationLevel}}</td>
+                <td>{{i.minScore}}</td>
+                <td>{{i.maxScore}}</td>
+                <td>{{i.remark}}</td>
+                <td><button class="btn btn-default btn-sm">编辑</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="org-select-wrapper">
+    <button class="btn btn-line btn-block" ng-click="toggleDropdown()">{{ _selectedOrg ? _selectedOrg.name : '全部机构' }}</button>
+    <div class="org-select-dropdown" ng-if="__status.dropdownOpen">
+        <div class="org-dropdown-header">
+            <ul class="area-change-list">
+                <li>全部</li>
+                <li class="active">长三角</li>
+                <li>珠三角</li>
+                <li>京津冀</li>
+                <li>东北</li>
+                <li>西部</li>
+                <li>中部</li>
+                <li>其它</li>
+            </ul>
+        </div>
+        <div class="org-dropdown-content">
+            <div class="org-select-row" ng-repeat="i in [0,1,2,3]">
+                <label>A</label>
+                <ul>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">北京</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">西藏西藏西藏</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">南京</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>

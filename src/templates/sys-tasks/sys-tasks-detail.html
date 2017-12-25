@@ -1,0 +1,70 @@
+<div class="page-wrapper page-no-tab page-project-detail">
+    <h1>任务详情</h1>
+    <div class="page">
+        <table class="info-table">
+            <tbody>
+            <tr><td colspan="3"><label>任务名称</label> {{taskInfo.name}}</td>
+
+            </tr>
+            <tr>
+                <td><label>任务编号</label> {{taskInfo.id}}</td>
+                <td><label>承担单位</label> {{taskInfo.organization}}</td>
+                <td><label>负责人</label> {{taskInfo.manager}}</td>
+            </tr>
+            <tr>
+                <td><label>开始时间</label> {{taskInfo.startDate|date:'yyyy-MM-dd'}}</td>
+                <td><label>截止时间</label> {{taskInfo.endDate|date:'yyyy-MM-dd'}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>任务简介</label>
+                        <div class="item-content">
+                            {{taskInfo.introduction}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h3>任务组列表</h3>
+        <div class="table-actions">
+
+            <button class="btn btn-line" ui-sref="groupEdit.step1({taskId:taskId})">创建项目组</button>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>项目组名称</th>
+                <th>所属领域</th>
+                <th>项目数量</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="i in list">
+                    <td>{{$index+1}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.majorCategoryId}}</td>
+                    <td>{{i.projectCount || 0}}</td>
+                    <td>{{i.addedDate | date:'yyyy-MM-dd' }}</td>
+                    <td>{{i.updatedDate | date:'yyyy-MM-dd' }}</td>
+                    <td>
+                        <button class="btn btn-default btn-sm" ui-sref="groupEdit.step1({groupId:i.id,taskId:taskId})">编辑</button>
+                        <button class="btn btn-default btn-sm" ui-sref="groupDetail.projects({groupId:i.id})">查看详情</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="clearfix">
+            <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
+        </div>
+    </div>
+
+</div>

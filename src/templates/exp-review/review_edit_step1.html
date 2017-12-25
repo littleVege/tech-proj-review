@@ -1,0 +1,51 @@
+<h4>项目评分</h4>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th style="width: 50px">序号</th>
+        <th style="width: 100px">一级指标</th>
+        <th>二级指标</th>
+        <th>描述</th>
+        <th style="width: 70px">总分</th>
+        <th style="width: 70px">评分</th>
+    </tr>
+    </thead>
+    <tbody ng-repeat="i in reformatedItems">
+    <tr ng-repeat="c in i.children" ng-if="i.children && i.children.length>0">
+        <td>{{c.id}}</td>
+        <td ng-if="$first" rowspan="{{i.children.length}}">
+            <p>{{i.name}}</p>
+            <p>({{i.maxScore}})</p>
+        </td>
+        <td>{{c.name}}</td>
+        <td>{{c.remark}}</td>
+        <td>{{c.maxScore}}</td>
+        <td>
+            <input class="form-control" type="number" ng-model="c.score">
+        </td>
+    </tr>
+    <tr ng-if="!i.children || i.children.length<1">
+        <td>{{i.id}}</td>
+        <td colspan="2">
+            {{i.name}}
+        </td>
+        <td>{{i.remark}}</td>
+        <td>{{i.maxScore}}</td>
+        <td>
+            <input class="form-control" type="number" ng-model="i.score">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h4>项目结论</h4>
+<h4>评价意见或建议</h4>
+<p class="description">
+    （如建议完善后入库，请提出具体建议；如提出同类项目合并调整后入库，请指出项目编号和名称及调整建议）
+</p>
+<ng-ckeditor ng-model="updateInfo.evaluationSuggestion"></ng-ckeditor>
+
+<div class="page-action" style="margin-top: 20px">
+    <button class="btn btn-default" ng-click="goBack()">取消</button>
+    <button class="btn btn-default" ng-click="submitStepOne()">临时保存</button>
+    <button class="btn btn-primary" ui-sref="reviewEdit.step2">保存并下一步</button>
+</div>

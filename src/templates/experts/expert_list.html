@@ -1,0 +1,64 @@
+<div class="page page-project-list">
+    <div class="query-action-wrapper">
+        <div class="searcher">
+            <input class="form-control" placeholder="输入关键字进行搜索">
+            <button class="btn btn-primary btn-right">搜索</button>
+        </div>
+        <div class="form-item">
+            <label>所属领域</label>
+            <ul>
+                <li>全部</li>
+                <li>信息</li>
+                <li>人口与健康</li>
+                <li>生物和医药</li>
+                <li>新材料</li>
+                <li>先进制造</li>
+                <li>能源</li>
+                <li>资源</li>
+                <li>环境</li>
+                <li>海洋</li>
+                <li>农业</li>
+                <li>交通</li>
+                <li>地球观测与导航</li>
+                <li>现代服务</li>
+                <li>公共安全</li>
+                <li>基础前沿</li>
+            </ul>
+        </div>
+        <div class="form-item">
+            <label>职称</label>
+            <ul>
+                <li>全部</li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+            <th>工作单位</th>
+            <th>担任职位</th>
+            <th>专业</th>
+            <th>擅长领域</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="i in list">
+            <td>{{$index+1}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.sex | gender}}</td>
+            <td>{{i.birthday | age}}</td>
+            <td>{{i.university}}</td>
+            <td>{{i.jobTitle}}</td>
+            <td>{{i.major}}</td>
+            <td>{{i.researchArea}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="clearfix">
+        <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
+    </div>
+</div>

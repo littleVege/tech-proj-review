@@ -1,0 +1,42 @@
+<div class="page page-project-list">
+    <div class="query-action-wrapper">
+        <div class="searcher">
+            <input class="form-control" placeholder="输入关键字进行搜索">
+            <button class="btn btn-primary btn-right" ng-click="search()">搜索</button>
+        </div>
+        <div class="form-item">
+            <label>所属领域</label>
+            <ul>
+                <li ng-click="queryCate(null)" ng-class="queryInfo.categoryId == null && 'active'">全部</li>
+                <li ng-repeat="i in $root.Categories" ng-click="queryCate(i)"  ng-class="queryInfo.categoryId == i.id && 'active'">{{i.categoryName}}</li>
+            </ul>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>项目编号</th>
+            <th>项目标题</th>
+            <th>提交机构</th>
+            <th>负责人</th>
+            <th>所属领域</th>
+            <th>提交时间</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="i in list">
+            <td>{{$index+1}}</td>
+            <td>{{i.projectSerialNumber}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.orgId}}</td>
+            <td>{{i.manager}}</td>
+            <td>{{i.categoryId}}</td>
+            <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
+            <td>
+                <button class="btn btn-clear btn-sm" ui-sref="projectDetail({projectId:i.id})">查看详情</button>
+            </td>
+        </tr>
+        </thead>
+    </table>
+</div>
+<ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>

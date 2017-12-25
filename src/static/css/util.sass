@@ -1,0 +1,18 @@
+@mixin clearfix()
+  &:before,
+  &:after
+    content: " "
+    display: table
+
+  &:after
+    clear: both
+
+
+
+@mixin gen-icons($line, $max, $width, $height, $offset)
+  @for $i from 0 through $max - 1
+    &.icon-line#{$line}-#{$i}
+      width: $width
+      height: $height
+      background-position-x: - $i * $width
+      background-position-y: -$offset

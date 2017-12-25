@@ -1,0 +1,30 @@
+<div class="upload-wrapper">
+    <button class="btn btn-default upload-file-button btn-sm"
+            ng-if="!disableUpload"
+            ngf-select="uploadFiles($files)"
+            ng-model="files"
+            ngf-multiple="multiple" ngf-accept="accept || '.pdf,.doc,.docx,.zip,.rar'" ngf-max-size="'50MB'">
+        <span class="glyphicon glyphicon-arrow-up"></span>{{ title||'上传' }}
+    </button>
+    <div class="upload-file-content">
+        <div class="upload-inner" ng-if="!multiple">
+            <p ng-class="fileLocation.progress > 99 && 'active'" ng-if="fileLocation && fileLocation.name && !fileLocation.deleted">
+                <a class="hide-on-print" ng-href="{{ fileLocation.fileWebLoation || fileLocation.location }}" target="_blank">{{fileLocation.name}}
+                    <span class="file-size">({{ fileLocation.size/1000 | number:0}}kb)</span></a>
+                <span class="print-only">{{fileLocation.name}}</span>
+                <button class="btn btn-sm btn-danger" ng-click="removeUploadedFile()" ng-if="!disableUpload">移除</button>
+            </p>
+            <uib-progressbar max="100" value="fileLocation.progress" ng-if="fileLocation.progress <= 99"></uib-progressbar>
+        </div>
+        <div class="upload-inner" ng-if="multiple" ng-repeat="item in fileLocation">
+            <p ng-class="item.progress > 99 && 'active'" ng-if="item && item.name  && !item.deleted">
+                <a class="hide-on-print"  ng-href="{{ item.fileWebLoation || item.location }}" target="_blank">{{item.name}}
+                    <span class="file-size">({{ item.size/1000 | number:0}}kb)</span></a>
+                <span class="print-only">{{item.name}}</span>
+                <button class="btn btn-sm btn-danger" ng-click="removeUploadedFile(item)" ng-if="!disableUpload">移除</button>
+            </p>
+            <uib-progressbar max="100" value="fileLocation.progress" ng-if="item.progress <= 99"></uib-progressbar>
+            <hr>
+        </div>
+    </div>
+</div>

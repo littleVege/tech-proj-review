@@ -1,0 +1,43 @@
+
+<div class="content-edit-mdal">
+    <div class="modal-header">
+        <h4 class="modal-title">项目信息编辑</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-item">
+                <label>项目负责人</label>
+                <input type="text" class="form-control" ng-model="updateInfo.manager" placeholder="请输入">
+            </div>
+            <div class="form-item">
+                <label>项目标题</label>
+                <input type="text" class="form-control" ng-model="updateInfo.name" placeholder="请输入">
+            </div>
+            <div class="form-item">
+                <label>内容关键字</label>
+                <input type="text" class="form-control" ng-model="updateInfo.keywords" placeholder="请输入">
+                <p class="item-desc">关键词以分号;分隔</p>
+            </div>
+            <div class="form-item with-action-right" style="width: 500px">
+                <label>所属领域</label>
+                <select class="form-control" ng-model="updateInfo.categoryId">
+                    <option value="">请选择所属领域</option>
+                    <option ng-value="i.id" ng-repeat="i in $root.Categories">{{i.categoryName}}</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label>简介</label>
+                <textarea class="form-control" ng-model="updateInfo.introduction"></textarea>
+            </div>
+            <div class="form-item">
+                <label>上传文件</label>
+                <uploader ng-model="files"></uploader>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-line" ng-click="submitEdit(true)">保存</button>
+        <button class="btn btn-primary" ng-click="submitAndPublish()">保存并发布</button>
+    </div>
+</div>

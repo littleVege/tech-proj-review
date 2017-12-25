@@ -1,0 +1,42 @@
+<div class="page-wrapper page-no-tab page-sys-project-list">
+    <div class="page">
+        <div class="query-action-wrapper">
+            <div class="searcher">
+                <input class="form-control" placeholder="输入关键字进行搜索">
+                <button class="btn btn-primary btn-right" ng-click="search()">搜索</button>
+            </div>
+        </div>
+        <div class="table-actions">
+            <button class="btn btn-line">创建模板</button>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>模板名称</th>
+                <th>简介</th>
+                <th>总分</th>
+                <th>是否查重</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="i in list">
+                <td>{{$index+1}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.introduction}}</td>
+                <td>{{i.score}}</td>
+                <td>{{i.isCheck}}</td>
+                <td>{{i.addedDate | date:'yyyy-MM-dd'}}</td>
+                <td>{{i.updatedDate | date:'yyyy-MM-dd'}}</td>
+                <td>
+                    <button class="btn btn-clear btn-sm" ui-sref="reviewTmplEdit({id:i.id})">编辑</button>
+                    <button class="btn btn-clear btn-clear-red btn-sm">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

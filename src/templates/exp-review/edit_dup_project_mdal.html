@@ -1,0 +1,29 @@
+<div class="content-edit-mdal">
+    <div class="modal-header">
+        <h4 class="modal-title">编辑重复项目</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-item">
+                <label>项目名称</label>
+                <input type="text" class="form-control" ng-model="updateInfo.projectName" placeholder="请输入" ng-disabled="updateInfo.dataSource == 'internal'">
+            </div>
+            <div class="form-item">
+                <label>项目来源</label>
+                <select class="form-control" ng-model="updateInfo.projectSource">
+                    <option value="">请选择项目来源</option>
+                    <option ng-value="'国家科技成果转化项目库'">国家科技成果转化项目库</option>
+                    <option ng-value="'其他'">其他</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label>重复内容</label>
+                <textarea class="form-control" ng-model="updateInfo.relateContent"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-line" ng-click="submitEdit()">保存</button>
+    </div>
+</div>

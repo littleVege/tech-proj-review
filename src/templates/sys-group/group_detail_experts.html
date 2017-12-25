@@ -1,0 +1,35 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>工作单位</th>
+        <th>担任职位</th>
+        <th>手机号</th>
+        <th>专业</th>
+        <th>擅长领域</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in groupExperts">
+        <td>{{$index+1}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.sex}}</td>
+        <td>{{i.age}}</td>
+        <td>{{i.university}}</td>
+        <td>{{i.jobTitle}}</td>
+        <td>{{i.phone}}</td>
+        <td>{{i.major}}</td>
+        <td>{{i.researchArea}}</td>
+        <td>
+            <button class="btn btn-clear btn-sm btn-clear-red">邮件通知</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="clearfix">
+    <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
+</div>

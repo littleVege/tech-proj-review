@@ -1,0 +1,73 @@
+@import "var"
+aside.sidebar
+  width: 230px
+  display: block
+  position: absolute
+  left: 0
+  top: 0
+  background: #1E384F
+  height: 100%
+  .logo
+    height: 220px
+    width: 230px
+    &.logo-manager
+      background: url("../img/logo.png") no-repeat center center
+    &.logo-caller
+      background: url("../img/logo-caller.png") no-repeat center center
+    &.logo-company
+      background: url("../img/logo-company.png") no-repeat center center
+  >ul
+    list-style: none
+    margin: 0
+    padding: 0
+    opacity: 0
+    transition: 0.3s all
+    &.inited
+      opacity: 1
+    li
+      border-bottom: 1px solid #011F2D
+      &:first-child
+        border-top: 1px solid #011F2D
+    li>a
+      display: block
+      line-height: 58px
+      font-size: 16px
+      padding-left: 22px
+      color: $color-gray
+      text-decoration: none
+      .iconset
+        float: left
+        margin-right: 17px
+        margin-top: 14px
+      &:hover
+        color: #fff
+      &:active,&.active
+        background: #1C4668
+        color: #fff
+        .iconset
+          opacity: 0.7
+
+
+aside.submenu
+  position: absolute
+  left: 0
+  top: 0
+  width: 169px
+  border: 1px solid #D4DAE1
+  height: 100%
+  background: #F5F5F5
+  >ul
+    list-style: none
+    margin: 0
+    padding: 0
+    li
+      border-bottom: 1px solid #D4DAE1
+    li>a
+      display: block
+      line-height: 58px
+      font-size: 16px
+      text-align: center
+      color: #323232
+      text-decoration: none
+      &:active,&.active
+        color: $color-blue

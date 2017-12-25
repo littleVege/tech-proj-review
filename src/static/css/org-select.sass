@@ -1,0 +1,76 @@
+.org-select-wrapper
+  position: relative
+  .btn-line
+    border-radius: 0
+  .org-select-dropdown
+    width: 500px
+    height: 300px
+    padding-bottom: 0
+    border-radius: 4px
+    box-shadow: 0 0 5px 0 rgba(0,0,0,0.2)
+    position: absolute
+    top: 40px
+    left: 0
+    background: #fff
+    z-index: 100
+    padding-top: 40px
+    .org-dropdown-header
+      height: 40px
+      border-bottom: 2px solid #CCCCCC
+      position: absolute
+      left: 0
+      top: 0
+      width: 100%
+      padding: 0 10px
+    .area-change-list
+      list-style: none
+      padding: 0
+      @include clearfix()
+      li
+        line-height: 37px
+        padding: 0 5px
+        font-size: 12px
+        border-bottom: 3px solid transparent
+        color: #000
+        margin-right: 20px
+        float: left
+        cursor: pointer
+        &:active,&.active,&:hover
+          border-bottom-color: $color-blue
+
+    .org-dropdown-content
+      padding: 10px
+      overflow: auto
+      height: 100%
+    .org-select-row
+      padding-left: 30px
+      position: relative
+      label
+        font-size: 12px
+        color: #4A90E2
+        width: 20px
+        position: absolute
+        top: 0
+        left: 0
+        line-height: 20px
+      ul
+        @include clearfix()
+        list-style: none
+        padding: 0
+        margin-bottom: 15px
+        li
+          padding: 0 7px
+          line-height: 20px
+          min-width: 60px
+          margin-right: 10px
+          color: #000
+          font-size: 12px
+          float: left
+          cursor: pointer
+          &:hover,&.active
+            background: $color-blue
+            color: #fff
+
+
+
+

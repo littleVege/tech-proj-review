@@ -1,0 +1,23 @@
+<div class="page-wrapper page-no-tab page-sys-project-list">
+    <h1>项目组详情</h1>
+    <div class="page">
+        <table class="info-table">
+            <tbody>
+            <tr>
+                <td colspan="3"><label>项目组名称</label> {{groupInfo.name}}</td>
+            </tr>
+            <tr>
+                <td><label>项目组负责人</label></td>
+                <td><label>主要领域</label> {{groupInfo.majorCategoryId |category}}</td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <ul class="nav nav-tabs">
+            <li role="presentation" ui-sref="groupDetail.experts" ui-sref-active="active"><a ui-sref-active="active" style="margin-left: 0">专家列表</a></li>
+            <li role="presentation" ui-sref="groupDetail.projects"  ui-sref-active="active"><a ui-sref-active="active">项目列表</a></li>
+        </ul>
+        <div class="nav-content" ui-view></div>
+    </div>
+</div>

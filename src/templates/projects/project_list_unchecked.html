@@ -1,0 +1,55 @@
+<div class="page page-project-list">
+    <div class="query-action-wrapper">
+        <div class="searcher">
+            <input class="form-control" placeholder="输入关键字进行搜索">
+            <button class="btn btn-primary btn-right" ng-click="search()">搜索</button>
+        </div>
+        <div class="form-item">
+            <label>所属领域</label>
+            <ul>
+                <li ng-click="queryCate(null)" ng-class="queryInfo.categoryId == null && 'active'">全部</li>
+                <li ng-repeat="i in $root.Categories" ng-click="queryCate(i)"  ng-class="queryInfo.categoryId == i.id && 'active'">{{i.categoryName}}</li>
+            </ul>
+        </div>
+        <!--<div class="form-item">-->
+            <!--<label>提交状态</label>-->
+            <!--<ul>-->
+                <!--<li>全部</li>-->
+                <!--<li>待提交</li>-->
+                <!--<li>待完善</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+    <div class="page-action">
+        <button class="btn btn-clear">批量导入</button>
+        <button class="btn btn-clear" ng-click="editProject()">新建项目</button>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>项目编号</th>
+            <th>项目标题</th>
+            <th>机构</th>
+            <th>负责人</th>
+            <th>所属领域</th>
+            <th>提交时间</th>
+            <th>操作</th>
+        </tr>
+        <tr ng-repeat="i in list">
+            <td>{{$index+1}}</td>
+            <td>{{i.projectSerialNumber}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.orgId}}</td>
+            <td>{{i.manager}}</td>
+            <td>{{i.categoryId}}</td>
+            <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
+            <td>
+                <button class="btn btn-clear btn-sm" ng-click="publish(i)">提交</button>
+                <button class="btn btn-clear btn-sm" ng-click="editProject(i)">编辑</button>
+            </td>
+        </tr>
+        </thead>
+    </table>
+</div>
+<ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>

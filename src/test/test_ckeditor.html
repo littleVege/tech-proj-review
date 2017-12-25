@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/lib/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+
+    <textarea id="testTArea"></textarea>
+</div>
+<script src="../static/lib/jquery/dist/jquery.min.js"></script>
+<script src="../static/lib/ckeditor/ckeditor.js"></script>
+<script>
+    $(function () {
+
+        CKEDITOR.replace('testTArea',{
+            toolbarGroups : [
+                { name: 'styles' },
+                { name: 'colors' },
+                { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
+                { name: 'insert'},
+                { name: 'editing',     groups: [ 'find', 'selection', '' ] },
+                { name: 'forms' },
+                { name: 'document',	   groups: [  'document', 'doctools' ] },
+                { name: 'others' },
+                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+            ]
+        });
+    })
+</script>
+</body>
+</html>

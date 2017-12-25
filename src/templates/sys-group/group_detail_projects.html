@@ -1,0 +1,41 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>项目编号</th>
+        <th>项目标题</th>
+        <th>机构</th>
+        <th>负责人</th>
+        <th>所属领域</th>
+        <th>提交时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in list">
+        <td>{{$index+1}}</td>
+        <td>{{i.projectSerialNumber}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.orgId}}</td>
+        <td>{{i.manager}}</td>
+        <td>{{i.categoryId | category}}</td>
+        <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
+        <td ng-if="i.projectStatus == 1">
+            <button class="btn btn-clear btn-sm" ui-sref="sysProjsCollect({projectId:i.id})">查看</button>
+        </td>
+        <td ng-if="i.projectStatus == 2">
+            <button class="btn btn-clear btn-sm" ui-sref="sysProjsCollect({projectId:i.id})">查看</button>
+            <button class="btn btn-clear btn-sm">退回</button>
+        </td>
+        <td ng-if="i.projectStatus == 3">
+            <button class="btn btn-clear btn-sm" ui-sref="sysProjsCollect({projectId:i.id})">查看</button>
+        </td>
+        <td ng-if="i.projectStatus == 4">
+            <button class="btn btn-clear btn-sm" ui-sref="sysProjsCollect({projectId:i.id})">反馈</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="clearfix">
+    <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
+</div>
