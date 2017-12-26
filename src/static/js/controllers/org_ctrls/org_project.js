@@ -1,4 +1,4 @@
-let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state) => {
+let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope) => {
     console.log($state.current);
     switch ($state.current.name.split('.')[1]) {
         case 'unchecked':
@@ -11,6 +11,7 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state) => {
             $scope.queryInfo = {projectStatus:4};
             break;
     }
+    $scope.queryInfo.orgId = $rootScope.User.organization.id;
     Utils.paginize($scope,function (page) {
         return Project.getListByQuery($scope.queryInfo,page)
     });

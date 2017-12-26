@@ -16,7 +16,7 @@ let app = angular.module('tpr', [
         services.name,
         routesModule.name
     ])
-    .run(function ($rootScope,Category) {
+    .run(function ($rootScope,Category,Project,dialogs,$state) {
         // $rootScope.User = {
         //     userName:'admin',
         //     type:0
@@ -51,9 +51,30 @@ let app = angular.module('tpr', [
             {id:3,name:'评估中'},
             {id:4,name:'评估结束'}
         ];
+
+        $rootScope.goBack = function () {
+            history.back();
+        }
+
+
+        $rootScope.projectSendBack = function(project) {
+            dialogs.confirm('是否要退回项目',`请确认将退回项目${project.name}`,'确定','取消',true)
+                .then(function (confirm) {
+                    if (confirm) {
+                        Project.updateOne(project.id,{projectStatus:1})
+                            .then(function () {
+                                dialogs.success('项目已退回');
+                                $state.reload();
+                            })
+                    }
+                })
+        }
     })
     .filter('projectStatus',()=> {
-        return (statusId)=> ['待提交','待评估','评估中','评估结束'][statusId]
+        return (statusId)=> ['','待提交','待评估','评估中','评估结束'][statusId]
+    })
+    .filter('orgType',()=> {
+        return (statusId)=> ['','国家部门','地方科技厅（委、局）','高校院所','企业','其他'][statusId]
     })
     .filter('category',($rootScope)=> {
         return (cid)=> {
@@ -62,5 +83,10 @@ let app = angular.module('tpr', [
                 return '--'
             }
         }
+    })
+    .config(function (uibPaginationConfig) {
+        uibPaginationConfig.maxSize = 5;
+        uibPaginationConfig.previousText = '上一页';
+        uibPaginationConfig.nextText = '下一页';
     })
     .constant('Config',config);

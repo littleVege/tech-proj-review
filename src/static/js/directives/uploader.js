@@ -1,7 +1,7 @@
 /**
  * Created by caidi on 2017/8/23.
  */
-export default ($q,$timeout,Upload,Config) => {
+export default ($q,$timeout,Upload,Config,$rootScope) => {
     return {
         restrict: 'E',
         templateUrl:'templates/components/uploader.html',
@@ -17,9 +17,11 @@ export default ($q,$timeout,Upload,Config) => {
         link: ($scope,$ele,attr) => {
             function uploadFile(file) {
                 return Upload.upload({
-                    // url: 'http://admin.vcare.rhinotech.cn/api/operation/approval/upload',
                     url: Config.apiBaseURL+'/file/upload',
-                    data: {file: file},
+                    data: {
+                        file: file,
+                        'X-RHINO-AUTH-TOKEN':$rootScope.User.token
+                    },
                     method: 'POST'
                 }).then(function (resp) {
                     return resp.data;

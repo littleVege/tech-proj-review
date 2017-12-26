@@ -31,17 +31,17 @@ let orgListCtrl = ($scope,Organization,User,Utils,$uibModal) => {
         $uibModal.open({
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
-            templateUrl: 'templates/organization/org_edit_modal.html',
+            templateUrl: 'templates/organization/org_create_modal.html',
             controller: function ($scope,$uibModalInstance) {
                 $scope.updateInfo =  {};
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss();
+                    $ps.pageChanged();
                 };
                 $scope.submitEdit = function () {
-                    Organization.upsetOne('id',$scope.updateInfo)
-                        .then(function () {
-                            $ps.pageChanged();
-                            $scope.cancel();
+                    Organization.createOrgAndAccount($scope.updateInfo)
+                        .then(function (data) {
+                            $scope.orgAccountInfo = data[1];
                         })
                 }
             }
@@ -50,7 +50,7 @@ let orgListCtrl = ($scope,Organization,User,Utils,$uibModal) => {
 
     $scope.removeOrg = function (orgInfo) {
         if (confirm('请确认是否要删除')) {
-            ProjectGroup.deleteOne(orgInfo.id)
+            Organization.deleteOne(orgInfo.id)
                 .then(function () {
                     alert('删除成功！');
                     $scope.pageChanged();

@@ -49,6 +49,7 @@ let sysProjectCollectCtrl = ($scope,$stateParams,Project,ProjectExpertEvaluation
 
 
     $scope.submitEdit = function () {
+        $scope.updateInfo.projectStatus = 4;
         Project.updateOne(projectId,$scope.updateInfo)
             .then(function () {
                 dialogs.success('评审成功');

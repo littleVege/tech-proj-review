@@ -1,4 +1,4 @@
-let taskListCtrl = ($scope,$uibModal,Task,Utils,$stateParams,EvaluationTemplateCategory) => {
+let taskListCtrl = ($scope,$uibModal,Task,Utils,$stateParams,EvaluationTemplateCategory,dialogs) => {
     $scope.queryInfo = {};
     Utils.paginize($scope,function (page) {
         return Task.getListByQuery($scope.queryInfo,page)
@@ -21,12 +21,20 @@ let taskListCtrl = ($scope,$uibModal,Task,Utils,$stateParams,EvaluationTemplateC
                 EvaluationTemplateCategory.getListByQuery({},1,50)
                     .then(function (data) {
                         $scope.templates = data[1];
-                    })
+                    });
                 $scope.removeTask = function (item) {
-                    if (confirm('确认要删除此数据？')) {
-                        Task.deleteOne(item.id)
-                            .then(()=>alert('删除成功'));
-                    }
+                    dialogs.confirm('确认要删除此任务？',`确认删除任务: ${task.name}`,'确定','取消',true)
+                        .then(function (isConfirm) {
+                            if (isConfirm) {
+                                Task.deleteOne(item.id)
+                                    .then(()=>{
+                                        dialogs.success('删除成功');
+                                        $ps.pageChanged();
+                                        $scope.cancel();
+                                    });
+                            }
+                        })
+
                 };
                 $scope.submitEdit = function () {
                     Task.upsetOne('id',$scope.updateInfo)

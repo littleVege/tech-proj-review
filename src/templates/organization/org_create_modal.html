@@ -1,5 +1,5 @@
 <div class="content-edit-mdal">
-    <div class="create-org-step1" ng-if="!info">
+    <div class="create-org-step1" ng-if="!orgAccountInfo">
         <div class="modal-header">
             <h4 class="modal-title">创建机构</h4>
         </div>
@@ -54,7 +54,7 @@
             <button class="btn btn-line" ng-click="submitEdit()">保存</button>
         </div>
     </div>
-    <div class="create-org-step2" ng-if="info">
+    <div class="create-org-step2" ng-if="orgAccountInfo">
         <div class="modal-header">
             <h4 class="modal-title">创建成功</h4>
         </div>
@@ -63,23 +63,27 @@
             <table class="info-table">
                 <tr>
                     <td>机构名称</td>
-                    <td>{{info.org.name}}</td>
+                    <td>{{orgAccountInfo.org.name}}</td>
                     <td>机构简称</td>
-                    <td>{{info.org.shortName}}</td>
+                    <td>{{orgAccountInfo.org.shortName}}</td>
+                </tr>
+                <tr>
                     <td>机构性质</td>
-                    <td>{{info.org.nature}}</td>
+                    <td colspan="3">{{orgAccountInfo.org.nature | orgType}}</td>
                 </tr>
                 <tr>
                     <td>联系人</td>
-                    <td>{{info.org.contactName}}</td>
+                    <td colspan="3">{{orgAccountInfo.org.contactName}}</td>
+                </tr>
+                <tr>
                     <td>联系电话</td>
-                    <td>{{info.org.contactPhoneNumber}}</td>
+                    <td>{{orgAccountInfo.org.contactPhoneNumber}}</td>
                     <td>Email</td>
-                    <td>{{info.org.email}}</td>
+                    <td>{{orgAccountInfo.org.email}}</td>
                 </tr>
                 <tr>
                     <td>简介</td>
-                    <td colspan="5">{{info.org.remark}}</td>
+                    <td colspan="3">{{orgAccountInfo.org.remark}}</td>
                 </tr>
             </table>
             <h4>用户信息</h4>
@@ -87,11 +91,13 @@
             <table class="info-table">
                 <tr>
                     <td>用户ID</td>
-                    <td>{{info.account.id}}</td>
+                    <td colspan="3">{{orgAccountInfo.account.id}}</td>
+                </tr>
+                <tr>
                     <td>用户名</td>
-                    <td>{{info.account.userName}}</td>
+                    <td>{{orgAccountInfo.account.userName}}</td>
                     <td>密码</td>
-                    <td>{{info.account.password}}</td>
+                    <td>{{orgAccountInfo.account.userName}}@2017</td>
                 </tr>
             </table>
         </div>

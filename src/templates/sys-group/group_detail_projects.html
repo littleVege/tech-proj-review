@@ -7,6 +7,7 @@
         <th>机构</th>
         <th>负责人</th>
         <th>所属领域</th>
+        <th>项目状态</th>
         <th>提交时间</th>
         <th>操作</th>
     </tr>
@@ -19,13 +20,14 @@
         <td>{{i.orgId}}</td>
         <td>{{i.manager}}</td>
         <td>{{i.categoryId | category}}</td>
+        <td>{{i.projectStatus | projectStatus}}</td>
         <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
         <td ng-if="i.projectStatus == 1">
             <button class="btn btn-clear btn-sm" ui-sref="sysProjsCollect({projectId:i.id})">查看</button>
         </td>
         <td ng-if="i.projectStatus == 2">
             <button class="btn btn-clear btn-sm" ui-sref="sysProjsCollect({projectId:i.id})">查看</button>
-            <button class="btn btn-clear btn-sm">退回</button>
+            <button class="btn btn-clear btn-sm" ng-click="$root.projectSendBack(i)">退回</button>
         </td>
         <td ng-if="i.projectStatus == 3">
             <button class="btn btn-clear btn-sm" ui-sref="sysProjsCollect({projectId:i.id})">查看</button>

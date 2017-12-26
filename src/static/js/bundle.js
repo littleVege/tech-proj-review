@@ -78,7 +78,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var app = angular.module('tpr', ['ui.router', 'ui.bootstrap', 'ngFileUpload', _controllers2.default.name, _directives2.default.name, _services2.default.name, _routes2.default.name]).run(function ($rootScope, Category) {
+	var app = angular.module('tpr', ['ui.router', 'ui.bootstrap', 'ngFileUpload', _controllers2.default.name, _directives2.default.name, _services2.default.name, _routes2.default.name]).run(function ($rootScope, Category, Project, dialogs, $state) {
 	    // $rootScope.User = {
 	    //     userName:'admin',
 	    //     type:0
@@ -107,9 +107,28 @@
 	    });
 	
 	    $rootScope.ProjectStatus = [{ id: 1, name: '待提交' }, { id: 2, name: '待评估' }, { id: 3, name: '评估中' }, { id: 4, name: '评估结束' }];
+	
+	    $rootScope.goBack = function () {
+	        history.back();
+	    };
+	
+	    $rootScope.projectSendBack = function (project) {
+	        dialogs.confirm('是否要退回项目', '\u8BF7\u786E\u8BA4\u5C06\u9000\u56DE\u9879\u76EE' + project.name, '确定', '取消', true).then(function (confirm) {
+	            if (confirm) {
+	                Project.updateOne(project.id, { projectStatus: 1 }).then(function () {
+	                    dialogs.success('项目已退回');
+	                    $state.reload();
+	                });
+	            }
+	        });
+	    };
 	}).filter('projectStatus', function () {
 	    return function (statusId) {
-	        return ['待提交', '待评估', '评估中', '评估结束'][statusId];
+	        return ['', '待提交', '待评估', '评估中', '评估结束'][statusId];
+	    };
+	}).filter('orgType', function () {
+	    return function (statusId) {
+	        return ['', '国家部门', '地方科技厅（委、局）', '高校院所', '企业', '其他'][statusId];
 	    };
 	}).filter('category', function ($rootScope) {
 	    return function (cid) {
@@ -122,6 +141,10 @@
 	            return '--';
 	        }
 	    };
+	}).config(function (uibPaginationConfig) {
+	    uibPaginationConfig.maxSize = 5;
+	    uibPaginationConfig.previousText = '上一页';
+	    uibPaginationConfig.nextText = '下一页';
 	}).constant('Config', _config2.default);
 
 /***/ }),
@@ -42399,7 +42422,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var orgProjectsCtrl = function orgProjectsCtrl($scope, Project, Utils, $uibModal, dialogs, $state) {
+	var orgProjectsCtrl = function orgProjectsCtrl($scope, Project, Utils, $uibModal, dialogs, $state, $rootScope) {
 	    console.log($state.current);
 	    switch ($state.current.name.split('.')[1]) {
 	        case 'unchecked':
@@ -42412,6 +42435,7 @@
 	            $scope.queryInfo = { projectStatus: 4 };
 	            break;
 	    }
+	    $scope.queryInfo.orgId = $rootScope.User.organization.id;
 	    Utils.paginize($scope, function (page) {
 	        return Project.getListByQuery($scope.queryInfo, page);
 	    });
@@ -42855,16 +42879,16 @@
 	        $uibModal.open({
 	            ariaLabelledBy: 'modal-title',
 	            ariaDescribedBy: 'modal-body',
-	            templateUrl: 'templates/organization/org_edit_modal.html',
+	            templateUrl: 'templates/organization/org_create_modal.html',
 	            controller: function controller($scope, $uibModalInstance) {
 	                $scope.updateInfo = {};
 	                $scope.cancel = function () {
 	                    $uibModalInstance.dismiss();
+	                    $ps.pageChanged();
 	                };
 	                $scope.submitEdit = function () {
-	                    Organization.upsetOne('id', $scope.updateInfo).then(function () {
-	                        $ps.pageChanged();
-	                        $scope.cancel();
+	                    Organization.createOrgAndAccount($scope.updateInfo).then(function (data) {
+	                        $scope.orgAccountInfo = data[1];
 	                    });
 	                };
 	            }
@@ -42873,7 +42897,7 @@
 	
 	    $scope.removeOrg = function (orgInfo) {
 	        if (confirm('请确认是否要删除')) {
-	            ProjectGroup.deleteOne(orgInfo.id).then(function () {
+	            Organization.deleteOne(orgInfo.id).then(function () {
 	                alert('删除成功！');
 	                $scope.pageChanged();
 	            });
@@ -42937,6 +42961,7 @@
 	    });
 	
 	    $scope.submitEdit = function () {
+	        $scope.updateInfo.projectStatus = 4;
 	        Project.updateOne(projectId, $scope.updateInfo).then(function () {
 	            dialogs.success('评审成功');
 	            $scope.goBack();
@@ -42960,7 +42985,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var taskListCtrl = function taskListCtrl($scope, $uibModal, Task, Utils, $stateParams, EvaluationTemplateCategory) {
+	var taskListCtrl = function taskListCtrl($scope, $uibModal, Task, Utils, $stateParams, EvaluationTemplateCategory, dialogs) {
 	    $scope.queryInfo = {};
 	    Utils.paginize($scope, function (page) {
 	        return Task.getListByQuery($scope.queryInfo, page);
@@ -42982,11 +43007,15 @@
 	                    $scope.templates = data[1];
 	                });
 	                $scope.removeTask = function (item) {
-	                    if (confirm('确认要删除此数据？')) {
-	                        Task.deleteOne(item.id).then(function () {
-	                            return alert('删除成功');
-	                        });
-	                    }
+	                    dialogs.confirm('确认要删除此任务？', '\u786E\u8BA4\u5220\u9664\u4EFB\u52A1: ' + task.name, '确定', '取消', true).then(function (isConfirm) {
+	                        if (isConfirm) {
+	                            Task.deleteOne(item.id).then(function () {
+	                                dialogs.success('删除成功');
+	                                $ps.pageChanged();
+	                                $scope.cancel();
+	                            });
+	                        }
+	                    });
 	                };
 	                $scope.submitEdit = function () {
 	                    Task.upsetOne('id', $scope.updateInfo).then(function () {
@@ -43073,7 +43102,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var reviewTmplListCtrl = function reviewTmplListCtrl($scope, EvaluationTemplateCategory, Utils, $stateParams, $uibModal) {
+	var reviewTmplListCtrl = function reviewTmplListCtrl($scope, EvaluationTemplateCategory, Utils, $stateParams, $uibModal, $state) {
 	    $scope.queryInfo = { type: $stateParams['type'] };
 	    Utils.paginize($scope, function (page) {
 	        return EvaluationTemplateCategory.getListByQuery($scope.queryInfo, page);
@@ -43088,14 +43117,38 @@
 	            });
 	        }
 	    };
+	
+	    $scope.createTmpl = function () {
+	        EvaluationTemplateCategory.createOne({ name: '__\u521D\u59CB\u6A21\u677F' + new Date().getTime() }).then(function (data) {
+	            var info = data[1];
+	            $state.go('reviewTmplEdit', { id: info.id });
+	        });
+	    };
 	};
 	
-	var reviewTmplEditCtrl = function reviewTmplEditCtrl($scope, EvaluationTemplateCategory, $stateParams, $uibModal) {
+	var reviewTmplEditCtrl = function reviewTmplEditCtrl($scope, EvaluationTemplateCategory, $stateParams, $uibModal, dialogs) {
 	    var templateId = $stateParams['id'];
 	    EvaluationTemplateCategory.getAllDetail(templateId).then(function (data) {
 	        $scope.updateInfo = data[1];
 	        $scope.reformatedItems = $scope.updateInfo.items;
 	    });
+	
+	    var submit = function submit() {
+	        return EvaluationTemplateCategory.updateOne(templateId, $scope.updateInfo.category);
+	    };
+	
+	    $scope.submit = function () {
+	        submit().then(function () {
+	            dialogs.success('保存成功！');
+	        });
+	    };
+	    $scope.submitAndGoBack = function () {
+	        submit().then(function () {
+	            dialogs.success('保存成功！');
+	        }).then(function () {
+	            history.back();
+	        });
+	    };
 	
 	    $scope.editTmpl = function (info) {
 	        var $ps = $scope;
@@ -43124,6 +43177,9 @@
 	                    $uibModalInstance.dismiss();
 	                };
 	                $scope.addItem = function () {
+	                    if (!$scope.updateInfo.children) {
+	                        $scope.updateInfo.children = [];
+	                    }
 	                    $scope.updateInfo.children.push({ status: 'create' });
 	                };
 	                $scope.removeItemLv1 = function () {
@@ -43640,7 +43696,7 @@
 	/**
 	 * Created by caidi on 2017/8/23.
 	 */
-	exports.default = function ($q, $timeout, Upload, Config) {
+	exports.default = function ($q, $timeout, Upload, Config, $rootScope) {
 	    return {
 	        restrict: 'E',
 	        templateUrl: 'templates/components/uploader.html',
@@ -43656,9 +43712,11 @@
 	        link: function link($scope, $ele, attr) {
 	            function uploadFile(file) {
 	                return Upload.upload({
-	                    // url: 'http://admin.vcare.rhinotech.cn/api/operation/approval/upload',
 	                    url: Config.apiBaseURL + '/file/upload',
-	                    data: { file: file },
+	                    data: {
+	                        file: file,
+	                        'X-RHINO-AUTH-TOKEN': $rootScope.User.token
+	                    },
 	                    method: 'POST'
 	                }).then(function (resp) {
 	                    return resp.data;
@@ -46446,6 +46504,10 @@
 	    }).state('sysProjsCollect', {
 	        url: '/sys/project/collect/:projectId',
 	        templateUrl: 'templates/sys-projects/sys-review-collect.html',
+	        controller: 'SysProjectCollectCtrl'
+	    }).state('sysProjsDetail', {
+	        url: '/sys/project/detail/:projectId',
+	        templateUrl: 'templates/sys-projects/sys-project-detail.html',
 	        controller: 'SysProjectCollectCtrl'
 	    });
 	};

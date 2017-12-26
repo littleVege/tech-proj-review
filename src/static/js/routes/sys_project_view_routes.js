@@ -10,4 +10,9 @@ export default ($stateProvider, $urlRouterProvider) => {
             templateUrl:'templates/sys-projects/sys-review-collect.html',
             controller:'SysProjectCollectCtrl'
         })
+        .state('sysProjsDetail',{
+            url:'/sys/project/detail/:projectId',
+            templateUrl:'templates/sys-projects/sys-project-detail.html',
+            controller:'SysProjectCollectCtrl'
+        })
 }

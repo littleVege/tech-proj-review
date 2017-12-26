@@ -237,7 +237,8 @@ hr {
         color: #fff; }
   .form-item .item-content {
     font-size: 14px;
-    color: #646464; }
+    color: #646464;
+    padding-top: 7px; }
   .form-item.form-item-lg {
     margin-bottom: 30px; }
     .form-item.form-item-lg label {
@@ -591,6 +592,10 @@ hr {
 
 .nav-content {
   margin-top: 20px; }
+
+.description {
+  font-size: 12px !important;
+  color: #646464; }
 
 aside.sidebar {
   width: 230px;

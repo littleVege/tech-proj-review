@@ -1,4 +1,4 @@
-let reviewTmplListCtrl = ($scope,EvaluationTemplateCategory,Utils,$stateParams,$uibModal) => {
+let reviewTmplListCtrl = ($scope,EvaluationTemplateCategory,Utils,$stateParams,$uibModal,$state) => {
     $scope.queryInfo = {type:$stateParams['type']};
     Utils.paginize($scope,function (page) {
         return EvaluationTemplateCategory.getListByQuery($scope.queryInfo,page);
@@ -14,15 +14,40 @@ let reviewTmplListCtrl = ($scope,EvaluationTemplateCategory,Utils,$stateParams,$
                 })
         }
     }
+
+    $scope.createTmpl = function () {
+        EvaluationTemplateCategory.createOne({name:`__初始模板${new Date().getTime()}`})
+            .then(function (data) {
+                let info = data[1];
+                $state.go('reviewTmplEdit',{id:info.id});
+            })
+    }
 };
 
-let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibModal) => {
+let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibModal,dialogs) => {
     let templateId = $stateParams['id'];
     EvaluationTemplateCategory.getAllDetail(templateId)
         .then(function (data) {
             $scope.updateInfo = data[1];
             $scope.reformatedItems = $scope.updateInfo.items;
         });
+
+    let submit = function () {
+        return EvaluationTemplateCategory.updateOne(templateId,$scope.updateInfo.category)
+    };
+
+    $scope.submit = function () {
+        submit().then(function () {
+            dialogs.success('保存成功！');
+        })
+    };
+    $scope.submitAndGoBack = function () {
+        submit().then(function () {
+            dialogs.success('保存成功！');
+        }).then(function () {
+            history.back();
+        })
+    }
 
 
     $scope.editTmpl = function (info) {
@@ -52,6 +77,9 @@ let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibMod
                     $uibModalInstance.dismiss();
                 };
                 $scope.addItem = function () {
+                    if(!$scope.updateInfo.children) {
+                        $scope.updateInfo.children = [];
+                    }
                     $scope.updateInfo.children.push({status:'create'});
                 };
                 $scope.removeItemLv1 = function () {
