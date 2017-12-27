@@ -1,4 +1,4 @@
-let accountCtrl = ($scope,$uibModal,User) => {
+let accountCtrl = ($scope,$uibModal,User,$state,Utils) => {
     $scope.changePassword = function (user) {
         $uibModal.open({
             ariaLabelledBy: 'modal-title',
@@ -30,8 +30,17 @@ let accountCtrl = ($scope,$uibModal,User) => {
             backdrop: 'static'
         });
     };
-}
-let orgAccountCtrl = ($scope,User,Utils) => {
+    switch ($state.current.name.split('.')[2]) {
+        case 'org':
+            $scope.queryInfo = {roleId:1};
+            break;
+        case 'expert':
+            $scope.queryInfo = {roleId:2};
+            break;
+        case 'sys':
+            $scope.queryInfo = {roleId:3};
+            break;
+    }
     $scope.queryInfo = {roleId:1};
     Utils.paginize($scope,function (page) {
         return User.getListByQuery($scope.queryInfo,page);
@@ -43,20 +52,6 @@ let orgAccountCtrl = ($scope,User,Utils) => {
     }
     $scope.pageChanged();
 };
-let expertAccountCtrl = ($scope,User,Utils) => {
-    $scope.queryInfo = {roleId:2};
-    Utils.paginize($scope,function (page) {
-        return User.getListByQuery({},page);
-    });
-    $scope.pageChanged();
-};
-let sysAccountCtrl = ($scope,User,Utils) => {
-    $scope.queryInfo = {roleId:3};
-    Utils.paginize($scope,function (page) {
-        return User.getListByQuery({},page);
-    });
-    $scope.pageChanged();
-};
 let logsCtrl = ($scope) => {
 
 };
@@ -65,4 +60,4 @@ let settingCtrl = ($scope) => {
 
 };
 
-export {accountCtrl,orgAccountCtrl,expertAccountCtrl,sysAccountCtrl,logsCtrl,settingCtrl}
+export {accountCtrl,logsCtrl,settingCtrl}

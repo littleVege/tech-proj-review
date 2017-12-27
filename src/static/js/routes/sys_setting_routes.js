@@ -6,23 +6,22 @@ export default ($stateProvider, $urlRouterProvider) => {
         })
         .state('sysManager.account', {
             url: '/account',
-            templateUrl: 'templates/sys-manager/account_list.html',
-            controller:'AccountCtrl'
+            templateUrl: 'templates/sys-manager/account_list.html'
         })
         .state('sysManager.account.org', {
             url: '/org',
             templateUrl: 'templates/sys-manager/account_list_org.html',
-            controller:'SysMOrgAccountCtrl'
+            controller:'AccountCtrl'
         })
         .state('sysManager.account.expert', {
             url: '/expert',
             templateUrl: 'templates/sys-manager/account_list_expert.html',
-            controller:'SysMExpertAccountCtrl'
+            controller:'AccountCtrl'
         })
         .state('sysManager.account.sys', {
             url: '/sys',
             templateUrl: 'templates/sys-manager/account_list_sys.html',
-            controller:'SysMSysAccountCtrl'
+            controller:'AccountCtrl'
         })
         .state('sysManager.log', {
             url: '/log',

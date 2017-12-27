@@ -43215,7 +43215,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var accountCtrl = function accountCtrl($scope, $uibModal, User) {
+	var accountCtrl = function accountCtrl($scope, $uibModal, User, $state, Utils) {
 	    $scope.changePassword = function (user) {
 	        $uibModal.open({
 	            ariaLabelledBy: 'modal-title',
@@ -43246,8 +43246,17 @@
 	            backdrop: 'static'
 	        });
 	    };
-	};
-	var orgAccountCtrl = function orgAccountCtrl($scope, User, Utils) {
+	    switch ($state.current.name.split('.')[2]) {
+	        case 'org':
+	            $scope.queryInfo = { roleId: 1 };
+	            break;
+	        case 'expert':
+	            $scope.queryInfo = { roleId: 2 };
+	            break;
+	        case 'sys':
+	            $scope.queryInfo = { roleId: 3 };
+	            break;
+	    }
 	    $scope.queryInfo = { roleId: 1 };
 	    Utils.paginize($scope, function (page) {
 	        return User.getListByQuery($scope.queryInfo, page);
@@ -43259,28 +43268,11 @@
 	    };
 	    $scope.pageChanged();
 	};
-	var expertAccountCtrl = function expertAccountCtrl($scope, User, Utils) {
-	    $scope.queryInfo = { roleId: 2 };
-	    Utils.paginize($scope, function (page) {
-	        return User.getListByQuery({}, page);
-	    });
-	    $scope.pageChanged();
-	};
-	var sysAccountCtrl = function sysAccountCtrl($scope, User, Utils) {
-	    $scope.queryInfo = { roleId: 3 };
-	    Utils.paginize($scope, function (page) {
-	        return User.getListByQuery({}, page);
-	    });
-	    $scope.pageChanged();
-	};
 	var logsCtrl = function logsCtrl($scope) {};
 	
 	var settingCtrl = function settingCtrl($scope) {};
 	
 	exports.accountCtrl = accountCtrl;
-	exports.orgAccountCtrl = orgAccountCtrl;
-	exports.expertAccountCtrl = expertAccountCtrl;
-	exports.sysAccountCtrl = sysAccountCtrl;
 	exports.logsCtrl = logsCtrl;
 	exports.settingCtrl = settingCtrl;
 
@@ -46682,20 +46674,19 @@
 	        templateUrl: 'templates/sys-manager/index.html'
 	    }).state('sysManager.account', {
 	        url: '/account',
-	        templateUrl: 'templates/sys-manager/account_list.html',
-	        controller: 'AccountCtrl'
+	        templateUrl: 'templates/sys-manager/account_list.html'
 	    }).state('sysManager.account.org', {
 	        url: '/org',
 	        templateUrl: 'templates/sys-manager/account_list_org.html',
-	        controller: 'SysMOrgAccountCtrl'
+	        controller: 'AccountCtrl'
 	    }).state('sysManager.account.expert', {
 	        url: '/expert',
 	        templateUrl: 'templates/sys-manager/account_list_expert.html',
-	        controller: 'SysMExpertAccountCtrl'
+	        controller: 'AccountCtrl'
 	    }).state('sysManager.account.sys', {
 	        url: '/sys',
 	        templateUrl: 'templates/sys-manager/account_list_sys.html',
-	        controller: 'SysMSysAccountCtrl'
+	        controller: 'AccountCtrl'
 	    }).state('sysManager.log', {
 	        url: '/log',
 	        templateUrl: 'templates/sys-manager/logs.html',
