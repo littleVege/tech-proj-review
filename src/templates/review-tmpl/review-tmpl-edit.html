@@ -71,7 +71,7 @@
         </table>
         <h4>评级</h4>
         <div class="table-actions">
-            <button class="btn btn-default" ng-click="editTmpl()">添加评级项</button>
+            <button class="btn btn-default" ng-click="editLevel()">添加评级项</button>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -91,7 +91,7 @@
                 <td>{{i.minScore}}</td>
                 <td>{{i.maxScore}}</td>
                 <td>{{i.remark}}</td>
-                <td><button class="btn btn-default btn-sm">编辑</button></td>
+                <td><button class="btn btn-default btn-sm" ng-click="editLevel(i)">编辑</button></td>
             </tr>
             </tbody>
         </table>

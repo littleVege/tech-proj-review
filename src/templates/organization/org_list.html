@@ -7,23 +7,15 @@
         <div class="form-item">
             <label>所属区域</label>
             <ul>
-                <li>全部  </li>
-                <li>长三角</li>
-                <li>珠三角</li>
-                <li>京津冀</li>
-                <li>东北  </li>
-                <li>西部  </li>
-                <li>中部  </li>
-                <li>其它  </li>
+                <li ng-click="selectArea(null)" ng-class="queryInfo.area == null && 'active'">全部</li>
+                <li ng-repeat="i in $root.areas" ng-click="selectArea(i.id)" ng-class="queryInfo.area == i.id && 'active'">{{i.name}}</li>
             </ul>
         </div>
         <div class="form-item">
             <label>机构类型</label>
             <ul>
-                <li>全部</li>
-                <li>国家部门</li>
-                <li>地方科技厅（委、局）</li>
-                <li>其他</li>
+                <li ng-class="queryInfo.nature == null && 'active'" ng-click="selectType(null)">全部</li>
+                <li ng-repeat="i in $root.orgNature" ng-class="queryInfo.nature == i.id && 'active'" ng-click="selectType(i.id)">{{i.name}}</li>
             </ul>
         </div>
     </div>
@@ -50,7 +42,7 @@
             <td>{{$index+1}}</td>
             <td>{{i.name}}</td>
             <td>{{i.nature | orgType}}</td>
-            <td>{{i.aocode}}</td>
+            <td>{{i.area | area}}</td>
             <td>{{i.contactName}}</td>
             <td>{{i.contactPhoneNumber}}</td>
             <td>{{i.email}}</td>

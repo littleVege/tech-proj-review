@@ -7,8 +7,8 @@
         <div class="form-item">
             <label>所属领域</label>
             <ul>
-                <li ng-click="queryCate(null)" ng-class="queryInfo.categoryId == null">全部</li>
-                <li ng-repeat="i in $root.Categories" ng-click="queryCate(i)" ng-class="queryInfo.categoryId == i.id">{{i.name}}</li>
+                <li ng-click="queryCate(null)" ng-class="queryInfo.categoryId == null && 'active'">全部</li>
+                <li ng-repeat="i in $root.Categories" ng-click="queryCate(i)"  ng-class="queryInfo.categoryId == i.id && 'active'">{{i.categoryName}}</li>
             </ul>
         </div>
     </div>
@@ -32,7 +32,7 @@
             <td>{{i.name}}</td>
             <td>{{i.orgId}}</td>
             <td>{{i.manager}}</td>
-            <td>{{i.categoryId}}</td>
+            <td>{{i.categoryId| category}}</td>
             <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
             <td>
                 <button class="btn btn-clear btn-sm" ui-sref="projectDetail({projectId:i.id})">查看结果</button>

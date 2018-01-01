@@ -53,8 +53,8 @@
                             <td colspan="2"><h3>最终评估意见</h3></td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                {{projectInfo.evaluationSuggestion || '--'}}
+                            <td colspan="2" ng-bind-html="projectInfo.evaluationSuggestion">
+                                <!--{{ || '&#45;&#45;'}}-->
                             </td>
                         </tr>
                     </tbody>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="review-content">
                             <h5>{{i.evaluationTime | date: 'yyyy.MM.dd HH:mm'}}</h5>
-                            <p>{{i.evaluationSuggestion}}</p>
+                            <p ng-bind-html="i.evaluationSuggestion"></p>
                             <p class="review-score">评分：{{i.evaluationScore}}</p>
                             <p class="review-score">等级：{{i.evaluationLevel}}</p>
                         </div>

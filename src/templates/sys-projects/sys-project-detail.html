@@ -72,8 +72,7 @@
                             <td colspan="2"><h3>最终评估意见</h3></td>
                         </tr>
                         <tr>
-                            <td colspan="2">
-                                {{updateInfo.evaluationSuggestion || '--'}}
+                            <td colspan="2" ng-bind-html="updateInfo.evaluationSuggestion">
                             </td>
                         </tr>
                         </tbody>

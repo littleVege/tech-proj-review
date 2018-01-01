@@ -57,7 +57,7 @@ let groupDetailExpertsCtrl = ($scope,$stateParams,Utils,Expert) => {
 let groupDetailProjectsCtrl = ($scope,$stateParams,Utils,Project) => {
     let groupId = $stateParams['groupId'];
     Utils.paginize($scope,function (page) {
-        return Project.getListByQuery({groupId:groupId},page);
+        return Project.getListByQuery({groupId:groupId,isSys:1},page);
     });
 
     $scope.pageChanged();
@@ -136,7 +136,7 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
             templateUrl: 'templates/sys-group/select-project-modal.html',
             size:'lg',
             controller: function ($scope,$uibModalInstance,Project,$q,Utils) {
-                $scope.queryInfo = {};
+                $scope.queryInfo = {isSys:1};
                 $scope.selectedProjects = {};
                 $scope.pCount = 0;
                 Utils.paginize($scope,function (page) {

@@ -13,12 +13,12 @@ let reviewTmplListCtrl = ($scope,EvaluationTemplateCategory,Utils,$stateParams,$
                     $scope.pageChanged();
                 })
         }
-    }
+    };
 
     $scope.createTmpl = function () {
         EvaluationTemplateCategory.createOne({name:`__初始模板${new Date().getTime()}`})
             .then(function (data) {
-                let info = data[1];
+                let info = data;
                 $state.go('reviewTmplEdit',{id:info.id});
             })
     }
@@ -47,6 +47,15 @@ let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibMod
         }).then(function () {
             history.back();
         })
+    };
+
+    $scope.refreshItems = function () {
+        EvaluationTemplateCategory.getAllDetail(templateId)
+            .then(function (data) {
+                $scope.updateInfo.items = data[1].items;
+                $scope.updateInfo.level = data[1].level;
+                $scope.reformatedItems = $scope.updateInfo.items;
+            });
     }
 
 
@@ -83,10 +92,17 @@ let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibMod
                     $scope.updateInfo.children.push({status:'create'});
                 };
                 $scope.removeItemLv1 = function () {
-                    EvaluationTemplateCategory.removeAllItemById(info.id)
-                        .then(function () {
-                            $scope.cancel();
-                        })
+                    dialogs.confirm('是否要删除此大项?','','确定','取消',true)
+                        .then(function (confirm) {
+                            if (confirm) {
+                                EvaluationTemplateCategory.removeAllItemById(info.id)
+                                    .then(function () {
+                                        $ps.refreshItems();
+                                        $scope.cancel();
+                                    })
+                            }
+                        });
+
                 }
                 $scope.removeItemLv2 = function (item) {
                     item.status = 'delete';
@@ -94,7 +110,7 @@ let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibMod
                 $scope.submitEdit = function () {
                     EvaluationTemplateCategory.updateItem(templateId, $scope.updateInfo)
                         .then(function () {
-                            // $ps.pageChanged();
+                            $ps.refreshItems();
                             $scope.cancel();
                         })
                 }
@@ -103,7 +119,56 @@ let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibMod
     };
 
     $scope.editLevel = function (info) {
+        let $ps = $scope;
+        $uibModal.open({
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            size:'sm',
+            templateUrl: 'templates/review-tmpl/review-tmpl-level-edit-mdal.html',
+            controller: function ($scope,$uibModalInstance,EvaluationTemplateLevel) {
+                $scope.updateInfo = _.clone(info) || {categoryId:templateId};
+                $scope.levelOptions = {
+                    A:{name:'A',value:'A'},
+                    B:{name:'B',value:'B'},
+                    C:{name:'C',value:'C'},
+                    D:{name:'D',value:'D'}
+                };
+                _.each($ps.updateInfo.level,i=>{
+                    if ($scope.levelOptions[i.evaluationLevel]) {
+                        $scope.levelOptions[i.evaluationLevel] = undefined;
+                    }
+                });
+                if (info && info.evaluationLevel) {
+                    $scope.levelOptions[info.evaluationLevel] = {name:info.evaluationLevel,value:info.evaluationLevel};
+                }
 
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+
+                };
+                $scope.submitEdit = function () {
+                    EvaluationTemplateLevel.upsetOne('id', $scope.updateInfo)
+                        .then(function () {
+                            $ps.refreshItems();
+                            $scope.cancel();
+                        });
+                }
+
+                $scope.removeLevelItem = function () {
+                    dialogs.confirm('是否要删除此项?','','确定','取消',true)
+                        .then(function (confirm) {
+                            if (confirm) {
+                                EvaluationTemplateLevel.deleteOne(info.id)
+                                    .then(function () {
+                                        $ps.refreshItems();
+                                        $scope.cancel();
+                                    })
+                            }
+                        });
+
+                }
+            }
+        });
     }
 };
 

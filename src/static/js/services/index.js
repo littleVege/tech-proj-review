@@ -1,6 +1,7 @@
 import api from './api_factory'
 import category from './category-svr'
 import evaluationTemplateCategory from './evaluation-template-category-svr'
+import evaluationLevelCategory from './evaluation-template-level-svr'
 import file from './file-svr'
 import importBatch from './import-batch-svr'
 import mailTemplate from './mail-template-svr'
@@ -28,6 +29,7 @@ let services = angular.module('tpr.services',[]);
 services
    .service('Category', category)
    .service('EvaluationTemplateCategory', evaluationTemplateCategory)
+   .service('EvaluationTemplateLevel', evaluationLevelCategory)
    .service('File', file)
    .service('ImportBatch', importBatch)
    .service('MailTemplate', mailTemplate)

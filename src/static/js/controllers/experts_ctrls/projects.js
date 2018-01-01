@@ -1,5 +1,5 @@
 let expProjectsCtrl = ($scope,Project,Utils) => {
-    $scope.queryInfo = {};
+    $scope.queryInfo = {isSys:1};
     Utils.paginize($scope,function (page) {
         return Project.getListByQuery($scope.queryInfo,page)
     });

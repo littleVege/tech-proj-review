@@ -57,6 +57,16 @@ let orgListCtrl = ($scope,Organization,User,Utils,$uibModal) => {
                 })
         }
     }
+
+    $scope.selectArea = function (i) {
+        $scope.queryInfo.area = i;
+        $scope.resetPage();
+    };
+
+    $scope.selectType = function (i) {
+        $scope.queryInfo.nature = i;
+        $scope.resetPage();
+    }
 };
 export {
     orgListCtrl

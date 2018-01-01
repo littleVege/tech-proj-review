@@ -42,7 +42,7 @@
             <td>{{i.name}}</td>
             <td>{{i.orgId}}</td>
             <td>{{i.manager}}</td>
-            <td>{{i.categoryId}}</td>
+            <td>{{i.categoryId| category}}</td>
             <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
             <td>
                 <button class="btn btn-clear btn-sm" ng-click="publish(i)">提交</button>

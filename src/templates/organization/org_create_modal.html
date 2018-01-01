@@ -16,17 +16,16 @@
                 </div>
                 <div class="form-item">
                     <label>所属区域</label>
-                    <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.adcode">
+                    <select class="form-control" ng-model="updateInfo.area">
+                        <option value="">请选择机构所在区域</option>
+                        <option ng-value="i.id" ng-repeat="i in $root.areas">{{i.name}}</option>
+                    </select>
                 </div>
                 <div class="form-item">
                     <label>机构性质</label>
                     <select class="form-control" ng-model="updateInfo.nature">
                         <option value="">请选择机构性质</option>
-                        <option ng-value="1">国家部门</option>
-                        <option ng-value="2">地方科技厅（委、局）</option>
-                        <option ng-value="3">高校院所</option>
-                        <option ng-value="4">企业</option>
-                        <option ng-value="5">其他</option>
+                        <option ng-value="i.id" ng-repeat="i in $root.orgNature">{{i.name}}</option>
                     </select>
                 </div>
                 <div class="form-item">

@@ -1,0 +1,33 @@
+<div class="content-edit-mdal">
+    <div class="modal-header">
+        <h4 class="modal-title">评估任务编辑</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-item">
+                <label>等级</label>
+                <select class="form-control" ng-model="updateInfo.evaluationLevel">
+                    <option>选择评估等级</option>
+                    <option ng-value="i.value" ng-repeat="i in levelOptions" ng-if="i.value">{{i.name}}</option>
+                </select>
+            </div>
+            <div class="form-item">
+                <label>分数上限</label>
+                <input type="number" class="form-control" placeholder="请输入" ng-model="updateInfo.maxScore" style="width: 100px">
+            </div>
+            <div class="form-item">
+                <label>分数下限</label>
+                <input type="number" class="form-control" placeholder="请输入" ng-model="updateInfo.minScore" style="width: 100px">
+            </div>
+            <div class="form-item">
+                <label>描述信息</label>
+                <textarea class="form-control" ng-model="updateInfo.remark"></textarea>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-line btn-line-red pull-left" ng-if="updateInfo.id" ng-click="removeLevelItem(updateInfo)">删除此指标</button>
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-line" ng-click="submitEdit()">保存</button>
+    </div>
+</div>

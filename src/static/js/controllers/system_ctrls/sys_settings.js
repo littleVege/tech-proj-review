@@ -41,7 +41,7 @@ let accountCtrl = ($scope,$uibModal,User,$state,Utils) => {
             $scope.queryInfo = {roleId:3};
             break;
     }
-    $scope.queryInfo = {roleId:1};
+    // $scope.queryInfo = {roleId:1};
     Utils.paginize($scope,function (page) {
         return User.getListByQuery($scope.queryInfo,page);
     });

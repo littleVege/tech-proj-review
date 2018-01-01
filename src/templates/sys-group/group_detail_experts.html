@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="i in groupExperts">
+    <tr ng-repeat="i in list">
         <td>{{$index+1}}</td>
         <td>{{i.name}}</td>
         <td>{{i.sex}}</td>
@@ -25,7 +25,7 @@
         <td>{{i.major}}</td>
         <td>{{i.researchArea}}</td>
         <td>
-            <button class="btn btn-clear btn-sm btn-clear-red">邮件通知</button>
+            <button class="btn btn-clear btn-sm">邮件通知</button>
         </td>
     </tr>
     </tbody>

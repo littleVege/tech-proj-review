@@ -29,6 +29,11 @@ export default () => {
                         scope.pageInfo.isLoadding = false;
                     })
             }
+
+            scope.resetPage = function () {
+                scope.pageInfo.currentPage = 1;
+                scope.pageChanged();
+            }
         },
     }
 }

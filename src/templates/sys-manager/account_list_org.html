@@ -3,28 +3,6 @@
         <input class="form-control" placeholder="输入关键字进行搜索">
         <button class="btn btn-primary btn-right">搜索</button>
     </div>
-    <div class="form-item">
-        <label>所属区域</label>
-        <ul>
-            <li>全部</li>
-            <li>长三角</li>
-            <li>珠三角</li>
-            <li>京津冀</li>
-            <li>东北</li>
-            <li>西部</li>
-            <li>中部</li>
-            <li>其它</li>
-        </ul>
-    </div>
-    <div class="form-item">
-        <label>机构类型</label>
-        <ul>
-            <li ng-class="queryInfo.type == null && 'active'" ng-click="setType(null)">全部</li>
-            <li ng-class="queryInfo.type == '国家部门' && 'active'" ng-click="setType('国家部门')">国家部门</li>
-            <li ng-class="queryInfo.type == '地方科技厅（委、局）' && 'active'" ng-click="setType('地方科技厅（委、局）')">地方科技厅（委、局）</li>
-            <li ng-class="queryInfo.type == '其他' && 'active'" ng-click="setType('其他')">其他</li>
-        </ul>
-    </div>
 </div>
 <table class="table">
     <thead>
@@ -32,7 +10,6 @@
         <th>序号</th>
         <th>机构名称</th>
         <th>用户名</th>
-        <th>用户类型</th>
         <th>最后登录时间</th>
         <th>最后登录IP</th>
         <th>创建时间</th>
@@ -45,9 +22,8 @@
         <td>{{$index+1}}</td>
         <td>{{i.orgName}}</td>
         <td>{{i.userName}}</td>
-        <td>{{i.roleId}}</td>
-        <td>{{i.lastLoginTime | date:'yyyy-MM-dd HH:mm'}}</td>
-        <td>{{i.lastLoginIp}}</td>
+        <td>{{i.lastLoginTime?(i.lastLoginTime | date:'yyyy-MM-dd HH:mm'):'--'}}</td>
+        <td>{{i.lastLoginIp || '--'}}</td>
         <td>{{i.addedDate | date:'yyyy-MM-dd HH:mm'}}</td>
         <td>{{i.updatedDate | date:'yyyy-MM-dd HH:mm'}}</td>
         <td><button class="btn btn-clear btn-sm" ng-click="changePassword(i)">重置密码</button></td>

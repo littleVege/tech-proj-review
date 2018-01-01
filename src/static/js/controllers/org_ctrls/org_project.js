@@ -12,6 +12,7 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
             break;
     }
     $scope.queryInfo.orgId = $rootScope.User.organization.id;
+    // $scope.queryInfo.isSys = 0;
     Utils.paginize($scope,function (page) {
         return Project.getListByQuery($scope.queryInfo,page)
     });
@@ -61,7 +62,12 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
                     }
                 };
                 $scope.submitEdit = function (notify) {
-                    Project.upsetOne('id',$scope.updateInfo)
+                    let files = $scope.files || [];
+                    let fileIds = _.map(files,function (i) {
+                        return i.id;
+                    })
+                    $scope.updateInfo.fileIds = fileIds.join(',');
+                    return Project.upsetOne('id',$scope.updateInfo)
                         .then(function () {
                             if (notify) {
                                 dialogs.success('项目信息编辑成功!');
@@ -86,6 +92,9 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
             .then(function (ifconfirm) {
                 if (ifconfirm) {
                     Project.updateOne(project.id,{projectStatus:2})
+                        .then(function () {
+                            $scope.pageChanged();
+                        })
                 }
             })
     }

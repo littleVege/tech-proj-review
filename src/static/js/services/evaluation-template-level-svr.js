@@ -1,7 +1,7 @@
 export default (Api) => {
     return {
         /**
-         * 依照查询条件查询一条evaluationTemplateCategory记录
+         * 依照查询条件查询一条evaluationTemplateLevel记录
          * @param params {object} 查询条件
          * @return {promise}
          */
@@ -9,11 +9,11 @@ export default (Api) => {
             params = params || {};
             params['page'] = 1;
             params['rows'] = 1;
-            return Api.get('/evaluationTemplateCategory/select',params)
+            return Api.get('/evaluationTemplateLevel/select',params)
                 .then((data)=> data[1]?data[1][0] || {} : {})
         },
         /**
-         * 查询evaluationTemplateCategory列表
+         * 查询evaluationTemplateLevel列表
          * @param params {object} 查询条件
          * @param page {number} 页数
          * @param rows {number} 每页条目数
@@ -23,47 +23,47 @@ export default (Api) => {
             params = params || {};
             params['page'] = page || 1;
             params['rows'] = rows || 10;
-            return Api.get('/evaluationTemplateCategory/select',params)
+            return Api.get('/evaluationTemplateLevel/select',params)
         },
         /**
-         * 获取一条evaluationTemplateCategory记录
+         * 获取一条evaluationTemplateLevel记录
          * @param id {number} 用于判断唯一值的ID
          * @return promise
          */
         getOne:function(id) {
-            return Api.get(`/evaluationTemplateCategory/select/${id}`)
+            return Api.get(`/evaluationTemplateLevel/select/${id}`)
                 .then((data)=> data[1])
         },
         /**
-         * 更新一条evaluationTemplateCategory记录
+         * 更新一条evaluationTemplateLevel记录
          * @param id {number} 用于判断唯一值的ID
          * @param updateInfo {object} 提交信息
          * @return promise
          */
         updateOne:function(id,updateInfo) {
-            return Api.post(`/evaluationTemplateCategory/update/${id}`,updateInfo)
+            return Api.post(`/evaluationTemplateLevel/update/${id}`,updateInfo)
                 .then((data)=> data[1])
         },
         /**
-         * 删除一条evaluationTemplateCategory记录
+         * 删除一条evaluationTemplateLevel记录
          * @param id {number} 用于判断唯一值的ID
          * @return promise
          */
         deleteOne:function(id) {
-            return Api.get(`/evaluationTemplateCategory/delete/${id}`)
+            return Api.get(`/evaluationTemplateLevel/delete/${id}`)
                 .then((data)=> data[1])
         },
         /**
-         * 创建一条evaluationTemplateCategory记录
+         * 创建一条evaluationTemplateLevel记录
          * @param updateInfo {object} 提交信息
          * @return promise
          */
         createOne:function(updateInfo) {
-            return Api.post(`/evaluationTemplateCategory/insert`,updateInfo)
+            return Api.post(`/evaluationTemplateLevel/insert`,updateInfo)
                 .then((data)=> data[1])
         },
         /**
-         * 更新或创建一条evaluationTemplateCategory记录
+         * 更新或创建一条evaluationTemplateLevel记录
          * @param pkey {string} 用于判断唯一值的键名
          * @param updateInfo {object} 提交信息
          * @return promise
@@ -78,25 +78,6 @@ export default (Api) => {
                         return data;
                     });
             }
-        },
-        getAllDetail:function (templateId) {
-            return Api.get('/agent/tmpl/getDetail',{templateId:templateId})
-        },
-        updateContent:function (templateId, content) {
-            return Api.post('/agent/tmpl/editContent',{
-                templateId:templateId,
-                content:JSON.stringify(content)
-            })
-        },
-        updateItem:function (templateId,content) {
-            return Api.post('/agent/tmpl/editItem',{
-            // return Api.post('/tmpl/editItem',{
-                templateId:templateId,
-                content:JSON.stringify(content)
-            })
-        },
-        removeAllItemById:function (id) {
-            return Api.get(`/evaluationTemplateItem/deleteByIdWithRecursive/${id}`)
         }
 
     }

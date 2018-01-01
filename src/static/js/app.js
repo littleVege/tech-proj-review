@@ -1,4 +1,5 @@
 import 'angular'
+import 'angular-sanitize/angular-sanitize.min'
 import 'angular-ui-router/release/angular-ui-router.min'
 import 'angular-bootstrap'
 import 'lodash/dist/lodash.min'
@@ -8,13 +9,15 @@ import directives from './directives'
 import services from './services'
 import routesModule from './routes'
 import config from './config'
+import filters from './filters'
 
 let app = angular.module('tpr', [
-    'ui.router','ui.bootstrap','ngFileUpload',
+    'ui.router','ui.bootstrap','ngFileUpload','ngSanitize',
         controllers.name,
         directives.name,
         services.name,
-        routesModule.name
+        routesModule.name,
+        filters.name
     ])
     .run(function ($rootScope,Category,Project,dialogs,$state) {
         // $rootScope.User = {
@@ -50,6 +53,24 @@ let app = angular.module('tpr', [
             {id:2,name:'待评估'},
             {id:3,name:'评估中'},
             {id:4,name:'评估结束'}
+        ];
+
+        $rootScope.orgNature = [
+            {id:1,name:'国家部门'},
+            {id:2,name:'地方科技厅（委、局）'},
+            {id:3,name:'高校院所'},
+            {id:4,name:'企业'},
+            {id:5,name:'其他'}
+        ]
+
+        $rootScope.areas = [
+            {id:1,name:'长三角'},
+            {id:2,name:'珠三角'},
+            {id:3,name:'京津冀'},
+            {id:4,name:'东部'},
+            {id:5,name:'西部'},
+            {id:6,name:'中部'},
+            {id:0,name:'其他'},
         ];
 
         $rootScope.goBack = function () {

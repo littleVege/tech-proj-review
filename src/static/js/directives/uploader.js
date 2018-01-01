@@ -48,8 +48,8 @@ export default ($q,$timeout,Upload,Config,$rootScope) => {
 
                     promise = uploadFile(files[0]);
                     promise.then(function (data) {
-                        files[0].fileWebLoation = data.data.fileUrl;
-                        files[0].id = data.data.id;
+                        // files[0].fileWebLoation = data.data.fileUrl;
+                        files[0].id = data.data[0];
                         $scope.afterUploaded && $scope.afterUploaded();
                     })
                 }
