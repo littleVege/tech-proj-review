@@ -4,16 +4,16 @@
         <table class="info-table">
             <tbody>
             <tr>
-                <td colspan="3"><label>项目编号</label> {{projectInfo.projectSerialNumber}}</td>
+                <td colspan="3"><label>项目编号</label> {{projectInfo.projectSerialNumber || '--'}}</td>
             </tr>
             <tr>
                 <td><label>项目标题</label> {{projectInfo.name}}</td>
-                <td><label>项目负责人</label> {{projectInfo.manager}}</td>
-                <td><label>分类</label> {{projectInfo.category}}</td>
+                <td><label>项目负责人</label> {{projectInfo.manager || '--'}}</td>
+                <td><label>分类</label> {{projectInfo.categoryId | category}}</td>
             </tr>
             <tr>
-                <td><label>机构</label> {{projectInfo.category}}</td>
-                <td><label>内容关键字</label> {{projectInfo.keywords}}</td>
+                <td><label>机构</label> {{projectInfo.orgName}}</td>
+                <td><label>内容关键字</label> {{projectInfo.keywords || '--'}}</td>
                 <td></td>
             </tr>
             <tr>
@@ -21,7 +21,7 @@
                     <div class="form-item">
                         <label>项目简介</label>
                         <div class="item-content">
-                            {{projectInfo.introduction}}
+                            {{projectInfo.introduction || '--'}}
                         </div>
                     </div>
                 </td>
@@ -37,7 +37,7 @@
             </tbody>
         </table>
         <hr>
-        <div class="row detail-row">
+        <div class="row detail-row" ng-if="projectInfo.projectStatus == 4">
             <div class="col-sm-5 col-left">
                 <table>
                     <tbody>

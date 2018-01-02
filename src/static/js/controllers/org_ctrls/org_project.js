@@ -42,7 +42,7 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
     $scope.search = function () {
         $scope.pageInfo.currentPage = 1;
         $scope.pageChanged();
-    }
+    };
 
     $scope.editProject = function (project) {
         let $ps = $scope;
@@ -50,8 +50,8 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             templateUrl: 'templates/projects/project_edit_mdal.html',
-            controller: function ($scope,$uibModalInstance) {
-                $scope.updateInfo = project?_.cloneDeep(project):{};
+            controller: function ($scope,$uibModalInstance,File) {
+                $scope.updateInfo = project?_.cloneDeep(project):{orgId:$rootScope.User.organization.id};
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss();
                 };
@@ -65,7 +65,7 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
                     let files = $scope.files || [];
                     let fileIds = _.map(files,function (i) {
                         return i.id;
-                    })
+                    });
                     $scope.updateInfo.fileIds = fileIds.join(',');
                     return Project.upsetOne('id',$scope.updateInfo)
                         .then(function () {
@@ -85,7 +85,7 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
                 }
             }
         });
-    }
+    };
 
     $scope.publish = function (project) {
         dialogs.confirm('是否要提交次项目','','好的','取消',true)
@@ -97,6 +97,22 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
                         })
                 }
             })
+    };
+
+    $scope.uploadMass = function () {
+        let $ps = $scope;
+        $uibModal.open({
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'templates/projects/upload_file_mass.html',
+            controller: function ($scope, $uibModalInstance) {
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+                };
+                $scope.submitEdit = function (notify) {};
+
+            }
+        });
     }
 
 };

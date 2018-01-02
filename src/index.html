@@ -11,26 +11,26 @@
 </head>
 <body>
 <aside class="sidebar">
-    <div class="logo"></div>
+    <div class="logo logo-manager"></div>
     <ul class="inited">
-        <li ng-if="$root.User.roleId == 1"><a ui-sref="projects.unchecked" ui-sref-active-reg="^project(.+)$" active-class="active"><span class="iconset icon-line1-4"></span>项目管理</a></li>
-        <li ng-if="$root.User.roleId == 1"><a><span class="iconset icon-line1-4"></span>历史项目</a></li>
-        <li ng-if="$root.User.roleId == 1"><a><span class="iconset icon-line1-4"></span>设置中心</a></li>
+        <li ng-if="$root.User.roleId == 1"><a ui-sref="projects.unchecked" ui-sref-active-reg="^project(.+)$" active-class="active"><span class="iconset icon-line1-0"></span>项目管理</a></li>
+        <!--<li ng-if="$root.User.roleId == 1"><a><span class="iconset icon-line1-1"></span>历史项目</a></li>-->
+        <!--<li ng-if="$root.User.roleId == 1"><a><span class="iconset icon-line1-2"></span>设置中心</a></li>-->
 
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysProjs(.+)$" active-class="active" ui-sref="sysProjs"><span class="iconset icon-line1-4"></span>项目管理</a></li>
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^task(.+)$" active-class="active" ui-sref="taskList"><span class="iconset icon-line1-4"></span>评估任务管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysProjs(.*)$" active-class="active" ui-sref="sysProjs"><span class="iconset icon-line1-0"></span>项目管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^task(.+)$" active-class="active" ui-sref="taskList"><span class="iconset icon-line1-3"></span>评估任务管理</a></li>
         <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^reviewTmpl(.+)$" active-class="active" ui-sref="reviewTmpls"><span class="iconset icon-line1-4"></span>评估模板管理</a></li>
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^relationProjects(.+)$" active-class="active" ui-sref="relationProjects" ui-sref-active="active"><span class="iconset icon-line1-4"></span>三库查询</a></li>
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^expert(.+)$" active-class="active" ui-sref="expert.list"><span class="iconset icon-line1-4"></span>专家管理</a></li>
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^org(.+)$" active-class="active" ui-sref="org.list"><span class="iconset icon-line1-4"></span>机构管理</a></li>
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysMailTmpls(.+)$" active-class="active" ui-sref="sysMailTmpls"><span class="iconset icon-line1-4"></span>邮件模板</a></li>
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysManager(.+)$" active-class="active" ui-sref="sysManager.account"><span class="iconset icon-line1-4"></span>系统管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^relationProjects(.+)$" active-class="active" ui-sref="relationProjects" ui-sref-active="active"><span class="iconset icon-line1-5"></span>三库查询</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^expert(.+)$" active-class="active" ui-sref="expert.list"><span class="iconset icon-line1-6"></span>专家管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^org(.+)$" active-class="active" ui-sref="org.list"><span class="iconset icon-line1-10"></span>机构管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysMailTmpls(.*)$" active-class="active" ui-sref="sysMailTmpls"><span class="iconset icon-line1-11"></span>邮件模板</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysManager(.+)$" active-class="active" ui-sref="sysManager.account"><span class="iconset icon-line1-12"></span>系统管理</a></li>
 
 
-        <li ng-if="$root.User.roleId == 2"><a ui-sref="expTaskList" ui-sref-active="active"><span class="iconset icon-line1-4"></span>评审任务</a></li>
-        <li ng-if="$root.User.roleId == 2"><a ui-sref="review" ui-sref-active="active"><span class="iconset icon-line1-4"></span>待审项目</a></li>
-        <li ng-if="$root.User.roleId == 2"><a ui-sref="relationProjects" ui-sref-active="active"><span class="iconset icon-line1-4"></span>三库查询</a></li>
-        <li ng-if="$root.User.roleId == 2"><a><span class="iconset icon-line1-4"></span>个人中心</a></li>
+        <li ng-if="$root.User.roleId == 2"><a ui-sref="expTaskList" ui-sref-active="active"><span class="iconset icon-line1-7"></span>评审任务</a></li>
+        <li ng-if="$root.User.roleId == 2"><a ui-sref="review" ui-sref-active="active"><span class="iconset icon-line1-8"></span>待审项目</a></li>
+        <li ng-if="$root.User.roleId == 2"><a ui-sref="relationProjects" ui-sref-active="active"><span class="iconset icon-line1-5"></span>三库查询</a></li>
+        <li ng-if="$root.User.roleId == 2"><a><span class="iconset icon-line1-9"></span>个人中心</a></li>
 
     </ul>
 </aside>

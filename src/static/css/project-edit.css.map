@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AACE,6BAAU;EACR,YAAY,EAAE,KAAK;EACnB,mCAAK;IACH,KAAK,EAAE,IAAI",
-"sources": ["project-edit.sass"],
-"names": [],
-"file": "project-edit.css"
-}

@@ -1,0 +1,25 @@
+<div class="upload-mass-mdal">
+    <div class="modal-header">
+        <h4 class="modal-title">项目批量上传</h4>
+    </div>
+    <div class="modal-body">
+        <form>
+            <p class="description">项目批量上传功能可供批量上传多个项目文件及相关元数据信息。现提供100MB以内项目打包文件上传，若超过打包文件上传上限，请联系管理员，通过管理后台进行批量上传。</p>
+            <div class="form-item">
+                <label>上传项目打包文件</label>
+                <uploader ng-model="projectFile"></uploader>
+                <p class="item-desc">上限100MB，支持zip压缩文件上传</p>
+            </div>
+            <div class="form-item">
+                <label>上传excel汇总表</label>
+                <uploader ng-model="metaFile"></uploader>
+                <p class="item-desc">元数据需包括项目编号、项目名称、领域、关键词、项目简介及项目文件名称。多个项目文件名称以逗号(,)分隔。项目文件需与打包文件中的文件名一一对应。</p>
+                <p class="item-desc">下载汇总表模板文件 <a href="static/data/模板.xlsx" target="_blank">模板.xlsx</a></p>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-line" ng-click="submitEdit()">批量上传</button>
+    </div>
+</div>

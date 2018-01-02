@@ -42849,8 +42849,8 @@
 	            ariaLabelledBy: 'modal-title',
 	            ariaDescribedBy: 'modal-body',
 	            templateUrl: 'templates/projects/project_edit_mdal.html',
-	            controller: function controller($scope, $uibModalInstance) {
-	                $scope.updateInfo = project ? _.cloneDeep(project) : {};
+	            controller: function controller($scope, $uibModalInstance, File) {
+	                $scope.updateInfo = project ? _.cloneDeep(project) : { orgId: $rootScope.User.organization.id };
 	                $scope.cancel = function () {
 	                    $uibModalInstance.dismiss();
 	                };
@@ -42890,6 +42890,21 @@
 	                Project.updateOne(project.id, { projectStatus: 2 }).then(function () {
 	                    $scope.pageChanged();
 	                });
+	            }
+	        });
+	    };
+	
+	    $scope.uploadMass = function () {
+	        var $ps = $scope;
+	        $uibModal.open({
+	            ariaLabelledBy: 'modal-title',
+	            ariaDescribedBy: 'modal-body',
+	            templateUrl: 'templates/projects/upload_file_mass.html',
+	            controller: function controller($scope, $uibModalInstance) {
+	                $scope.cancel = function () {
+	                    $uibModalInstance.dismiss();
+	                };
+	                $scope.submitEdit = function (notify) {};
 	            }
 	        });
 	    };
