@@ -38,26 +38,8 @@
         </table>
         <div ng-if="updateInfo.projectStatus>2">
             <hr>
-            <div class="review-block">
-                <h3>专家评估详情</h3>
-                <ul class="review-timeline">
-                    <li ng-repeat="i in reviews">
-                        <div class="review-label">
-                            <h4>专家{{$index+1}}</h4>
-                            <label>评估意见</label>
-                        </div>
-                        <div class="review-content">
-                            <h5>{{i.evaluationTime | date: 'yyyy.MM.dd HH:mm'}}</h5>
-                            <p ng-bind-html="i.evaluationSuggestion"></p>
-                            <p class="review-score">评分：{{i.evaluationScore}}</p>
-                            <p class="review-score">等级：{{i.evaluationLevel}}</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <hr>
             <div class="row detail-row">
-                <div class="col-sm-5 col-left">
+                <div class="col-sm-5 col-left" ng-if="updateInfo.projectStatus>3">
                     <table>
                         <tbody>
                         <tr>

@@ -20,6 +20,11 @@ let taskGroupsCtrl = ($scope,Task,ProjectGroup,Utils,$stateParams) => {
 };
 let taskProjectsCtrl = ($scope,Task,Project,Utils,$stateParams,$state) => {
     $scope.queryInfo = {expertId:$stateParams['expertId'],taskId:$stateParams['taskId']};
+    $scope.setStatus = function (status) {
+        $scope.queryInfo.evaluationStatus = status;
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    }
     Utils.paginize($scope,function (page) {
         return Project.queryListByExpertId($scope.queryInfo,page)
     });

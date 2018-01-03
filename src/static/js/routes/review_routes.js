@@ -19,8 +19,9 @@ export default ($stateProvider, $urlRouterProvider) => {
             templateUrl:'templates/exp-review/review_edit_step2.html'
         })
         .state('reviewDetail',{
-            url:'/experts/review/detail/:projectId',
-            templateUrl:'templates/exp-review/review_detail.html'
+            url:'/experts/review/detail/:projectId?expertId',
+            templateUrl:'templates/exp-review/review_detail.html',
+            controller:'ExpReviewDetailCtrl'
         })
 
 }

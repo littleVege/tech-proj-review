@@ -1,13 +1,83 @@
 const reviewListCtrl = ($scope,Project,$stateParams,$rootScope,Utils) => {
     $scope.queryInfo = {expertId:$rootScope.User.expert.id};
+    $scope.setStatus = function (status) {
+        $scope.queryInfo.evaluationStatus = status;
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    }
+
+    $scope.queryCate = function (cate) {
+        if (cate) {
+            $scope.queryInfo.categoryId = cate.id;
+        } else {
+            $scope.queryInfo.categoryId = null;
+        }
+
+        $scope.pageChanged();
+    };
+
     Utils.paginize($scope,function (page) {
         return Project.queryListByExpertId($scope.queryInfo,page)
     });
     $scope.pageChanged();
 };
 
-const reviewDetailCtrl = () => {
+const reviewDetailCtrl = ($scope,Project,ProjectExpertEvaluation,EvaluationTemplateCategory,ProjectExpertEvaluationDetail,Task,ProjectRelation,$stateParams) => {
+    let projectId = $stateParams['projectId'];
+    let expertId = $stateParams['expertId'];
+    ProjectExpertEvaluation
+        .getOneByQuery({projectId:projectId,expertId:expertId})
+        .then(function (evalInfo) {
+            $scope.info = evalInfo;
+        });
+    function setScore(items) {
+        _.each(items,function (i) {
+            let scoreItem = _.find($scope.evalDetail,e=>e.evaluationTemplateItemId == i.id);
+            if (scoreItem) {
+                i.score = scoreItem.evaluationScore;
+            }
+            if (i.children) {
+                _.each(i.children,c=>{
+                    let scoreItem = _.find($scope.evalDetail,ce=>ce.evaluationTemplateItemId == c.id);
+                    if (scoreItem) {
+                        c.score = scoreItem.evaluationScore;
+                    }
+                })
+            }
+        })
 
+    }
+    ProjectExpertEvaluationDetail
+        .getListByQuery({projectId:projectId,expertId:expertId},1,100)
+        .then(function (detail) {
+            $scope.evalDetail = detail[1];
+        })
+        .then(function () {
+            return Project.getOne(projectId)
+        })
+        .then(function (info) {
+            $scope.projectInfo = info;
+            return info.taskId;
+        })
+        .then(function (taskId) {
+            return Task.getOne(taskId)
+        })
+        .then(function (task) {
+            return task.evaluationTemplateCategoryId
+        })
+        .then(function (templateId) {
+            return EvaluationTemplateCategory.getAllDetail(templateId)
+        })
+        .then(function (data) {
+            $scope.templates = data[1];
+            $scope.reformatedItems = $scope.templates.items;
+            setScore($scope.reformatedItems);
+        });
+    ProjectRelation.getListByQuery({projectId:projectId,expertId:expertId})
+        .then(function (data) {
+            /*这个有点问题*/
+            $scope.checkedProjects = data[1];
+        });
 };
 
 const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils, $state,
@@ -167,9 +237,9 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
 
     $scope.submitAndPublish = function () {
         return ProjectExpertEvaluation.updateOne($scope.updateInfo.id,{
-            dupSuggestion:$scope.updateInfo.dupSuggestion,
-            evaluationStatus:1
-        })
+                dupSuggestion:$scope.updateInfo.dupSuggestion,
+                evaluationStatus:1
+            })
             .then(function() {
                 window.location.hash = $stateParams['from'];
             })
@@ -229,4 +299,4 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
     }
 };
 
-export {reviewListCtrl,reviewEditCtrl}
+export {reviewListCtrl,reviewEditCtrl,reviewDetailCtrl}

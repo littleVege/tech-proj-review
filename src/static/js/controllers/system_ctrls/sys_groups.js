@@ -63,7 +63,7 @@ let groupDetailProjectsCtrl = ($scope,$stateParams,Utils,Project) => {
     $scope.pageChanged();
 };
 
-let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibModal,$state,Expert) => {
+let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibModal,$state,Expert,dialogs) => {
     let taskId = $stateParams['taskId'];
     let groupId = $stateParams['groupId'];
     $scope.taskId = taskId;
@@ -91,7 +91,7 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
     }
 
     $scope.loadGroupProjects = function () {
-        return Project.getListByQuery({groupId:$scope.groupInfo.id,projectStatus:2},1,500)
+        return Project.getListByQuery({groupId:$scope.groupInfo.id},1,500)
             .then(function (data) {
                 $scope.groupProjects = data[1];
             })
@@ -156,7 +156,7 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
                 $scope.submitEdit = function () {
                     $q.all(
                         _.map($scope.selectedProjects,i=>{
-                            return Project.updateOne(i.id,{taskId:$stateParams['taskId'],groupId:$stateParams['groupId']})
+                            return Project.updateOne(i.id,{taskId:$stateParams['taskId'],groupId:$stateParams['groupId'],projectStatus:3})
                         })
                     )
                     .then(function () {
@@ -195,7 +195,7 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
                 };
                 $scope.getCount = function () {
                     return _.toArray($scope.selectedProjects).length;
-                }
+                };
             }
         });
     };
@@ -273,6 +273,31 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
             }
         });
     }
+
+    $scope.removeProjectFromGroup = function (project) {
+        dialogs.confirm('移除此项目？','是否从此项目组中移除此项目','好的','取消',true)
+            .then(isConfirm=> {
+                if (isConfirm) {
+                    Project.updateOne(project.id,{taskId:-1,groupId:-1,projectStatus:2})
+                        .then(function () {
+                            $scope.loadGroupProjects();
+                        })
+                }
+            });
+    };
+
+    $scope.removeExpertFromGroup = function (expertRelation) {
+        dialogs.confirm('移除此专家？','是否从此项目组中移除此专家','好的','取消',true)
+            .then(isConfirm=> {
+                if (isConfirm) {
+                    ProjectGroupExpert.deleteOne(expertRelation.id)
+                        .then(function () {
+                            $scope.loadGroupExperts();
+                        })
+                }
+            });
+    }
+
 };
 export {
     groupListCtrl,

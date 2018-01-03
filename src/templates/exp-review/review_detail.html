@@ -1,0 +1,121 @@
+<div class="page-wrapper page-no-tab page-sys-project-list">
+    <h1>评估项目</h1>
+    <div class="page">
+        <table class="info-table">
+            <tbody>
+            <tr>
+                <td colspan="3"><label>项目编号</label> {{projectInfo.projectSerialNumber}}</td>
+            </tr>
+            <tr>
+                <td><label>项目标题</label> {{projectInfo.name}}</td>
+                <td><label>项目负责人</label> {{projectInfo.manager}}</td>
+                <td><label>分类</label> {{projectInfo.category}}</td>
+            </tr>
+            <tr>
+                <td><label>机构</label> {{projectInfo.category}}</td>
+                <td><label>内容关键字</label> {{projectInfo.keywords}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>项目简介</label>
+                        <div class="item-content">
+                            {{projectInfo.introduction}}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="form-item">
+                        <label>项目附件</label>
+                        <a ng-repeat="i in projectFiles" ng-href="{{i.fileUrl}}">{{i.fileOriginName}}</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>项目评分</h2>
+        <h3>项目评分细项</h3>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 50px">序号</th>
+                <th style="width: 100px">一级指标</th>
+                <th>二级指标</th>
+                <th>描述</th>
+                <th style="width: 70px">总分</th>
+                <th style="width: 70px">评分</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="i in reformatedItems">
+            <tr ng-repeat="c in i.children" ng-if="i.children && i.children.length>0">
+                <td>{{c.id}}</td>
+                <td ng-if="$first" rowspan="{{i.children.length}}">
+                    <p>{{i.name}}</p>
+                    <p>({{i.maxScore}})</p>
+                </td>
+                <td>{{c.name}}</td>
+                <td>{{c.remark}}</td>
+                <td>{{c.maxScore}}</td>
+                <td>
+                    {{c.score}}
+                </td>
+            </tr>
+            <tr ng-if="!i.children || i.children.length<1">
+                <td>{{i.id}}</td>
+                <td colspan="2">
+                    {{i.name}}
+                </td>
+                <td>{{i.remark}}</td>
+                <td>{{i.maxScore}}</td>
+                <td>
+                    {{i.score}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>结论</h3>
+        <table class="info-table">
+            <tbody>
+            <tr>
+                <td>总分</td>
+                <td>{{info.evaluationScore}}</td>
+                <td>建议</td>
+                <td>{{info.evaluationLevel}}</td>
+            </tr>
+            <tr>
+
+            </tr>
+            <tr>
+                <td>评价建议或意见</td>
+                <td ng-bind-html="info.evaluationSuggestion" colspan="3"></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <h2>三库对比结果</h2>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>标题</th>
+                <th>来源</th>
+                <th>相近内容</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="i in checkedProjects">
+                <td>{{index+1}}</td>
+                <td></td>
+                <td>{{i.projectSource}}</td>
+                <td>{{i.relateContent}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>有关建议</h3>
+        <div></div>
+    </div>
+</div>

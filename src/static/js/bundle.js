@@ -48,37 +48,37 @@
 	
 	__webpack_require__(1);
 	
-	__webpack_require__(75);
-	
 	__webpack_require__(3);
 	
 	__webpack_require__(4);
 	
-	__webpack_require__(6);
+	__webpack_require__(5);
 	
-	__webpack_require__(8);
+	__webpack_require__(7);
 	
-	var _controllers = __webpack_require__(9);
+	__webpack_require__(9);
+	
+	var _controllers = __webpack_require__(10);
 	
 	var _controllers2 = _interopRequireDefault(_controllers);
 	
-	var _directives = __webpack_require__(27);
+	var _directives = __webpack_require__(28);
 	
 	var _directives2 = _interopRequireDefault(_directives);
 	
-	var _services = __webpack_require__(35);
+	var _services = __webpack_require__(36);
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _routes = __webpack_require__(60);
+	var _routes = __webpack_require__(62);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _config = __webpack_require__(73);
+	var _config = __webpack_require__(75);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _filters = __webpack_require__(74);
+	var _filters = __webpack_require__(76);
 	
 	var _filters2 = _interopRequireDefault(_filters);
 	
@@ -34427,6 +34427,29 @@
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+	/*
+	 AngularJS v1.6.8
+	 (c) 2010-2017 Google, Inc. http://angularjs.org
+	 License: MIT
+	*/
+	(function(s,d){'use strict';function J(d){var k=[];w(k,B).chars(d);return k.join("")}var x=d.$$minErr("$sanitize"),C,k,D,E,p,B,F,G,w;d.module("ngSanitize",[]).provider("$sanitize",function(){function g(a,e){var c={},b=a.split(","),f;for(f=0;f<b.length;f++)c[e?p(b[f]):b[f]]=!0;return c}function K(a){for(var e={},c=0,b=a.length;c<b;c++){var f=a[c];e[f.name]=f.value}return e}function H(a){return a.replace(/&/g,"&amp;").replace(L,function(a){var c=a.charCodeAt(0);a=a.charCodeAt(1);return"&#"+(1024*(c-
+	55296)+(a-56320)+65536)+";"}).replace(M,function(a){return"&#"+a.charCodeAt(0)+";"}).replace(/</g,"&lt;").replace(/>/g,"&gt;")}function I(a){for(;a;){if(a.nodeType===s.Node.ELEMENT_NODE)for(var e=a.attributes,c=0,b=e.length;c<b;c++){var f=e[c],h=f.name.toLowerCase();if("xmlns:ns1"===h||0===h.lastIndexOf("ns1:",0))a.removeAttributeNode(f),c--,b--}(e=a.firstChild)&&I(e);a=t("nextSibling",a)}}function t(a,e){var c=e[a];if(c&&F.call(e,c))throw x("elclob",e.outerHTML||e.outerText);return c}var y=!1;this.$get=
+	["$$sanitizeUri",function(a){y&&k(n,z);return function(e){var c=[];G(e,w(c,function(b,c){return!/^unsafe:/.test(a(b,c))}));return c.join("")}}];this.enableSvg=function(a){return E(a)?(y=a,this):y};C=d.bind;k=d.extend;D=d.forEach;E=d.isDefined;p=d.lowercase;B=d.noop;G=function(a,e){null===a||void 0===a?a="":"string"!==typeof a&&(a=""+a);var c=u(a);if(!c)return"";var b=5;do{if(0===b)throw x("uinput");b--;a=c.innerHTML;c=u(a)}while(a!==c.innerHTML);for(b=c.firstChild;b;){switch(b.nodeType){case 1:e.start(b.nodeName.toLowerCase(),
+	K(b.attributes));break;case 3:e.chars(b.textContent)}var f;if(!(f=b.firstChild)&&(1===b.nodeType&&e.end(b.nodeName.toLowerCase()),f=t("nextSibling",b),!f))for(;null==f;){b=t("parentNode",b);if(b===c)break;f=t("nextSibling",b);1===b.nodeType&&e.end(b.nodeName.toLowerCase())}b=f}for(;b=c.firstChild;)c.removeChild(b)};w=function(a,e){var c=!1,b=C(a,a.push);return{start:function(a,h){a=p(a);!c&&A[a]&&(c=a);c||!0!==n[a]||(b("<"),b(a),D(h,function(c,h){var d=p(h),g="img"===a&&"src"===d||"background"===
+	d;!0!==v[d]||!0===m[d]&&!e(c,g)||(b(" "),b(h),b('="'),b(H(c)),b('"'))}),b(">"))},end:function(a){a=p(a);c||!0!==n[a]||!0===h[a]||(b("</"),b(a),b(">"));a==c&&(c=!1)},chars:function(a){c||b(H(a))}}};F=s.Node.prototype.contains||function(a){return!!(this.compareDocumentPosition(a)&16)};var L=/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,M=/([^#-~ |!])/g,h=g("area,br,col,hr,img,wbr"),q=g("colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr"),l=g("rp,rt"),r=k({},l,q),q=k({},q,g("address,article,aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,section,table,ul")),
+	l=k({},l,g("a,abbr,acronym,b,bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s,samp,small,span,strike,strong,sub,sup,time,tt,u,var")),z=g("circle,defs,desc,ellipse,font-face,font-face-name,font-face-src,g,glyph,hkern,image,linearGradient,line,marker,metadata,missing-glyph,mpath,path,polygon,polyline,radialGradient,rect,stop,svg,switch,text,title,tspan"),A=g("script,style"),n=k({},h,q,l,r),m=g("background,cite,href,longdesc,src,xlink:href"),r=g("abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,valign,value,vspace,width"),
+	l=g("accent-height,accumulate,additive,alphabetic,arabic-form,ascent,baseProfile,bbox,begin,by,calcMode,cap-height,class,color,color-rendering,content,cx,cy,d,dx,dy,descent,display,dur,end,fill,fill-rule,font-family,font-size,font-stretch,font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,gradientUnits,hanging,height,horiz-adv-x,horiz-origin-x,ideographic,k,keyPoints,keySplines,keyTimes,lang,marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,mathematical,max,min,offset,opacity,orient,origin,overline-position,overline-thickness,panose-1,path,pathLength,points,preserveAspectRatio,r,refX,refY,repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,rotate,rx,ry,slope,stemh,stemv,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,systemLanguage,target,text-anchor,to,transform,type,u1,u2,underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,zoomAndPan",
+	!0),v=k({},m,l,r),u=function(a,e){function c(b){b="<remove></remove>"+b;try{var c=(new a.DOMParser).parseFromString(b,"text/html").body;c.firstChild.remove();return c}catch(e){}}function b(a){d.innerHTML=a;e.documentMode&&I(d);return d}var h;if(e&&e.implementation)h=e.implementation.createHTMLDocument("inert");else throw x("noinert");var d=(h.documentElement||h.getDocumentElement()).querySelector("body");d.innerHTML='<svg><g onload="this.parentNode.remove()"></g></svg>';return d.querySelector("svg")?
+	(d.innerHTML='<svg><p><style><img src="</style><img src=x onerror=alert(1)//">',d.querySelector("svg img")?c:b):function(b){b="<remove></remove>"+b;try{b=encodeURI(b)}catch(c){return}var e=new a.XMLHttpRequest;e.responseType="document";e.open("GET","data:text/html;charset=utf-8,"+b,!1);e.send(null);b=e.response.body;b.firstChild.remove();return b}}(s,s.document)}).info({angularVersion:"1.6.8"});d.module("ngSanitize").filter("linky",["$sanitize",function(g){var k=/((s?ftp|https?):\/\/|(www\.)|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019]/i,
+	p=/^mailto:/i,s=d.$$minErr("linky"),t=d.isDefined,y=d.isFunction,w=d.isObject,x=d.isString;return function(d,q,l){function r(a){a&&m.push(J(a))}function z(a,d){var c,b=A(a);m.push("<a ");for(c in b)m.push(c+'="'+b[c]+'" ');!t(q)||"target"in b||m.push('target="',q,'" ');m.push('href="',a.replace(/"/g,"&quot;"),'">');r(d);m.push("</a>")}if(null==d||""===d)return d;if(!x(d))throw s("notstring",d);for(var A=y(l)?l:w(l)?function(){return l}:function(){return{}},n=d,m=[],v,u;d=n.match(k);)v=d[0],d[2]||
+	d[4]||(v=(d[3]?"http://":"mailto:")+v),u=d.index,r(n.substr(0,u)),z(v,d[0].replace(p,"")),n=n.substring(u+d[0].length);r(n);return g(m.join(""))}}])})(window,window.angular);
+	//# sourceMappingURL=angular-sanitize.min.js.map
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -34445,15 +34468,15 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(5);
+	__webpack_require__(6);
 	module.exports = 'ui.bootstrap';
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 	/*
@@ -42234,7 +42257,7 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -42373,10 +42396,10 @@
 	o=u?f:o-1,f=this.__iteratees__,c=f.length,a=0,l=Mi(n,this.__takeCount__),!e||!u&&i==n&&l==n)return kr(t,this.__actions__);e=[];n:for(;n--&&a<l;){for(o+=r,u=-1,i=t[o];++u<c;){var h=f[u],s=h.type,h=(0,h.iteratee)(i);if(2==s)i=h;else if(!h){if(1==s)continue n;break n}}e[a++]=i}return e},On.prototype.at=Fo,On.prototype.chain=function(){return Xe(this)},On.prototype.commit=function(){return new zn(this.value(),this.__chain__)},On.prototype.next=function(){this.__values__===F&&(this.__values__=ku(this.value()));
 	var n=this.__index__>=this.__values__.length;return{done:n,value:n?F:this.__values__[this.__index__++]}},On.prototype.plant=function(n){for(var t,r=this;r instanceof Sn;){var e=Pe(r);e.__index__=0,e.__values__=F,t?u.__wrapped__=e:t=e;var u=e,r=r.__wrapped__}return u.__wrapped__=n,t},On.prototype.reverse=function(){var n=this.__wrapped__;return n instanceof Mn?(this.__actions__.length&&(n=new Mn(this)),n=n.reverse(),n.__actions__.push({func:nu,args:[Je],thisArg:F}),new zn(n,this.__chain__)):this.thru(Je);
 	},On.prototype.toJSON=On.prototype.valueOf=On.prototype.value=function(){return kr(this.__wrapped__,this.__actions__)},On.prototype.first=On.prototype.head,Ai&&(On.prototype[Ai]=tu),On}(); true?(Zn._=it, !(__WEBPACK_AMD_DEFINE_RESULT__ = function(){return it}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))):Vn?((Vn.exports=it)._=it,qn._=it):Zn._=it}).call(this);
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(7)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(8)(module)))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 	module.exports = function(module) {
@@ -42392,7 +42415,7 @@
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 	/*! 12.2.13 */
@@ -42400,7 +42423,7 @@
 	h.remove(),e.reject("load error")}function g(){c(function(){h[0].parentNode&&(h[0].clientWidth?d():i++>10?f():g())},1e3)}var h=angular.element("<img>").attr("src",b).css("visibility","hidden").css("position","fixed").css("max-width","none !important").css("max-height","none !important");h.on("load",d),h.on("error",f);var i=0;g(),angular.element(document.getElementsByTagName("body")[0]).append(h)},function(){e.reject("load error")})}),a.$ngfDimensionPromise=e.promise,a.$ngfDimensionPromise["finally"](function(){delete a.$ngfDimensionPromise}),a.$ngfDimensionPromise},f.mediaDuration=function(a){if(a.$ngfDuration){var d=b.defer();return c(function(){d.resolve(a.$ngfDuration)}),d.promise}if(a.$ngfDurationPromise)return a.$ngfDurationPromise;var e=b.defer();return c(function(){return 0!==a.type.indexOf("audio")&&0!==a.type.indexOf("video")?void e.reject("not media"):void f.dataUrl(a).then(function(b){function d(){var b=h[0].duration;a.$ngfDuration=b,h.remove(),e.resolve(b)}function f(){h.remove(),e.reject("load error")}function g(){c(function(){h[0].parentNode&&(h[0].duration?d():i>10?f():g())},1e3)}var h=angular.element(0===a.type.indexOf("audio")?"<audio>":"<video>").attr("src",b).css("visibility","none").css("position","fixed");h.on("loadedmetadata",d),h.on("error",f);var i=0;g(),angular.element(document.body).append(h)},function(){e.reject("load error")})}),a.$ngfDurationPromise=e.promise,a.$ngfDurationPromise["finally"](function(){delete a.$ngfDurationPromise}),a.$ngfDurationPromise},f}]),ngFileUpload.service("UploadResize",["UploadValidate","$q",function(a,b){var c=a,d=function(a,b,c,d,e){var f=e?Math.max(c/a,d/b):Math.min(c/a,d/b);return{width:a*f,height:b*f,marginX:a*f-c,marginY:b*f-d}},e=function(a,e,f,g,h,i,j,k){var l=b.defer(),m=document.createElement("canvas"),n=document.createElement("img");return n.setAttribute("style","visibility:hidden;position:fixed;z-index:-100000"),document.body.appendChild(n),n.onload=function(){var a=n.width,b=n.height;if(n.parentNode.removeChild(n),null!=k&&k(a,b)===!1)return void l.reject("resizeIf");try{if(i){var o=c.ratioToFloat(i),p=a/b;o>p?(e=a,f=e/o):(f=b,e=f*o)}e||(e=a),f||(f=b);var q=d(a,b,e,f,j);m.width=Math.min(q.width,e),m.height=Math.min(q.height,f);var r=m.getContext("2d");r.drawImage(n,Math.min(0,-q.marginX/2),Math.min(0,-q.marginY/2),q.width,q.height),l.resolve(m.toDataURL(h||"image/WebP",g||.934))}catch(s){l.reject(s)}},n.onerror=function(){n.parentNode.removeChild(n),l.reject()},n.src=a,l.promise};return c.dataUrltoBlob=function(a,b,c){for(var d=a.split(","),e=d[0].match(/:(.*?);/)[1],f=atob(d[1]),g=f.length,h=new Uint8Array(g);g--;)h[g]=f.charCodeAt(g);var i=new window.Blob([h],{type:e});return i.name=b,i.$ngfOrigSize=c,i},c.isResizeSupported=function(){var a=document.createElement("canvas");return window.atob&&a.getContext&&a.getContext("2d")&&window.Blob},c.isResizeSupported()&&Object.defineProperty(window.Blob.prototype,"name",{get:function(){return this.$ngfName},set:function(a){this.$ngfName=a},configurable:!0}),c.resize=function(a,d){if(0!==a.type.indexOf("image"))return c.emptyPromise(a);var f=b.defer();return c.dataUrl(a,!0).then(function(b){e(b,d.width,d.height,d.quality,d.type||a.type,d.ratio,d.centerCrop,d.resizeIf).then(function(e){if("image/jpeg"===a.type&&d.restoreExif!==!1)try{e=c.restoreExif(b,e)}catch(g){setTimeout(function(){throw g},1)}try{var h=c.dataUrltoBlob(e,a.name,a.size);f.resolve(h)}catch(g){f.reject(g)}},function(b){"resizeIf"===b&&f.resolve(a),f.reject(b)})},function(a){f.reject(a)}),f.promise},c}]),function(){function a(a,c,d,e,f,g,h,i,j,k){function l(){return c.attr("disabled")||s("ngfDropDisabled",a)}function m(b,c,d){if(b){var e;try{e=b&&b.getData&&b.getData("text/html")}catch(f){}q(b.items,b.files,s("ngfAllowDir",a)!==!1,s("multiple")||s("ngfMultiple",a)).then(function(a){a.length?n(a,c):o(d,e).then(function(a){n(a,c)})})}}function n(b,c){i.updateModel(e,d,a,s("ngfChange")||s("ngfDrop"),b,c)}function o(b,c){if(!i.shouldUpdateOn(b,d,a)||"string"!=typeof c)return i.rejectPromise([]);var e=[];c.replace(/<(img src|img [^>]* src) *=\"([^\"]*)\"/gi,function(a,b,c){e.push(c)});var f=[],g=[];if(e.length){angular.forEach(e,function(a){f.push(i.urlToBlob(a).then(function(a){g.push(a)}))});var h=k.defer();return k.all(f).then(function(){h.resolve(g)},function(a){h.reject(a)}),h.promise}return i.emptyPromise()}function p(a,b,c,d){var e=s("ngfDragOverClass",a,{$event:c}),f="dragover";if(angular.isString(e))f=e;else if(e&&(e.delay&&(w=e.delay),e.accept||e.reject)){var g=c.dataTransfer.items;if(null!=g&&g.length)for(var h=e.pattern||s("ngfPattern",a,{$event:c}),j=g.length;j--;){if(!i.validatePattern(g[j],h)){f=e.reject;break}f=e.accept}else f=e.accept}d(f)}function q(b,c,e,f){function g(a,b){var c=k.defer();if(null!=a)if(a.isDirectory){var d=[i.emptyPromise()];if(m){var e={type:"directory"};e.name=e.path=(b||"")+a.name,n.push(e)}var f=a.createReader(),h=[],p=function(){f.readEntries(function(e){try{e.length?(h=h.concat(Array.prototype.slice.call(e||[],0)),p()):(angular.forEach(h.slice(0),function(c){n.length<=j&&l>=o&&d.push(g(c,(b?b:"")+a.name+"/"))}),k.all(d).then(function(){c.resolve()},function(a){c.reject(a)}))}catch(f){c.reject(f)}},function(a){c.reject(a)})};p()}else a.file(function(a){try{a.path=(b?b:"")+a.name,m&&(a=i.rename(a,a.path)),n.push(a),o+=a.size,c.resolve()}catch(d){c.reject(d)}},function(a){c.reject(a)});return c.promise}var j=i.getValidationAttr(d,a,"maxFiles");null==j&&(j=Number.MAX_VALUE);var l=i.getValidationAttr(d,a,"maxTotalSize");null==l&&(l=Number.MAX_VALUE);var m=s("ngfIncludeDir",a),n=[],o=0,p=[i.emptyPromise()];if(b&&b.length>0&&"file:"!==h.location.protocol)for(var q=0;q<b.length;q++){if(b[q].webkitGetAsEntry&&b[q].webkitGetAsEntry()&&b[q].webkitGetAsEntry().isDirectory){var r=b[q].webkitGetAsEntry();if(r.isDirectory&&!e)continue;null!=r&&p.push(g(r))}else{var t=b[q].getAsFile();null!=t&&(n.push(t),o+=t.size)}if(n.length>j||o>l||!f&&n.length>0)break}else if(null!=c)for(var u=0;u<c.length;u++){var v=c.item(u);if((v.type||v.size>0)&&(n.push(v),o+=v.size),n.length>j||o>l||!f&&n.length>0)break}var w=k.defer();return k.all(p).then(function(){if(f||m||!n.length)w.resolve(n);else{for(var a=0;n[a]&&"directory"===n[a].type;)a++;w.resolve([n[a]])}},function(a){w.reject(a)}),w.promise}var r=b(),s=function(a,b,c){return i.attrGetter(a,d,b,c)};if(s("dropAvailable")&&g(function(){a[s("dropAvailable")]?a[s("dropAvailable")].value=r:a[s("dropAvailable")]=r}),!r)return void(s("ngfHideOnDropNotAvailable",a)===!0&&c.css("display","none"));null==s("ngfSelect")&&i.registerModelChangeValidator(e,d,a);var t,u=null,v=f(s("ngfStopPropagation")),w=1;c[0].addEventListener("dragover",function(b){if(!l()&&i.shouldUpdateOn("drop",d,a)){if(b.preventDefault(),v(a)&&b.stopPropagation(),navigator.userAgent.indexOf("Chrome")>-1){var e=b.dataTransfer.effectAllowed;b.dataTransfer.dropEffect="move"===e||"linkMove"===e?"move":"copy"}g.cancel(u),t||(t="C",p(a,d,b,function(d){t=d,c.addClass(t),s("ngfDrag",a,{$isDragging:!0,$class:t,$event:b})}))}},!1),c[0].addEventListener("dragenter",function(b){!l()&&i.shouldUpdateOn("drop",d,a)&&(b.preventDefault(),v(a)&&b.stopPropagation())},!1),c[0].addEventListener("dragleave",function(b){!l()&&i.shouldUpdateOn("drop",d,a)&&(b.preventDefault(),v(a)&&b.stopPropagation(),u=g(function(){t&&c.removeClass(t),t=null,s("ngfDrag",a,{$isDragging:!1,$event:b})},w||100))},!1),c[0].addEventListener("drop",function(b){!l()&&i.shouldUpdateOn("drop",d,a)&&(b.preventDefault(),v(a)&&b.stopPropagation(),t&&c.removeClass(t),t=null,m(b.dataTransfer,b,"dropUrl"))},!1),c[0].addEventListener("paste",function(b){navigator.userAgent.toLowerCase().indexOf("firefox")>-1&&s("ngfEnableFirefoxPaste",a)&&b.preventDefault(),!l()&&i.shouldUpdateOn("paste",d,a)&&m(b.clipboardData||b.originalEvent.clipboardData,b,"pasteUrl")},!1),navigator.userAgent.toLowerCase().indexOf("firefox")>-1&&s("ngfEnableFirefoxPaste",a)&&(c.attr("contenteditable",!0),c.on("keypress",function(a){a.metaKey||a.ctrlKey||a.preventDefault()}))}function b(){var a=document.createElement("div");return"draggable"in a&&"ondrop"in a&&!/Edge\/12./i.test(navigator.userAgent)}ngFileUpload.directive("ngfDrop",["$parse","$timeout","$window","Upload","$http","$q",function(b,c,d,e,f,g){return{restrict:"AEC",require:"?ngModel",link:function(h,i,j,k){a(h,i,j,k,b,c,d,e,f,g)}}}]),ngFileUpload.directive("ngfNoFileDrop",function(){return function(a,c){b()&&c.css("display","none")}}),ngFileUpload.directive("ngfDropAvailable",["$parse","$timeout","Upload",function(a,c,d){return function(e,f,g){if(b()){var h=a(d.attrGetter("ngfDropAvailable",g));c(function(){h(e),h.assign&&h.assign(e,!0)})}}}])}(),ngFileUpload.service("UploadExif",["UploadResize","$q",function(a,b){function c(a,b,c,d){switch(b){case 2:return a.transform(-1,0,0,1,c,0);case 3:return a.transform(-1,0,0,-1,c,d);case 4:return a.transform(1,0,0,-1,0,d);case 5:return a.transform(0,1,1,0,0,0);case 6:return a.transform(0,1,-1,0,d,0);case 7:return a.transform(0,-1,-1,0,d,c);case 8:return a.transform(0,-1,1,0,0,c)}}function d(a){for(var b="",c=new Uint8Array(a),d=c.byteLength,e=0;d>e;e++)b+=String.fromCharCode(c[e]);return window.btoa(b)}var e=a;return e.isExifSupported=function(){return window.FileReader&&(new FileReader).readAsArrayBuffer&&e.isResizeSupported()},e.readOrientation=function(a){var c=b.defer(),d=new FileReader,e=a.slice?a.slice(0,65536):a;return d.readAsArrayBuffer(e),d.onerror=function(a){return c.reject(a)},d.onload=function(a){var b={orientation:1},d=new DataView(this.result);if(65496!==d.getUint16(0,!1))return c.resolve(b);for(var e=d.byteLength,f=2;e>f;){var g=d.getUint16(f,!1);if(f+=2,65505===g){if(1165519206!==d.getUint32(f+=2,!1))return c.resolve(b);var h=18761===d.getUint16(f+=6,!1);f+=d.getUint32(f+4,h);var i=d.getUint16(f,h);f+=2;for(var j=0;i>j;j++)if(274===d.getUint16(f+12*j,h)){var k=d.getUint16(f+12*j+8,h);return k>=2&&8>=k&&(d.setUint16(f+12*j+8,1,h),b.fixedArrayBuffer=a.target.result),b.orientation=k,c.resolve(b)}}else{if(65280!==(65280&g))break;f+=d.getUint16(f,!1)}}return c.resolve(b)},c.promise},e.applyExifRotation=function(a){if(0!==a.type.indexOf("image/jpeg"))return e.emptyPromise(a);var f=b.defer();return e.readOrientation(a).then(function(b){return b.orientation<2||b.orientation>8?f.resolve(a):void e.dataUrl(a,!0).then(function(g){var h=document.createElement("canvas"),i=document.createElement("img");i.onload=function(){try{h.width=b.orientation>4?i.height:i.width,h.height=b.orientation>4?i.width:i.height;var g=h.getContext("2d");c(g,b.orientation,i.width,i.height),g.drawImage(i,0,0);var j=h.toDataURL(a.type||"image/WebP",.934);j=e.restoreExif(d(b.fixedArrayBuffer),j);var k=e.dataUrltoBlob(j,a.name);f.resolve(k)}catch(l){return f.reject(l)}},i.onerror=function(){f.reject()},i.src=g},function(a){f.reject(a)})},function(a){f.reject(a)}),f.promise},e.restoreExif=function(a,b){var c={};return c.KEY_STR="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",c.encode64=function(a){var b,c,d,e,f,g="",h="",i="",j=0;do b=a[j++],c=a[j++],h=a[j++],d=b>>2,e=(3&b)<<4|c>>4,f=(15&c)<<2|h>>6,i=63&h,isNaN(c)?f=i=64:isNaN(h)&&(i=64),g=g+this.KEY_STR.charAt(d)+this.KEY_STR.charAt(e)+this.KEY_STR.charAt(f)+this.KEY_STR.charAt(i),b=c=h="",d=e=f=i="";while(j<a.length);return g},c.restore=function(a,b){a.match("data:image/jpeg;base64,")&&(a=a.replace("data:image/jpeg;base64,",""));var c=this.decode64(a),d=this.slice2Segments(c),e=this.exifManipulation(b,d);return"data:image/jpeg;base64,"+this.encode64(e)},c.exifManipulation=function(a,b){var c=this.getExifArray(b),d=this.insertExif(a,c);return new Uint8Array(d)},c.getExifArray=function(a){for(var b,c=0;c<a.length;c++)if(b=a[c],255===b[0]&225===b[1])return b;return[]},c.insertExif=function(a,b){var c=a.replace("data:image/jpeg;base64,",""),d=this.decode64(c),e=d.indexOf(255,3),f=d.slice(0,e),g=d.slice(e),h=f;return h=h.concat(b),h=h.concat(g)},c.slice2Segments=function(a){for(var b=0,c=[];;){if(255===a[b]&218===a[b+1])break;if(255===a[b]&216===a[b+1])b+=2;else{var d=256*a[b+2]+a[b+3],e=b+d+2,f=a.slice(b,e);c.push(f),b=e}if(b>a.length)break}return c},c.decode64=function(a){var b,c,d,e,f,g="",h="",i=0,j=[],k=/[^A-Za-z0-9\+\/\=]/g;k.exec(a)&&console.log("There were invalid base64 characters in the input text.\nValid base64 characters are A-Z, a-z, 0-9, NaNExpect errors in decoding."),a=a.replace(/[^A-Za-z0-9\+\/\=]/g,"");do d=this.KEY_STR.indexOf(a.charAt(i++)),e=this.KEY_STR.indexOf(a.charAt(i++)),f=this.KEY_STR.indexOf(a.charAt(i++)),h=this.KEY_STR.indexOf(a.charAt(i++)),b=d<<2|e>>4,c=(15&e)<<4|f>>2,g=(3&f)<<6|h,j.push(b),64!==f&&j.push(c),64!==h&&j.push(g),b=c=g="",d=e=f=h="";while(i<a.length);return j},c.restore(a,b)},e}]);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42409,19 +42432,19 @@
 	    value: true
 	});
 	
-	var _experts_ctrls = __webpack_require__(10);
+	var _experts_ctrls = __webpack_require__(11);
 	
 	var _experts_ctrls2 = _interopRequireDefault(_experts_ctrls);
 	
-	var _org_ctrls = __webpack_require__(15);
+	var _org_ctrls = __webpack_require__(16);
 	
 	var _org_ctrls2 = _interopRequireDefault(_org_ctrls);
 	
-	var _system_ctrls = __webpack_require__(17);
+	var _system_ctrls = __webpack_require__(18);
 	
 	var _system_ctrls2 = _interopRequireDefault(_system_ctrls);
 	
-	var _relation_project_ctrls = __webpack_require__(26);
+	var _relation_project_ctrls = __webpack_require__(27);
 	
 	var relationProjectCtrls = _interopRequireWildcard(_relation_project_ctrls);
 	
@@ -42434,7 +42457,7 @@
 	exports.default = controllers;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42443,28 +42466,28 @@
 	    value: true
 	});
 	
-	var _groups = __webpack_require__(11);
+	var _groups = __webpack_require__(12);
 	
 	var expGroups = _interopRequireWildcard(_groups);
 	
-	var _tasks = __webpack_require__(12);
+	var _tasks = __webpack_require__(13);
 	
 	var expTasks = _interopRequireWildcard(_tasks);
 	
-	var _projects = __webpack_require__(13);
+	var _projects = __webpack_require__(14);
 	
 	var expProjects = _interopRequireWildcard(_projects);
 	
-	var _exp_review = __webpack_require__(14);
+	var _exp_review = __webpack_require__(15);
 	
 	var expReview = _interopRequireWildcard(_exp_review);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	exports.default = angular.module('tpr.controllers.expert', []).controller('ExpGroupsCtrl', expGroups.groupListCtrl).controller('ExpTaskListCtrl', expTasks.taskListCtrl).controller('ExpTaskDetailCtrl', expTasks.taskDetailCtrl).controller('ExpTaskProjectsCtrl', expTasks.taskProjectsCtrl).controller('ExpTaskGroupsCtrl', expTasks.taskGroupsCtrl).controller('ExpProjectListCtrl', expProjects.expProjectsCtrl).controller('ExpReviewListCtrl', expReview.reviewListCtrl).controller('ExpReviewEditCtrl', expReview.reviewEditCtrl);
+	exports.default = angular.module('tpr.controllers.expert', []).controller('ExpGroupsCtrl', expGroups.groupListCtrl).controller('ExpTaskListCtrl', expTasks.taskListCtrl).controller('ExpTaskDetailCtrl', expTasks.taskDetailCtrl).controller('ExpTaskProjectsCtrl', expTasks.taskProjectsCtrl).controller('ExpTaskGroupsCtrl', expTasks.taskGroupsCtrl).controller('ExpProjectListCtrl', expProjects.expProjectsCtrl).controller('ExpReviewListCtrl', expReview.reviewListCtrl).controller('ExpReviewEditCtrl', expReview.reviewEditCtrl).controller('ExpReviewDetailCtrl', expReview.reviewDetailCtrl);
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42483,7 +42506,7 @@
 	exports.groupListCtrl = groupListCtrl;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42512,6 +42535,11 @@
 	};
 	var taskProjectsCtrl = function taskProjectsCtrl($scope, Task, Project, Utils, $stateParams, $state) {
 	    $scope.queryInfo = { expertId: $stateParams['expertId'], taskId: $stateParams['taskId'] };
+	    $scope.setStatus = function (status) {
+	        $scope.queryInfo.evaluationStatus = status;
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	    Utils.paginize($scope, function (page) {
 	        return Project.queryListByExpertId($scope.queryInfo, page);
 	    });
@@ -42525,7 +42553,7 @@
 	exports.taskProjectsCtrl = taskProjectsCtrl;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -42548,7 +42576,7 @@
 	exports.expProjectsCtrl = expProjectsCtrl;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42558,13 +42586,77 @@
 	});
 	var reviewListCtrl = function reviewListCtrl($scope, Project, $stateParams, $rootScope, Utils) {
 	    $scope.queryInfo = { expertId: $rootScope.User.expert.id };
+	    $scope.setStatus = function (status) {
+	        $scope.queryInfo.evaluationStatus = status;
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
+	
+	    $scope.queryCate = function (cate) {
+	        if (cate) {
+	            $scope.queryInfo.categoryId = cate.id;
+	        } else {
+	            $scope.queryInfo.categoryId = null;
+	        }
+	
+	        $scope.pageChanged();
+	    };
+	
 	    Utils.paginize($scope, function (page) {
 	        return Project.queryListByExpertId($scope.queryInfo, page);
 	    });
 	    $scope.pageChanged();
 	};
 	
-	var reviewDetailCtrl = function reviewDetailCtrl() {};
+	var reviewDetailCtrl = function reviewDetailCtrl($scope, Project, ProjectExpertEvaluation, EvaluationTemplateCategory, ProjectExpertEvaluationDetail, Task, ProjectRelation, $stateParams) {
+	    var projectId = $stateParams['projectId'];
+	    var expertId = $stateParams['expertId'];
+	    ProjectExpertEvaluation.getOneByQuery({ projectId: projectId, expertId: expertId }).then(function (evalInfo) {
+	        $scope.info = evalInfo;
+	    });
+	    function setScore(items) {
+	        _.each(items, function (i) {
+	            var scoreItem = _.find($scope.evalDetail, function (e) {
+	                return e.evaluationTemplateItemId == i.id;
+	            });
+	            if (scoreItem) {
+	                i.score = scoreItem.evaluationScore;
+	            }
+	            if (i.children) {
+	                _.each(i.children, function (c) {
+	                    var scoreItem = _.find($scope.evalDetail, function (ce) {
+	                        return ce.evaluationTemplateItemId == c.id;
+	                    });
+	                    if (scoreItem) {
+	                        c.score = scoreItem.evaluationScore;
+	                    }
+	                });
+	            }
+	        });
+	    }
+	    ProjectExpertEvaluationDetail.getListByQuery({ projectId: projectId, expertId: expertId }, 1, 100).then(function (detail) {
+	        $scope.evalDetail = detail[1];
+	    }).then(function () {
+	        return Project.getOne(projectId);
+	    }).then(function (info) {
+	        $scope.projectInfo = info;
+	        return info.taskId;
+	    }).then(function (taskId) {
+	        return Task.getOne(taskId);
+	    }).then(function (task) {
+	        return task.evaluationTemplateCategoryId;
+	    }).then(function (templateId) {
+	        return EvaluationTemplateCategory.getAllDetail(templateId);
+	    }).then(function (data) {
+	        $scope.templates = data[1];
+	        $scope.reformatedItems = $scope.templates.items;
+	        setScore($scope.reformatedItems);
+	    });
+	    ProjectRelation.getListByQuery({ projectId: projectId, expertId: expertId }).then(function (data) {
+	        /*这个有点问题*/
+	        $scope.checkedProjects = data[1];
+	    });
+	};
 	
 	var reviewEditCtrl = function reviewEditCtrl($scope, Project, EvaluationTemplateCategory, dialogs, Utils, $state, ProjectExpertEvaluation, ProjectExpertEvaluationDetail, ProjectRelationList, Task, $stateParams, ProjectRelation, $uibModal, $rootScope) {
 	    var projectId = $stateParams['projectId'];
@@ -42770,9 +42862,10 @@
 	
 	exports.reviewListCtrl = reviewListCtrl;
 	exports.reviewEditCtrl = reviewEditCtrl;
+	exports.reviewDetailCtrl = reviewDetailCtrl;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42781,7 +42874,7 @@
 	    value: true
 	});
 	
-	var _org_project = __webpack_require__(16);
+	var _org_project = __webpack_require__(17);
 	
 	var orgProjectCtrls = _interopRequireWildcard(_org_project);
 	
@@ -42790,7 +42883,7 @@
 	exports.default = angular.module('tpr.controllers.org', []).controller('OrgProjectListCtrl', orgProjectCtrls.orgProjectsCtrl).controller('OrgProjectDetailCtrl', orgProjectCtrls.orgProjectDetailCtrl);
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -42924,7 +43017,7 @@
 	exports.orgProjectDetailCtrl = orgProjectDetailCtrl;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42933,35 +43026,35 @@
 	    value: true
 	});
 	
-	var _sys_groups = __webpack_require__(18);
+	var _sys_groups = __webpack_require__(19);
 	
 	var groupCtrls = _interopRequireWildcard(_sys_groups);
 	
-	var _sys_orgs = __webpack_require__(19);
+	var _sys_orgs = __webpack_require__(20);
 	
 	var orgCtrls = _interopRequireWildcard(_sys_orgs);
 	
-	var _sys_projects = __webpack_require__(20);
+	var _sys_projects = __webpack_require__(21);
 	
 	var projectCtrls = _interopRequireWildcard(_sys_projects);
 	
-	var _sys_tasks = __webpack_require__(21);
+	var _sys_tasks = __webpack_require__(22);
 	
 	var taskCtrls = _interopRequireWildcard(_sys_tasks);
 	
-	var _mail_tmpls = __webpack_require__(22);
+	var _mail_tmpls = __webpack_require__(23);
 	
 	var mailTmplCtrls = _interopRequireWildcard(_mail_tmpls);
 	
-	var _review_tmpls = __webpack_require__(23);
+	var _review_tmpls = __webpack_require__(24);
 	
 	var reviewTmplCtrls = _interopRequireWildcard(_review_tmpls);
 	
-	var _sys_settings = __webpack_require__(24);
+	var _sys_settings = __webpack_require__(25);
 	
 	var settingCtrls = _interopRequireWildcard(_sys_settings);
 	
-	var _sys_experts = __webpack_require__(25);
+	var _sys_experts = __webpack_require__(26);
 	
 	var expertCtrls = _interopRequireWildcard(_sys_experts);
 	
@@ -42970,7 +43063,7 @@
 	exports.default = angular.module('tpr.controllers.sys', []).controller('SysGroupListCtrl', groupCtrls.groupListCtrl).controller('SysGroupDetailCtrl', groupCtrls.groupDetailCtrl).controller('SysGroupEditCtrl', groupCtrls.groupEditCtrl).controller('GroupExpertsCtrl', groupCtrls.groupDetailExpertsCtrl).controller('GroupProjectsCtrl', groupCtrls.groupDetailProjectsCtrl).controller('OrgListCtrl', orgCtrls.orgListCtrl).controller('SysProjectsCtrl', projectCtrls.sysProjectsCtrl).controller('SysProjectCollectCtrl', projectCtrls.sysProjectCollectCtrl).controller('SysTaskListCtrl', taskCtrls.taskListCtrl).controller('SysTaskDetailCtrl', taskCtrls.taskDetailCtrl).controller('MailTmplListCtrl', mailTmplCtrls.mailTmplListCtrl).controller('ReviewTmplListCtrl', reviewTmplCtrls.reviewTmplListCtrl).controller('ReviewTmplEditCtrl', reviewTmplCtrls.reviewTmplEditCtrl).controller('AccountCtrl', settingCtrls.accountCtrl).controller('SysMOrgAccountCtrl', settingCtrls.orgAccountCtrl).controller('SysMExpertAccountCtrl', settingCtrls.expertAccountCtrl).controller('SysMSysAccountCtrl', settingCtrls.sysAccountCtrl).controller('SysMLogCtrl', settingCtrls.logsCtrl).controller('SysMSettingCtrl', settingCtrls.settingCtrl).controller('SysExpertListCtrl', expertCtrls.expertListCtrl);
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43040,7 +43133,7 @@
 	    $scope.pageChanged();
 	};
 	
-	var groupEditCtrl = function groupEditCtrl($scope, $stateParams, Task, ProjectGroup, Utils, Project, $uibModal, $state, Expert) {
+	var groupEditCtrl = function groupEditCtrl($scope, $stateParams, Task, ProjectGroup, Utils, Project, $uibModal, $state, Expert, dialogs) {
 	    var taskId = $stateParams['taskId'];
 	    var groupId = $stateParams['groupId'];
 	    $scope.taskId = taskId;
@@ -43063,7 +43156,7 @@
 	    }
 	
 	    $scope.loadGroupProjects = function () {
-	        return Project.getListByQuery({ groupId: $scope.groupInfo.id, projectStatus: 2 }, 1, 500).then(function (data) {
+	        return Project.getListByQuery({ groupId: $scope.groupInfo.id }, 1, 500).then(function (data) {
 	            $scope.groupProjects = data[1];
 	        });
 	    };
@@ -43120,7 +43213,7 @@
 	                };
 	                $scope.submitEdit = function () {
 	                    $q.all(_.map($scope.selectedProjects, function (i) {
-	                        return Project.updateOne(i.id, { taskId: $stateParams['taskId'], groupId: $stateParams['groupId'] });
+	                        return Project.updateOne(i.id, { taskId: $stateParams['taskId'], groupId: $stateParams['groupId'], projectStatus: 3 });
 	                    })).then(function () {
 	                        $ps.loadGroupProjects();
 	                        $scope.cancel();
@@ -43230,6 +43323,26 @@
 	            }
 	        });
 	    };
+	
+	    $scope.removeProjectFromGroup = function (project) {
+	        dialogs.confirm('移除此项目？', '是否从此项目组中移除此项目', '好的', '取消', true).then(function (isConfirm) {
+	            if (isConfirm) {
+	                Project.updateOne(project.id, { taskId: -1, groupId: -1, projectStatus: 2 }).then(function () {
+	                    $scope.loadGroupProjects();
+	                });
+	            }
+	        });
+	    };
+	
+	    $scope.removeExpertFromGroup = function (expertRelation) {
+	        dialogs.confirm('移除此专家？', '是否从此项目组中移除此专家', '好的', '取消', true).then(function (isConfirm) {
+	            if (isConfirm) {
+	                ProjectGroupExpert.deleteOne(expertRelation.id).then(function () {
+	                    $scope.loadGroupExperts();
+	                });
+	            }
+	        });
+	    };
 	};
 	exports.groupListCtrl = groupListCtrl;
 	exports.groupDetailCtrl = groupDetailCtrl;
@@ -43238,7 +43351,7 @@
 	exports.groupDetailProjectsCtrl = groupDetailProjectsCtrl;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43316,7 +43429,7 @@
 	exports.orgListCtrl = orgListCtrl;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43364,9 +43477,6 @@
 	    });
 	    ProjectExpertEvaluation.getListByQuery({ projectId: projectId, evaluationStatus: 1 }).then(function (data) {
 	        $scope.reviews = data[1];
-	        _.each($scope.reviews, function (i) {
-	            i.evaluationSuggestion = $sce.trustAsHtml(i.evaluationSuggestion);
-	        });
 	    });
 	
 	    $scope.submitEdit = function () {
@@ -43386,7 +43496,7 @@
 	exports.sysProjectCollectCtrl = sysProjectCollectCtrl;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43453,7 +43563,7 @@
 	exports.taskDetailCtrl = taskDetailCtrl;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43503,7 +43613,7 @@
 	exports.mailTmplListCtrl = mailTmplListCtrl;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43675,7 +43785,7 @@
 	exports.reviewTmplEditCtrl = reviewTmplEditCtrl;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43745,7 +43855,7 @@
 	exports.settingCtrl = settingCtrl;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -43764,7 +43874,7 @@
 	exports.expertListCtrl = expertListCtrl;
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -43791,7 +43901,7 @@
 	exports.relationProjectListCtrl = relationProjectListCtrl;
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43800,31 +43910,31 @@
 	  value: true
 	});
 	
-	var _uiSrefActiveReg = __webpack_require__(28);
+	var _uiSrefActiveReg = __webpack_require__(29);
 	
 	var _uiSrefActiveReg2 = _interopRequireDefault(_uiSrefActiveReg);
 	
-	var _ngEchart = __webpack_require__(29);
+	var _ngEchart = __webpack_require__(30);
 	
 	var _ngEchart2 = _interopRequireDefault(_ngEchart);
 	
-	var _inputError = __webpack_require__(30);
+	var _inputError = __webpack_require__(31);
 	
 	var _inputError2 = _interopRequireDefault(_inputError);
 	
-	var _orgSelect = __webpack_require__(31);
+	var _orgSelect = __webpack_require__(32);
 	
 	var _orgSelect2 = _interopRequireDefault(_orgSelect);
 	
-	var _uploader = __webpack_require__(32);
+	var _uploader = __webpack_require__(33);
 	
 	var _uploader2 = _interopRequireDefault(_uploader);
 	
-	var _ngCkeditor = __webpack_require__(33);
+	var _ngCkeditor = __webpack_require__(34);
 	
 	var _ngCkeditor2 = _interopRequireDefault(_ngCkeditor);
 	
-	var _ngFlatpickr = __webpack_require__(34);
+	var _ngFlatpickr = __webpack_require__(35);
 	
 	var _ngFlatpickr2 = _interopRequireDefault(_ngFlatpickr);
 	
@@ -43915,7 +44025,7 @@
 	exports.default = directives;
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43955,7 +44065,7 @@
 	};
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -43991,7 +44101,7 @@
 	};
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44145,7 +44255,7 @@
 	};
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44190,7 +44300,7 @@
 	};
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44273,7 +44383,7 @@
 	};
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44314,7 +44424,7 @@
 	};
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44372,7 +44482,7 @@
 	};
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44381,99 +44491,99 @@
 	   value: true
 	});
 	
-	var _api_factory = __webpack_require__(36);
+	var _api_factory = __webpack_require__(37);
 	
 	var _api_factory2 = _interopRequireDefault(_api_factory);
 	
-	var _categorySvr = __webpack_require__(38);
+	var _categorySvr = __webpack_require__(39);
 	
 	var _categorySvr2 = _interopRequireDefault(_categorySvr);
 	
-	var _evaluationTemplateCategorySvr = __webpack_require__(39);
+	var _evaluationTemplateCategorySvr = __webpack_require__(40);
 	
 	var _evaluationTemplateCategorySvr2 = _interopRequireDefault(_evaluationTemplateCategorySvr);
 	
-	var _evaluationTemplateLevelSvr = __webpack_require__(76);
+	var _evaluationTemplateLevelSvr = __webpack_require__(41);
 	
 	var _evaluationTemplateLevelSvr2 = _interopRequireDefault(_evaluationTemplateLevelSvr);
 	
-	var _fileSvr = __webpack_require__(40);
+	var _fileSvr = __webpack_require__(42);
 	
 	var _fileSvr2 = _interopRequireDefault(_fileSvr);
 	
-	var _importBatchSvr = __webpack_require__(41);
+	var _importBatchSvr = __webpack_require__(43);
 	
 	var _importBatchSvr2 = _interopRequireDefault(_importBatchSvr);
 	
-	var _mailTemplateSvr = __webpack_require__(42);
+	var _mailTemplateSvr = __webpack_require__(44);
 	
 	var _mailTemplateSvr2 = _interopRequireDefault(_mailTemplateSvr);
 	
-	var _organizationSvr = __webpack_require__(43);
+	var _organizationSvr = __webpack_require__(45);
 	
 	var _organizationSvr2 = _interopRequireDefault(_organizationSvr);
 	
-	var _projectSvr = __webpack_require__(44);
+	var _projectSvr = __webpack_require__(46);
 	
 	var _projectSvr2 = _interopRequireDefault(_projectSvr);
 	
-	var _projectExpertEvaluationSvr = __webpack_require__(45);
+	var _projectExpertEvaluationSvr = __webpack_require__(47);
 	
 	var _projectExpertEvaluationSvr2 = _interopRequireDefault(_projectExpertEvaluationSvr);
 	
-	var _projectExpertEvaluationDetailSvr = __webpack_require__(46);
+	var _projectExpertEvaluationDetailSvr = __webpack_require__(48);
 	
 	var _projectExpertEvaluationDetailSvr2 = _interopRequireDefault(_projectExpertEvaluationDetailSvr);
 	
-	var _projectFileSvr = __webpack_require__(47);
+	var _projectFileSvr = __webpack_require__(49);
 	
 	var _projectFileSvr2 = _interopRequireDefault(_projectFileSvr);
 	
-	var _projectGroupSvr = __webpack_require__(48);
+	var _projectGroupSvr = __webpack_require__(50);
 	
 	var _projectGroupSvr2 = _interopRequireDefault(_projectGroupSvr);
 	
-	var _projectGroupExpertSvr = __webpack_require__(49);
+	var _projectGroupExpertSvr = __webpack_require__(51);
 	
 	var _projectGroupExpertSvr2 = _interopRequireDefault(_projectGroupExpertSvr);
 	
-	var _projectKeywordSvr = __webpack_require__(50);
+	var _projectKeywordSvr = __webpack_require__(52);
 	
 	var _projectKeywordSvr2 = _interopRequireDefault(_projectKeywordSvr);
 	
-	var _projectRelationSvr = __webpack_require__(51);
+	var _projectRelationSvr = __webpack_require__(53);
 	
 	var _projectRelationSvr2 = _interopRequireDefault(_projectRelationSvr);
 	
-	var _projectRelationListSvr = __webpack_require__(52);
+	var _projectRelationListSvr = __webpack_require__(54);
 	
 	var _projectRelationListSvr2 = _interopRequireDefault(_projectRelationListSvr);
 	
-	var _taskSvr = __webpack_require__(53);
+	var _taskSvr = __webpack_require__(55);
 	
 	var _taskSvr2 = _interopRequireDefault(_taskSvr);
 	
-	var _tdProjectKeywordSvr = __webpack_require__(54);
+	var _tdProjectKeywordSvr = __webpack_require__(56);
 	
 	var _tdProjectKeywordSvr2 = _interopRequireDefault(_tdProjectKeywordSvr);
 	
-	var _userSvr = __webpack_require__(55);
+	var _userSvr = __webpack_require__(57);
 	
 	var _userSvr2 = _interopRequireDefault(_userSvr);
 	
-	var _webProjsAllSvr = __webpack_require__(56);
+	var _webProjsAllSvr = __webpack_require__(58);
 	
 	var _webProjsAllSvr2 = _interopRequireDefault(_webProjsAllSvr);
 	
-	var _expertSvr = __webpack_require__(57);
+	var _expertSvr = __webpack_require__(59);
 	
 	var _expertSvr2 = _interopRequireDefault(_expertSvr);
 	
-	var _util_svr = __webpack_require__(58);
+	var _util_svr = __webpack_require__(60);
 	
 	var _util_svr2 = _interopRequireDefault(_util_svr);
 	
-	var _dialogs = __webpack_require__(59);
+	var _dialogs = __webpack_require__(61);
 	
 	var _dialogs2 = _interopRequireDefault(_dialogs);
 	
@@ -44485,7 +44595,7 @@
 	exports.default = services;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44494,7 +44604,7 @@
 	  value: true
 	});
 	
-	var _excption = __webpack_require__(37);
+	var _excption = __webpack_require__(38);
 	
 	var _excption2 = _interopRequireDefault(_excption);
 	
@@ -44641,7 +44751,7 @@
 	exports.default = apiSvr;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44687,7 +44797,7 @@
 	exports.default = ErrorMap;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44786,7 +44896,7 @@
 	};
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -44904,7 +45014,106 @@
 	};
 
 /***/ }),
-/* 40 */
+/* 41 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function (Api) {
+	    return {
+	        /**
+	         * 依照查询条件查询一条evaluationTemplateLevel记录
+	         * @param params {object} 查询条件
+	         * @return {promise}
+	         */
+	        getOneByQuery: function getOneByQuery(params) {
+	            params = params || {};
+	            params['page'] = 1;
+	            params['rows'] = 1;
+	            return Api.get('/evaluationTemplateLevel/select', params).then(function (data) {
+	                return data[1] ? data[1][0] || {} : {};
+	            });
+	        },
+	        /**
+	         * 查询evaluationTemplateLevel列表
+	         * @param params {object} 查询条件
+	         * @param page {number} 页数
+	         * @param rows {number} 每页条目数
+	         * @return {promise}
+	         */
+	        getListByQuery: function getListByQuery(params, page, rows) {
+	            params = params || {};
+	            params['page'] = page || 1;
+	            params['rows'] = rows || 10;
+	            return Api.get('/evaluationTemplateLevel/select', params);
+	        },
+	        /**
+	         * 获取一条evaluationTemplateLevel记录
+	         * @param id {number} 用于判断唯一值的ID
+	         * @return promise
+	         */
+	        getOne: function getOne(id) {
+	            return Api.get('/evaluationTemplateLevel/select/' + id).then(function (data) {
+	                return data[1];
+	            });
+	        },
+	        /**
+	         * 更新一条evaluationTemplateLevel记录
+	         * @param id {number} 用于判断唯一值的ID
+	         * @param updateInfo {object} 提交信息
+	         * @return promise
+	         */
+	        updateOne: function updateOne(id, updateInfo) {
+	            return Api.post('/evaluationTemplateLevel/update/' + id, updateInfo).then(function (data) {
+	                return data[1];
+	            });
+	        },
+	        /**
+	         * 删除一条evaluationTemplateLevel记录
+	         * @param id {number} 用于判断唯一值的ID
+	         * @return promise
+	         */
+	        deleteOne: function deleteOne(id) {
+	            return Api.get('/evaluationTemplateLevel/delete/' + id).then(function (data) {
+	                return data[1];
+	            });
+	        },
+	        /**
+	         * 创建一条evaluationTemplateLevel记录
+	         * @param updateInfo {object} 提交信息
+	         * @return promise
+	         */
+	        createOne: function createOne(updateInfo) {
+	            return Api.post('/evaluationTemplateLevel/insert', updateInfo).then(function (data) {
+	                return data[1];
+	            });
+	        },
+	        /**
+	         * 更新或创建一条evaluationTemplateLevel记录
+	         * @param pkey {string} 用于判断唯一值的键名
+	         * @param updateInfo {object} 提交信息
+	         * @return promise
+	         */
+	        upsetOne: function upsetOne(pkey, updateInfo) {
+	            if (updateInfo[pkey]) {
+	                return this.updateOne(updateInfo[pkey], updateInfo);
+	            } else {
+	                return this.createOne(updateInfo).then(function (data) {
+	                    updateInfo[pkey] = data[pkey];
+	                    return data;
+	                });
+	            }
+	        }
+	
+	    };
+	};
+
+/***/ }),
+/* 42 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45003,7 +45212,7 @@
 	};
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45102,7 +45311,7 @@
 	};
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45201,7 +45410,7 @@
 	};
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45303,7 +45512,7 @@
 	};
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45408,7 +45617,7 @@
 	};
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45515,7 +45724,7 @@
 	};
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45614,7 +45823,7 @@
 	};
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45713,7 +45922,7 @@
 	};
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45818,7 +46027,7 @@
 	};
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45917,7 +46126,7 @@
 	};
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46016,7 +46225,7 @@
 	};
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46115,7 +46324,7 @@
 	};
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46214,7 +46423,7 @@
 	};
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46319,7 +46528,7 @@
 	};
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46418,7 +46627,7 @@
 	};
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46518,7 +46727,7 @@
 	};
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46617,7 +46826,7 @@
 	};
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46730,7 +46939,7 @@
 	};
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -46779,7 +46988,7 @@
 	};
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -46846,7 +47055,7 @@
 	};
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46855,51 +47064,51 @@
 	    value: true
 	});
 	
-	var _project_routes = __webpack_require__(61);
+	var _project_routes = __webpack_require__(63);
 	
 	var _project_routes2 = _interopRequireDefault(_project_routes);
 	
-	var _gourp_routes = __webpack_require__(62);
+	var _gourp_routes = __webpack_require__(64);
 	
 	var _gourp_routes2 = _interopRequireDefault(_gourp_routes);
 	
-	var _mail_tmpl_routes = __webpack_require__(63);
+	var _mail_tmpl_routes = __webpack_require__(65);
 	
 	var _mail_tmpl_routes2 = _interopRequireDefault(_mail_tmpl_routes);
 	
-	var _sys_project_view_routes = __webpack_require__(64);
+	var _sys_project_view_routes = __webpack_require__(66);
 	
 	var _sys_project_view_routes2 = _interopRequireDefault(_sys_project_view_routes);
 	
-	var _task_routes = __webpack_require__(65);
+	var _task_routes = __webpack_require__(67);
 	
 	var _task_routes2 = _interopRequireDefault(_task_routes);
 	
-	var _review_routes = __webpack_require__(66);
+	var _review_routes = __webpack_require__(68);
 	
 	var _review_routes2 = _interopRequireDefault(_review_routes);
 	
-	var _expert_routes = __webpack_require__(67);
+	var _expert_routes = __webpack_require__(69);
 	
 	var _expert_routes2 = _interopRequireDefault(_expert_routes);
 	
-	var _org_routes = __webpack_require__(68);
+	var _org_routes = __webpack_require__(70);
 	
 	var _org_routes2 = _interopRequireDefault(_org_routes);
 	
-	var _review_tmpl_routes = __webpack_require__(69);
+	var _review_tmpl_routes = __webpack_require__(71);
 	
 	var _review_tmpl_routes2 = _interopRequireDefault(_review_tmpl_routes);
 	
-	var _exp_task_routes = __webpack_require__(70);
+	var _exp_task_routes = __webpack_require__(72);
 	
 	var _exp_task_routes2 = _interopRequireDefault(_exp_task_routes);
 	
-	var _sys_setting_routes = __webpack_require__(71);
+	var _sys_setting_routes = __webpack_require__(73);
 	
 	var _sys_setting_routes2 = _interopRequireDefault(_sys_setting_routes);
 	
-	var _relation_project_routes = __webpack_require__(72);
+	var _relation_project_routes = __webpack_require__(74);
 	
 	var _relation_project_routes2 = _interopRequireDefault(_relation_project_routes);
 	
@@ -46908,7 +47117,7 @@
 	exports.default = angular.module('tpr.routes', []).config(_project_routes2.default).config(_gourp_routes2.default).config(_mail_tmpl_routes2.default).config(_sys_project_view_routes2.default).config(_task_routes2.default).config(_expert_routes2.default).config(_review_routes2.default).config(_org_routes2.default).config(_review_tmpl_routes2.default).config(_exp_task_routes2.default).config(_sys_setting_routes2.default).config(_relation_project_routes2.default);
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46942,7 +47151,7 @@
 	};
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46985,7 +47194,7 @@
 	};
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47003,7 +47212,7 @@
 	};
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47029,7 +47238,7 @@
 	};
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47051,7 +47260,7 @@
 	};
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47076,13 +47285,14 @@
 	        url: '/step2',
 	        templateUrl: 'templates/exp-review/review_edit_step2.html'
 	    }).state('reviewDetail', {
-	        url: '/experts/review/detail/:projectId',
-	        templateUrl: 'templates/exp-review/review_detail.html'
+	        url: '/experts/review/detail/:projectId?expertId',
+	        templateUrl: 'templates/exp-review/review_detail.html',
+	        controller: 'ExpReviewDetailCtrl'
 	    });
 	};
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47103,7 +47313,7 @@
 	};
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47127,7 +47337,7 @@
 	};
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47153,7 +47363,7 @@
 	};
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47183,7 +47393,7 @@
 	};
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47223,7 +47433,7 @@
 	};
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47241,7 +47451,7 @@
 	};
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47254,7 +47464,7 @@
 	};
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47290,131 +47500,28 @@
 	    return function (roleId) {
 	        return ['机构账号', '专家账号', '管理账号'][roleId];
 	    };
+	}).filter('gender', function () {
+	    return function (genderId) {
+	        if (_.isNull(genderId) || _.isUndefined(genderId)) {
+	            return '--';
+	        } else {
+	            return ['女', '男'][genderId];
+	        }
+	    };
+	}).filter('age', function () {
+	    return function (birthday) {
+	        if (_.isNull(birthday) || _.isUndefined(birthday)) {
+	            return '--';
+	        }
+	        if (_.isNumber(birthday)) {
+	            return new Date().getFullYear() - new Date(birthday).getFullYear();
+	        } else {
+	            return new Date().getFullYear() - birthday.getFullYear();
+	        }
+	    };
 	});
 	
 	exports.default = filters;
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports) {
-
-	/*
-	 AngularJS v1.6.8
-	 (c) 2010-2017 Google, Inc. http://angularjs.org
-	 License: MIT
-	*/
-	(function(s,d){'use strict';function J(d){var k=[];w(k,B).chars(d);return k.join("")}var x=d.$$minErr("$sanitize"),C,k,D,E,p,B,F,G,w;d.module("ngSanitize",[]).provider("$sanitize",function(){function g(a,e){var c={},b=a.split(","),f;for(f=0;f<b.length;f++)c[e?p(b[f]):b[f]]=!0;return c}function K(a){for(var e={},c=0,b=a.length;c<b;c++){var f=a[c];e[f.name]=f.value}return e}function H(a){return a.replace(/&/g,"&amp;").replace(L,function(a){var c=a.charCodeAt(0);a=a.charCodeAt(1);return"&#"+(1024*(c-
-	55296)+(a-56320)+65536)+";"}).replace(M,function(a){return"&#"+a.charCodeAt(0)+";"}).replace(/</g,"&lt;").replace(/>/g,"&gt;")}function I(a){for(;a;){if(a.nodeType===s.Node.ELEMENT_NODE)for(var e=a.attributes,c=0,b=e.length;c<b;c++){var f=e[c],h=f.name.toLowerCase();if("xmlns:ns1"===h||0===h.lastIndexOf("ns1:",0))a.removeAttributeNode(f),c--,b--}(e=a.firstChild)&&I(e);a=t("nextSibling",a)}}function t(a,e){var c=e[a];if(c&&F.call(e,c))throw x("elclob",e.outerHTML||e.outerText);return c}var y=!1;this.$get=
-	["$$sanitizeUri",function(a){y&&k(n,z);return function(e){var c=[];G(e,w(c,function(b,c){return!/^unsafe:/.test(a(b,c))}));return c.join("")}}];this.enableSvg=function(a){return E(a)?(y=a,this):y};C=d.bind;k=d.extend;D=d.forEach;E=d.isDefined;p=d.lowercase;B=d.noop;G=function(a,e){null===a||void 0===a?a="":"string"!==typeof a&&(a=""+a);var c=u(a);if(!c)return"";var b=5;do{if(0===b)throw x("uinput");b--;a=c.innerHTML;c=u(a)}while(a!==c.innerHTML);for(b=c.firstChild;b;){switch(b.nodeType){case 1:e.start(b.nodeName.toLowerCase(),
-	K(b.attributes));break;case 3:e.chars(b.textContent)}var f;if(!(f=b.firstChild)&&(1===b.nodeType&&e.end(b.nodeName.toLowerCase()),f=t("nextSibling",b),!f))for(;null==f;){b=t("parentNode",b);if(b===c)break;f=t("nextSibling",b);1===b.nodeType&&e.end(b.nodeName.toLowerCase())}b=f}for(;b=c.firstChild;)c.removeChild(b)};w=function(a,e){var c=!1,b=C(a,a.push);return{start:function(a,h){a=p(a);!c&&A[a]&&(c=a);c||!0!==n[a]||(b("<"),b(a),D(h,function(c,h){var d=p(h),g="img"===a&&"src"===d||"background"===
-	d;!0!==v[d]||!0===m[d]&&!e(c,g)||(b(" "),b(h),b('="'),b(H(c)),b('"'))}),b(">"))},end:function(a){a=p(a);c||!0!==n[a]||!0===h[a]||(b("</"),b(a),b(">"));a==c&&(c=!1)},chars:function(a){c||b(H(a))}}};F=s.Node.prototype.contains||function(a){return!!(this.compareDocumentPosition(a)&16)};var L=/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,M=/([^#-~ |!])/g,h=g("area,br,col,hr,img,wbr"),q=g("colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr"),l=g("rp,rt"),r=k({},l,q),q=k({},q,g("address,article,aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,section,table,ul")),
-	l=k({},l,g("a,abbr,acronym,b,bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s,samp,small,span,strike,strong,sub,sup,time,tt,u,var")),z=g("circle,defs,desc,ellipse,font-face,font-face-name,font-face-src,g,glyph,hkern,image,linearGradient,line,marker,metadata,missing-glyph,mpath,path,polygon,polyline,radialGradient,rect,stop,svg,switch,text,title,tspan"),A=g("script,style"),n=k({},h,q,l,r),m=g("background,cite,href,longdesc,src,xlink:href"),r=g("abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,scope,scrolling,shape,size,span,start,summary,tabindex,target,title,type,valign,value,vspace,width"),
-	l=g("accent-height,accumulate,additive,alphabetic,arabic-form,ascent,baseProfile,bbox,begin,by,calcMode,cap-height,class,color,color-rendering,content,cx,cy,d,dx,dy,descent,display,dur,end,fill,fill-rule,font-family,font-size,font-stretch,font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,gradientUnits,hanging,height,horiz-adv-x,horiz-origin-x,ideographic,k,keyPoints,keySplines,keyTimes,lang,marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,mathematical,max,min,offset,opacity,orient,origin,overline-position,overline-thickness,panose-1,path,pathLength,points,preserveAspectRatio,r,refX,refY,repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,rotate,rx,ry,slope,stemh,stemv,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,systemLanguage,target,text-anchor,to,transform,type,u1,u2,underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,zoomAndPan",
-	!0),v=k({},m,l,r),u=function(a,e){function c(b){b="<remove></remove>"+b;try{var c=(new a.DOMParser).parseFromString(b,"text/html").body;c.firstChild.remove();return c}catch(e){}}function b(a){d.innerHTML=a;e.documentMode&&I(d);return d}var h;if(e&&e.implementation)h=e.implementation.createHTMLDocument("inert");else throw x("noinert");var d=(h.documentElement||h.getDocumentElement()).querySelector("body");d.innerHTML='<svg><g onload="this.parentNode.remove()"></g></svg>';return d.querySelector("svg")?
-	(d.innerHTML='<svg><p><style><img src="</style><img src=x onerror=alert(1)//">',d.querySelector("svg img")?c:b):function(b){b="<remove></remove>"+b;try{b=encodeURI(b)}catch(c){return}var e=new a.XMLHttpRequest;e.responseType="document";e.open("GET","data:text/html;charset=utf-8,"+b,!1);e.send(null);b=e.response.body;b.firstChild.remove();return b}}(s,s.document)}).info({angularVersion:"1.6.8"});d.module("ngSanitize").filter("linky",["$sanitize",function(g){var k=/((s?ftp|https?):\/\/|(www\.)|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019]/i,
-	p=/^mailto:/i,s=d.$$minErr("linky"),t=d.isDefined,y=d.isFunction,w=d.isObject,x=d.isString;return function(d,q,l){function r(a){a&&m.push(J(a))}function z(a,d){var c,b=A(a);m.push("<a ");for(c in b)m.push(c+'="'+b[c]+'" ');!t(q)||"target"in b||m.push('target="',q,'" ');m.push('href="',a.replace(/"/g,"&quot;"),'">');r(d);m.push("</a>")}if(null==d||""===d)return d;if(!x(d))throw s("notstring",d);for(var A=y(l)?l:w(l)?function(){return l}:function(){return{}},n=d,m=[],v,u;d=n.match(k);)v=d[0],d[2]||
-	d[4]||(v=(d[3]?"http://":"mailto:")+v),u=d.index,r(n.substr(0,u)),z(v,d[0].replace(p,"")),n=n.substring(u+d[0].length);r(n);return g(m.join(""))}}])})(window,window.angular);
-	//# sourceMappingURL=angular-sanitize.min.js.map
-
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	exports.default = function (Api) {
-	    return {
-	        /**
-	         * 依照查询条件查询一条evaluationTemplateLevel记录
-	         * @param params {object} 查询条件
-	         * @return {promise}
-	         */
-	        getOneByQuery: function getOneByQuery(params) {
-	            params = params || {};
-	            params['page'] = 1;
-	            params['rows'] = 1;
-	            return Api.get('/evaluationTemplateLevel/select', params).then(function (data) {
-	                return data[1] ? data[1][0] || {} : {};
-	            });
-	        },
-	        /**
-	         * 查询evaluationTemplateLevel列表
-	         * @param params {object} 查询条件
-	         * @param page {number} 页数
-	         * @param rows {number} 每页条目数
-	         * @return {promise}
-	         */
-	        getListByQuery: function getListByQuery(params, page, rows) {
-	            params = params || {};
-	            params['page'] = page || 1;
-	            params['rows'] = rows || 10;
-	            return Api.get('/evaluationTemplateLevel/select', params);
-	        },
-	        /**
-	         * 获取一条evaluationTemplateLevel记录
-	         * @param id {number} 用于判断唯一值的ID
-	         * @return promise
-	         */
-	        getOne: function getOne(id) {
-	            return Api.get('/evaluationTemplateLevel/select/' + id).then(function (data) {
-	                return data[1];
-	            });
-	        },
-	        /**
-	         * 更新一条evaluationTemplateLevel记录
-	         * @param id {number} 用于判断唯一值的ID
-	         * @param updateInfo {object} 提交信息
-	         * @return promise
-	         */
-	        updateOne: function updateOne(id, updateInfo) {
-	            return Api.post('/evaluationTemplateLevel/update/' + id, updateInfo).then(function (data) {
-	                return data[1];
-	            });
-	        },
-	        /**
-	         * 删除一条evaluationTemplateLevel记录
-	         * @param id {number} 用于判断唯一值的ID
-	         * @return promise
-	         */
-	        deleteOne: function deleteOne(id) {
-	            return Api.get('/evaluationTemplateLevel/delete/' + id).then(function (data) {
-	                return data[1];
-	            });
-	        },
-	        /**
-	         * 创建一条evaluationTemplateLevel记录
-	         * @param updateInfo {object} 提交信息
-	         * @return promise
-	         */
-	        createOne: function createOne(updateInfo) {
-	            return Api.post('/evaluationTemplateLevel/insert', updateInfo).then(function (data) {
-	                return data[1];
-	            });
-	        },
-	        /**
-	         * 更新或创建一条evaluationTemplateLevel记录
-	         * @param pkey {string} 用于判断唯一值的键名
-	         * @param updateInfo {object} 提交信息
-	         * @return promise
-	         */
-	        upsetOne: function upsetOne(pkey, updateInfo) {
-	            if (updateInfo[pkey]) {
-	                return this.updateOne(updateInfo[pkey], updateInfo);
-	            } else {
-	                return this.createOne(updateInfo).then(function (data) {
-	                    updateInfo[pkey] = data[pkey];
-	                    return data;
-	                });
-	            }
-	        }
-	
-	    };
-	};
 
 /***/ })
 /******/ ]);

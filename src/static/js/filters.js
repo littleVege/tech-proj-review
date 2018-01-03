@@ -24,7 +24,29 @@ filters
             return ['机构账号','专家账号','管理账号'][roleId]
         }
     })
+    .filter('gender',()=>{
+        return (genderId) => {
+            if (_.isNull(genderId) || _.isUndefined(genderId)) {
+                return '--'
+            } else {
+                return ['女','男'][genderId];
+            }
 
+        }
+    })
+    .filter('age',()=>{
+        return (birthday) => {
+            if (_.isNull(birthday) || _.isUndefined(birthday)) {
+                return '--'
+            }
+            if (_.isNumber(birthday)) {
+                return new Date().getFullYear()-new Date(birthday).getFullYear();
+            } else {
+                return new Date().getFullYear()-birthday.getFullYear();
+            }
+
+        }
+    })
 
 ;
 

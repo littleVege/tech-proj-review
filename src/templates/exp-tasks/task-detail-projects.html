@@ -1,3 +1,15 @@
+<div class="query-action-wrapper">
+
+    <div class="form-item">
+        <label>项目状态</label>
+        <ul>
+            <li ng-class="queryInfo.evaluationStatus == null && 'active'" ng-click="setStatus(null)">全部</li>
+            <li ng-class="queryInfo.evaluationStatus == 0 && 'active'" ng-click="setStatus(0)">待评估</li>
+            <li ng-class="queryInfo.evaluationStatus == 1 && 'active'" ng-click="setStatus(1)">已评估</li>
+        </ul>
+    </div>
+</div>
+
 <table class="table">
     <thead>
     <tr>
@@ -16,12 +28,16 @@
         <td>{{$index+1}}</td>
         <td>{{i.projectSerialNumber}}</td>
         <td>{{i.name}}</td>
-        <td>{{i.orgId}}</td>
+        <td>{{i.orgName}}</td>
         <td>{{i.manager}}</td>
-        <td>{{i.categoryId}}</td>
+        <td>{{i.categoryId | category}}</td>
         <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
-        <td>
+        <td ng-if="i.projectStatus == 3">
             <button class="btn btn-clear btn-sm" ui-sref="reviewEdit.step1({projectId:i.id,expertId:$root.User.expert.id,from:fromLocation})">评估</button>
+        </td>
+        <td ng-if="i.projectStatus == 4">
+            <button class="btn btn-clear btn-sm" ui-sref="reviewDetail({projectId:i.id,expertId:$root.User.expert.id})">查看</button>
+            <button class="btn btn-clear btn-sm" ui-sref="reviewEdit.step1({projectId:i.id,expertId:$root.User.expert.id,from:fromLocation})">重新评估</button>
         </td>
     </tr>
     </tbody>

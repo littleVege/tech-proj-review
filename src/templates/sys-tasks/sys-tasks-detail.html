@@ -50,13 +50,13 @@
                 <tr ng-repeat="i in list">
                     <td>{{$index+1}}</td>
                     <td>{{i.name}}</td>
-                    <td>{{i.majorCategoryId}}</td>
+                    <td>{{i.majorCategoryId | category}}</td>
                     <td>{{i.projectCount || 0}}</td>
                     <td>{{i.addedDate | date:'yyyy-MM-dd' }}</td>
                     <td>{{i.updatedDate | date:'yyyy-MM-dd' }}</td>
                     <td>
-                        <button class="btn btn-default btn-sm" ui-sref="groupEdit.step1({groupId:i.id,taskId:taskId})">编辑</button>
-                        <button class="btn btn-default btn-sm" ui-sref="groupDetail.projects({groupId:i.id})">查看详情</button>
+                        <button class="btn btn-clear btn-sm" ui-sref="groupEdit.step1({groupId:i.id,taskId:taskId})">编辑</button>
+                        <button class="btn btn-clear btn-sm" ui-sref="groupDetail.projects({groupId:i.id})">查看详情</button>
                     </td>
                 </tr>
             </tbody>

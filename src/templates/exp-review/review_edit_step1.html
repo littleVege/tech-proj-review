@@ -38,6 +38,18 @@
     </tbody>
 </table>
 <h4>项目结论</h4>
+<div class="form-item item-with-unit" style="width: 200px">
+    <label>总分</label>
+    <input class="form-control" ng-model="updateInfo.evaluationScore">
+    <span class="unit">分</span>
+</div>
+<div class="form-item" style="width: 300px">
+    <label>建议</label>
+    <select class="form-control" ng-model="updateInfo.evaluationLevel">
+        <option value="">请选择建议</option>
+        <option ng-repeat="i in templates.level" ng-value="i.evaluationLevel">{{i.evaluationLevel}} <span ng-if="i.remark">{{i.remark}}</span></option>
+    </select>
+</div>
 <h4>评价意见或建议</h4>
 <p class="description">
     （如建议完善后入库，请提出具体建议；如提出同类项目合并调整后入库，请指出项目编号和名称及调整建议）

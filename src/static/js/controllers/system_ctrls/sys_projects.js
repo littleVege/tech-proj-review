@@ -42,9 +42,6 @@ let sysProjectCollectCtrl = ($scope,$stateParams,Project,ProjectExpertEvaluation
     ProjectExpertEvaluation.getListByQuery({projectId:projectId,evaluationStatus:1})
         .then(function (data) {
             $scope.reviews = data[1];
-            _.each($scope.reviews,i=>{
-                i.evaluationSuggestion =  $sce.trustAsHtml(i.evaluationSuggestion)
-            })
         });
 
 
