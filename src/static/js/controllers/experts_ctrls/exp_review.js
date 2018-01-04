@@ -295,7 +295,12 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
     }
 
     $scope.goBack = function () {
-        window.location.hash = $stateParams['from'];
+        if ($stateParams['from']) {
+            window.location.hash = $stateParams['from'];
+        } else {
+            $state.go('review');
+        }
+
     }
 };
 
