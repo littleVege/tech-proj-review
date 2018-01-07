@@ -3,6 +3,9 @@ filters
     .filter('projectStatus',()=> {
         return (statusId)=> ['','待提交','待评估','评估中','评估结束'][statusId]
     })
+    .filter('expProjectStatus',()=> {
+        return (statusId)=> ['','待审核','待审核','正在评估','评估结束'][statusId]
+    })
     .filter('orgType',()=> {
         return (statusId)=> ['','国家部门','地方科技厅（委、局）','高校院所','企业','其他'][statusId]
     })
@@ -45,6 +48,20 @@ filters
                 return new Date().getFullYear()-birthday.getFullYear();
             }
 
+        }
+    })
+    .filter('evaluationStatus',()=>{
+        return (statusId) => {
+            if (_.isNull(statusId) || _.isUndefined(statusId)) {
+                return '待评估'
+            }
+            if (_.isNumber(statusId)) {
+                if(statusId == 1) {
+                    return '已评估'
+                } else {
+                    return '待评估'
+                }
+            }
         }
     })
 

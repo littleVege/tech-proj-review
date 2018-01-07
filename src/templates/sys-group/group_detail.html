@@ -19,5 +19,8 @@
             <li role="presentation" ui-sref="groupDetail.projects"  ui-sref-active="active"><a ui-sref-active="active">项目列表</a></li>
         </ul>
         <div class="nav-content" ui-view></div>
+        <div class="page-action" style="margin-top: 20px">
+            <button class="btn btn-default" ui-sref="taskDetail({taskId:taskId})">返回</button>
+        </div>
     </div>
 </div>

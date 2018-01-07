@@ -23,7 +23,7 @@ export default ($stateProvider, $urlRouterProvider) => {
             templateUrl:'templates/sys-group/group-edit-step3.html',
         })
         .state('groupDetail',{
-            url:'/sys/group/detail/:groupId',
+            url:'/sys/group/detail/:groupId?taskId',
             templateUrl:'templates/sys-group/group_detail.html',
             controller:'SysGroupDetailCtrl'
         })

@@ -86,13 +86,20 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
     let projectId = $stateParams['projectId'];
     let expertId = $stateParams['expertId'];
     let from = $stateParams['from'];
-    ProjectExpertEvaluation
-        .getOneByQuery({projectId:projectId,expertId:expertId})
+
+    let doQueryExpEval = function () {
+        return ProjectExpertEvaluation
+            .getOneByQuery({projectId:projectId,expertId:expertId})
+            .then(function (evalInfo) {
+                $scope.updateInfo = evalInfo;
+            });
+    }
+    doQueryExpEval()
         .then(function (evalInfo) {
-            $scope.updateInfo = evalInfo;
             $scope.updateInfo['expertId'] = +expertId;
             $scope.updateInfo['projectId'] = +projectId;
         });
+
 
     function setScore(items) {
         _.each(items,function (i) {
@@ -111,6 +118,36 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
         })
 
     }
+
+    $scope._checkVal = function (val,maxVal) {
+        if (val && val > maxVal) {
+            dialogs.success(`输入分数不能超过${maxVal}`,1000,'error');
+            return false;
+        } else {
+            return true;
+        }
+    }
+    $scope.checkVal = function (item) {
+        let flag = $scope._checkVal(item.score,item.maxScore);
+        if (!flag) {
+            item.score = null;
+        }
+        $scope.sumVals();
+    };
+
+
+    $scope.sumVals = function () {
+        $scope.updateInfo.evaluationScore = _.reduce($scope.reformatedItems,function (r,i) {
+            if (i.score) r+=i.score;
+            if (i.children) {
+                _.each(i.children,c=>{
+                    if (c.score) r+=c.score;
+                })
+            }
+            return r;
+        },0)
+    };
+
     ProjectExpertEvaluationDetail
         .getListByQuery({projectId:projectId,expertId:expertId},1,100)
         .then(function (detail) {
@@ -181,7 +218,7 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
     };
 
     $scope.submitAndToStepTwo = () => {
-        submitStepOne().then(()=>{
+        submitStepOne().then(()=>doQueryExpEval()).then(()=>{
             $state.go('reviewEdit.step2');
         })
     };
@@ -241,7 +278,7 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
                 evaluationStatus:1
             })
             .then(function() {
-                window.location.hash = $stateParams['from'];
+                $scope.goBack();
             })
     };
     $scope.checkedProjects = [];

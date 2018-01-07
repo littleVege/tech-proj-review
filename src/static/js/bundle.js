@@ -85,17 +85,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var app = angular.module('tpr', ['ui.router', 'ui.bootstrap', 'ngFileUpload', 'ngSanitize', _controllers2.default.name, _directives2.default.name, _services2.default.name, _routes2.default.name, _filters2.default.name]).run(function ($rootScope, Category, Project, dialogs, $state) {
-	    // $rootScope.User = {
-	    //     userName:'admin',
-	    //     type:0
-	    // };
-	    // $rootScope.User = {
-	    //     userName:'expert1',
-	    //     type:1,
-	    //     expertId:2,
-	    //     expertName:'eee',
-	    //     token:'45D44B9087274EB08F1F1CE295630A15'
-	    // };
 	    if (localStorage.__tpr_user) {
 	        $rootScope.User = JSON.parse(localStorage.__tpr_user);
 	    } else {
@@ -132,6 +121,18 @@
 	            }
 	        });
 	    };
+	
+	    switch ($rootScope.User.roleId) {
+	        case 1:
+	            $state.go('projects.unchecked');
+	            break;
+	        case 2:
+	            $state.go('sysProjs');
+	            break;
+	        case 3:
+	            $state.go('expTaskList');
+	            break;
+	    }
 	}).filter('projectStatus', function () {
 	    return function (statusId) {
 	        return ['', '待提交', '待评估', '评估中', '评估结束'][statusId];
@@ -42662,8 +42663,13 @@
 	    var projectId = $stateParams['projectId'];
 	    var expertId = $stateParams['expertId'];
 	    var from = $stateParams['from'];
-	    ProjectExpertEvaluation.getOneByQuery({ projectId: projectId, expertId: expertId }).then(function (evalInfo) {
-	        $scope.updateInfo = evalInfo;
+	
+	    var doQueryExpEval = function doQueryExpEval() {
+	        return ProjectExpertEvaluation.getOneByQuery({ projectId: projectId, expertId: expertId }).then(function (evalInfo) {
+	            $scope.updateInfo = evalInfo;
+	        });
+	    };
+	    doQueryExpEval().then(function (evalInfo) {
 	        $scope.updateInfo['expertId'] = +expertId;
 	        $scope.updateInfo['projectId'] = +projectId;
 	    });
@@ -42688,6 +42694,35 @@
 	            }
 	        });
 	    }
+	
+	    $scope._checkVal = function (val, maxVal) {
+	        if (val && val > maxVal) {
+	            dialogs.success('\u8F93\u5165\u5206\u6570\u4E0D\u80FD\u8D85\u8FC7' + maxVal, 1000, 'error');
+	            return false;
+	        } else {
+	            return true;
+	        }
+	    };
+	    $scope.checkVal = function (item) {
+	        var flag = $scope._checkVal(item.score, item.maxScore);
+	        if (!flag) {
+	            item.score = null;
+	        }
+	        $scope.sumVals();
+	    };
+	
+	    $scope.sumVals = function () {
+	        $scope.updateInfo.evaluationScore = _.reduce($scope.reformatedItems, function (r, i) {
+	            if (i.score) r += i.score;
+	            if (i.children) {
+	                _.each(i.children, function (c) {
+	                    if (c.score) r += c.score;
+	                });
+	            }
+	            return r;
+	        }, 0);
+	    };
+	
 	    ProjectExpertEvaluationDetail.getListByQuery({ projectId: projectId, expertId: expertId }, 1, 100).then(function (detail) {
 	        $scope.evalDetail = detail[1];
 	    }).then(function () {
@@ -42752,6 +42787,8 @@
 	
 	    $scope.submitAndToStepTwo = function () {
 	        submitStepOne().then(function () {
+	            return doQueryExpEval();
+	        }).then(function () {
 	            $state.go('reviewEdit.step2');
 	        });
 	    };
@@ -42804,7 +42841,7 @@
 	            dupSuggestion: $scope.updateInfo.dupSuggestion,
 	            evaluationStatus: 1
 	        }).then(function () {
-	            window.location.hash = $stateParams['from'];
+	            $scope.goBack();
 	        });
 	    };
 	    $scope.checkedProjects = [];
@@ -43114,7 +43151,9 @@
 	};
 	
 	var groupDetailCtrl = function groupDetailCtrl($scope, $stateParams, ProjectGroup, Utils, Project) {
+	    var taskId = $stateParams['taskId'];
 	    var groupId = $stateParams['groupId'];
+	    $scope.taskId = taskId;
 	    ProjectGroup.getOne(groupId).then(function (data) {
 	        $scope.groupInfo = data;
 	    });
@@ -43202,6 +43241,10 @@
 	                $scope.queryInfo = { isSys: 1 };
 	                $scope.selectedProjects = {};
 	                $scope.pCount = 0;
+	                $scope.queryOrg = function () {
+	                    $scope.pageInfo.currentPage = 1;
+	                    $scope.pageChanged();
+	                };
 	                Utils.paginize($scope, function (page) {
 	                    return Project.getListByQuery($scope.queryInfo, page).then(function (data) {
 	                        $scope.allChecked = false;
@@ -43446,7 +43489,6 @@
 	    Utils.paginize($scope, function (page) {
 	        return Project.getListByQuery($scope.queryInfo, page);
 	    });
-	    $scope.pageChanged();
 	
 	    $scope.queryCate = function (cate) {
 	        if (cate) {
@@ -43471,6 +43513,13 @@
 	        $scope.pageInfo.currentPage = 1;
 	        $scope.pageChanged();
 	    };
+	
+	    $scope.queryOrg = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
+	
+	    $scope.pageChanged();
 	};
 	
 	var sysProjectCollectCtrl = function sysProjectCollectCtrl($scope, $stateParams, Project, ProjectExpertEvaluation, $sce, dialogs) {
@@ -44268,13 +44317,13 @@
 	    value: true
 	});
 	
-	exports.default = function ($filter) {
+	exports.default = function ($filter, Organization, $timeout) {
 	    return {
 	        restrict: 'E',
 	        templateUrl: 'templates/components/org-select.html',
 	        replace: true,
 	        scope: {
-	            selectedOrg: '=ngModel',
+	            selectedOrg: '=?ngModel',
 	            useName: '=?',
 	            multiple: '=?',
 	            onChange: '&?'
@@ -44283,6 +44332,24 @@
 	            $scope.__status = {
 	                dropdownOpen: false
 	            };
+	            $scope.queryInfo = { rows: 1000 };
+	            var getOrgs = function getOrgs() {
+	                Organization.getListByQuery($scope.queryInfo).then(function (data) {
+	                    var orgs = data[1];
+	                    $scope.orgsRaw = data[1];
+	                    orgs = _.groupBy(orgs, function (i) {
+	                        return i.initialism;
+	                    });
+	                    $scope.orgs = orgs;
+	                });
+	            };
+	            getOrgs();
+	
+	            $scope.selectArea = function (area) {
+	                $scope.queryInfo.area = area;
+	                getOrgs();
+	            };
+	
 	            $scope.toggleDropdown = function () {
 	                $scope.__status.dropdownOpen = !$scope.__status.dropdownOpen;
 	            };
@@ -44291,6 +44358,16 @@
 	                $scope._selectedOrg = org;
 	                $scope.selectedOrg = $scope.useName ? org.name : org.id;
 	                $scope.onChange && $scope.onChange();
+	                $scope.toggleDropdown();
+	            };
+	
+	            $scope.cancelOrgSelect = function () {
+	                $scope._selectedOrg = null;
+	                $scope.selectedOrg = null;
+	                $timeout(function () {
+	                    $scope.onChange && $scope.onChange();
+	                }, 100);
+	
 	                $scope.toggleDropdown();
 	            };
 	
@@ -47031,9 +47108,7 @@
 	                closeOnConfirm: _.isUndefined(autoComfirm) ? false : autoComfirm,
 	                closeOnCancel: true
 	            }, function (isConfirm) {
-	                if (isConfirm) {
-	                    defer.resolve(isConfirm);
-	                }
+	                defer.resolve(isConfirm);
 	            });
 	            return defer.promise;
 	        },
@@ -47183,7 +47258,7 @@
 	        url: '/sys/group/edit/step3',
 	        templateUrl: 'templates/sys-group/group-edit-step3.html'
 	    }).state('groupDetail', {
-	        url: '/sys/group/detail/:groupId',
+	        url: '/sys/group/detail/:groupId?taskId',
 	        templateUrl: 'templates/sys-group/group_detail.html',
 	        controller: 'SysGroupDetailCtrl'
 	    }).state('groupDetail.experts', {
@@ -47481,6 +47556,10 @@
 	    return function (statusId) {
 	        return ['', '待提交', '待评估', '评估中', '评估结束'][statusId];
 	    };
+	}).filter('expProjectStatus', function () {
+	    return function (statusId) {
+	        return ['', '待审核', '待审核', '正在评估', '评估结束'][statusId];
+	    };
 	}).filter('orgType', function () {
 	    return function (statusId) {
 	        return ['', '国家部门', '地方科技厅（委、局）', '高校院所', '企业', '其他'][statusId];
@@ -47521,6 +47600,19 @@
 	            return new Date().getFullYear() - new Date(birthday).getFullYear();
 	        } else {
 	            return new Date().getFullYear() - birthday.getFullYear();
+	        }
+	    };
+	}).filter('evaluationStatus', function () {
+	    return function (statusId) {
+	        if (_.isNull(statusId) || _.isUndefined(statusId)) {
+	            return '待评估';
+	        }
+	        if (_.isNumber(statusId)) {
+	            if (statusId == 1) {
+	                return '已评估';
+	            } else {
+	                return '待评估';
+	            }
 	        }
 	    };
 	});

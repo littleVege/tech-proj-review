@@ -56,7 +56,7 @@
                     <td>{{i.updatedDate | date:'yyyy-MM-dd' }}</td>
                     <td>
                         <button class="btn btn-clear btn-sm" ui-sref="groupEdit.step1({groupId:i.id,taskId:taskId})">编辑</button>
-                        <button class="btn btn-clear btn-sm" ui-sref="groupDetail.projects({groupId:i.id})">查看详情</button>
+                        <button class="btn btn-clear btn-sm" ui-sref="groupDetail.projects({groupId:i.id,taskId:taskId})">查看详情</button>
                     </td>
                 </tr>
             </tbody>

@@ -1,35 +1,27 @@
 <div class="org-select-wrapper">
-    <button class="btn btn-line btn-block" ng-click="toggleDropdown()">{{ _selectedOrg ? _selectedOrg.name : '全部机构' }}</button>
+    <button class="btn btn-line btn-block" title="{{_selectedOrg ? _selectedOrg.name : '全部机构'}}" ng-click="toggleDropdown()">{{ _selectedOrg ? _selectedOrg.name : '全部机构' }}</button>
     <div class="org-select-dropdown" ng-if="__status.dropdownOpen">
         <div class="org-dropdown-header">
             <ul class="area-change-list">
-                <li>全部</li>
-                <li class="active">长三角</li>
-                <li>珠三角</li>
-                <li>京津冀</li>
-                <li>东北</li>
-                <li>西部</li>
-                <li>中部</li>
-                <li>其它</li>
+                <li ng-class="queryInfo.area == null && 'active'" ng-click="selectArea(null)">全部</li>
+                <li ng-class="queryInfo.area == 1 && 'active'" ng-click="selectArea(1)">长三角</li>
+                <li ng-class="queryInfo.area == 2 && 'active'" ng-click="selectArea(2)">珠三角</li>
+                <li ng-class="queryInfo.area == 3 && 'active'" ng-click="selectArea(3)">京津冀</li>
+                <li ng-class="queryInfo.area == 4 && 'active'" ng-click="selectArea(4)">东北</li>
+                <li ng-class="queryInfo.area == 5 && 'active'" ng-click="selectArea(5)">西部</li>
+                <li ng-class="queryInfo.area == 6 && 'active'" ng-click="selectArea(6)">中部</li>
+                <li ng-class="queryInfo.area == 0 && 'active'" ng-click="selectArea(0)">其它</li>
             </ul>
         </div>
         <div class="org-dropdown-content">
-            <div class="org-select-row" ng-repeat="i in [0,1,2,3]">
-                <label>A</label>
+            <div class="org-select-row">
+                <label>--</label>
+                <ul><li ng-click="cancelOrgSelect()">X 取消筛选</li></ul>
+            </div>
+            <div class="org-select-row" ng-repeat="(key,val) in orgs">
+                <label>{{key}}</label>
                 <ul>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">北京</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">西藏西藏西藏</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">南京</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
-                    <li ng-click="selectOrg({id:1,name:'haha'})">哈哈哈哈</li>
+                    <li ng-click="selectOrg(i)" ng-class="_selectedOrg.id == i.id && 'active'" ng-repeat="i in val">{{i.name}}</li>
                 </ul>
             </div>
 

@@ -20,17 +20,6 @@ let app = angular.module('tpr', [
         filters.name
     ])
     .run(function ($rootScope,Category,Project,dialogs,$state) {
-        // $rootScope.User = {
-        //     userName:'admin',
-        //     type:0
-        // };
-        // $rootScope.User = {
-        //     userName:'expert1',
-        //     type:1,
-        //     expertId:2,
-        //     expertName:'eee',
-        //     token:'45D44B9087274EB08F1F1CE295630A15'
-        // };
         if (localStorage.__tpr_user) {
             $rootScope.User = JSON.parse(localStorage.__tpr_user);
         } else {
@@ -77,7 +66,6 @@ let app = angular.module('tpr', [
             history.back();
         }
 
-
         $rootScope.projectSendBack = function(project) {
             dialogs.confirm('是否要退回项目',`请确认将退回项目${project.name}`,'确定','取消',true)
                 .then(function (confirm) {
@@ -89,6 +77,18 @@ let app = angular.module('tpr', [
                             })
                     }
                 })
+        }
+
+        switch ($rootScope.User.roleId) {
+            case 1:
+                $state.go('projects.unchecked');
+                break;
+            case 2:
+                $state.go('sysProjs');
+                break;
+            case 3:
+                $state.go('expTaskList');
+                break;
         }
     })
     .filter('projectStatus',()=> {

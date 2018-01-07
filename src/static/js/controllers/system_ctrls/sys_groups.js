@@ -25,7 +25,7 @@ let groupListCtrl = ($scope,ProjectGroup,Utils,$uibModal) => {
                 }
             }
         });
-    }
+    };
 
     $scope.removeGroup = function (groupInfo) {
         if (confirm('请确认是否要删除')) {
@@ -35,11 +35,13 @@ let groupListCtrl = ($scope,ProjectGroup,Utils,$uibModal) => {
                     $scope.pageChanged();
                 })
         }
-    }
+    };
 };
 
 let groupDetailCtrl = ($scope,$stateParams,ProjectGroup,Utils,Project) => {
+    let taskId = $stateParams['taskId'];
     let groupId = $stateParams['groupId'];
+    $scope.taskId = taskId;
     ProjectGroup.getOne(groupId)
         .then(function (data) {
             $scope.groupInfo = data;
@@ -139,6 +141,10 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
                 $scope.queryInfo = {isSys:1};
                 $scope.selectedProjects = {};
                 $scope.pCount = 0;
+                $scope.queryOrg = function () {
+                    $scope.pageInfo.currentPage = 1;
+                    $scope.pageChanged();
+                };
                 Utils.paginize($scope,function (page) {
                     return Project.getListByQuery($scope.queryInfo,page)
                         .then(function (data) {

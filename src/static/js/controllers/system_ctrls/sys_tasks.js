@@ -59,8 +59,6 @@ let taskDetailCtrl = ($scope,Task,Project,ProjectGroup,$stateParams,Utils) => {
         return ProjectGroup.getListByQuery({taskId:taskId},page)
     });
     $scope.pageChanged();
-
-
 };
 
 

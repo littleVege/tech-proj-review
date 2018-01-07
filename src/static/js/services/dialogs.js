@@ -29,9 +29,7 @@ export default ($uibModal,$q) => {
                     closeOnCancel: true
                 },
                 function(isConfirm){
-                    if (isConfirm) {
-                        defer.resolve(isConfirm);
-                    }
+                    defer.resolve(isConfirm);
                 });
             return defer.promise;
         },
@@ -42,7 +40,8 @@ export default ($uibModal,$q) => {
                 timer: timer || 2000,
                 showConfirmButton: false,
                 type:type || "success",
-            })
+            });
+
         },
         info:function (msg,timer,type) {
             swal({

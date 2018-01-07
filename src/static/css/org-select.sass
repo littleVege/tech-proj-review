@@ -2,6 +2,8 @@
   position: relative
   .btn-line
     border-radius: 0
+    overflow: hidden
+    text-overflow: ellipsis
   .org-select-dropdown
     width: 500px
     height: 300px
@@ -67,7 +69,7 @@
           font-size: 12px
           float: left
           cursor: pointer
-          &:hover,&.active
+          &:hover,&.active,&:active
             background: $color-blue
             color: #fff
 

@@ -530,16 +530,17 @@ hr {
       font-size: 16px;
       margin-top: 5px; }
 
-.info-table tr > td {
-  padding-bottom: 20px;
-  color: #646464;
-  font-size: 14px;
-  padding-right: 15px; }
-.info-table tr > td > label {
-  font-size: 14px;
-  margin-right: 10px;
-  color: #000;
-  font-weight: normal; }
+.info-table {
+  width: 100%; }
+  .info-table tr > td {
+    padding-bottom: 20px;
+    font-size: 14px;
+    padding-right: 15px; }
+  .info-table tr > td > label {
+    font-size: 14px;
+    margin-right: 10px;
+    color: #000;
+    font-weight: normal; }
 
 .text-view-item label {
   font-size: 14px;
@@ -557,7 +558,7 @@ hr {
     .review-timeline li:after {
       position: absolute;
       left: -5px;
-      top: -5px;
+      top: 2px;
       width: 10px;
       height: 10px;
       border-radius: 5px;
@@ -570,9 +571,14 @@ hr {
     color: #646464;
     font-weight: normal;
     margin: 0; }
+  .review-timeline .review-content .review-suggestion {
+    margin-top: 4px;
+    font-size: 14px; }
   .review-timeline .review-content .review-score {
     color: #646464;
-    margin-bottom: 0; }
+    margin-bottom: 0;
+    display: inline;
+    margin-right: 15px; }
   .review-timeline .review-label {
     width: 100px;
     padding-left: 20px;
@@ -810,7 +816,9 @@ aside.submenu {
 .org-select-wrapper {
   position: relative; }
   .org-select-wrapper .btn-line {
-    border-radius: 0; }
+    border-radius: 0;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   .org-select-wrapper .org-select-dropdown {
     width: 500px;
     height: 300px;
@@ -883,7 +891,7 @@ aside.submenu {
           font-size: 12px;
           float: left;
           cursor: pointer; }
-          .org-select-wrapper .org-select-dropdown .org-select-row ul li:hover, .org-select-wrapper .org-select-dropdown .org-select-row ul li.active {
+          .org-select-wrapper .org-select-dropdown .org-select-row ul li:hover, .org-select-wrapper .org-select-dropdown .org-select-row ul li.active, .org-select-wrapper .org-select-dropdown .org-select-row ul li:active {
             background: #4A90E2;
             color: #fff; }
 

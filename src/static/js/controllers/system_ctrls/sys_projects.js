@@ -3,7 +3,7 @@ let sysProjectsCtrl = ($scope,Project,Utils,$uibModal) => {
     Utils.paginize($scope,function (page) {
         return Project.getListByQuery($scope.queryInfo,page)
     });
-    $scope.pageChanged();
+
 
     $scope.queryCate = function (cate) {
         if (cate) {
@@ -28,7 +28,14 @@ let sysProjectsCtrl = ($scope,Project,Utils,$uibModal) => {
     $scope.search = function () {
         $scope.pageInfo.currentPage = 1;
         $scope.pageChanged();
-    }
+    };
+
+    $scope.queryOrg = function () {
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    };
+
+    $scope.pageChanged();
 };
 
 

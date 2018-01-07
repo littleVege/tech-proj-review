@@ -48,9 +48,11 @@
                         </div>
                         <div class="review-content">
                             <h5>{{i.evaluationTime | date: 'yyyy.MM.dd HH:mm'}}</h5>
-                            <p ng-bind-html="i.evaluationSuggestion"></p>
-                            <p class="review-score">评分：{{i.evaluationScore}}</p>
-                            <p class="review-score">等级：{{i.evaluationLevel}}</p>
+                            <div class="review-suggestion" ng-bind-html="i.evaluationSuggestion"></div>
+                            <div class="score-wrapper">
+                                <p class="review-score">评分：{{i.evaluationScore}}</p>
+                                <p class="review-score">等级：{{i.evaluationLevel}}</p>
+                            </div>
                         </div>
                     </li>
                 </ul>
