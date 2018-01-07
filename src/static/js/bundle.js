@@ -127,10 +127,10 @@
 	            $state.go('projects.unchecked');
 	            break;
 	        case 2:
-	            $state.go('sysProjs');
+	            $state.go('expTaskList');
 	            break;
 	        case 3:
-	            $state.go('expTaskList');
+	            $state.go('sysProjs');
 	            break;
 	    }
 	}).filter('projectStatus', function () {
