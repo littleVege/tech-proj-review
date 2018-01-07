@@ -42774,7 +42774,7 @@
 	    var submitStepOne = function submitStepOne() {
 	        var detail = getEvalDetailContent();
 	        $scope.updateInfo.evaluationScore = sumTotalScore(detail);
-	        return ProjectExpertEvaluation.setEvaluation($scope.updateInfo, detail).catch(function (e) {
+	        return ProjectExpertEvaluation.setEvaluation($scope.updateInfo, detail, expertId).catch(function (e) {
 	            dialogs.success(e.message, 2000, 'error');
 	        });
 	    };
@@ -42802,13 +42802,17 @@
 	    }).then(function () {
 	        Utils.paginize($scope, function (page) {
 	            return ProjectRelationList.getListByQuery($scope.relationListQueryInfo, page).then(function (data) {
-	                _.each(data[1], function (i) {
-	                    var found = _.find($scope.checkedProjects, function (p) {
-	                        return p.projectId == i.projectId;
+	                if (data && data[1]) {
+	                    _.each(data[1], function (i) {
+	                        var found = _.find($scope.checkedProjects, function (p) {
+	                            return p.projectId == i.projectId;
+	                        });
+	                        if (found) i.checked = true;
 	                    });
-	                    if (found) i.checked = true;
-	                });
+	                }
 	                return data;
+	            }).catch(function (e) {
+	                return console.log(e);
 	            });
 	        });
 	        $scope.pageChanged();
@@ -43215,7 +43219,7 @@
 	    $scope.submitStepOne = function () {
 	        ProjectGroup.upsetOne('id', $scope.groupInfo).then(function (data) {
 	            if (data && data.id) {
-	                ProjectGroup.getOne(groupId).then(function (data) {
+	                ProjectGroup.getOne(data.id).then(function (data) {
 	                    $scope.groupInfo = data;
 	                }).then(function () {
 	                    $scope.loadGroupProjects().then(function () {
@@ -43249,6 +43253,15 @@
 	                $scope.pCount = 0;
 	                $scope.queryOrg = function () {
 	                    $scope.pageInfo.currentPage = 1;
+	                    $scope.pageChanged();
+	                };
+	                $scope.queryCate = function (cate) {
+	                    if (cate) {
+	                        $scope.queryInfo.categoryId = cate.id;
+	                    } else {
+	                        $scope.queryInfo.categoryId = null;
+	                    }
+	
 	                    $scope.pageChanged();
 	                };
 	                Utils.paginize($scope, function (page) {
@@ -45802,8 +45815,9 @@
 	                });
 	            }
 	        },
-	        setEvaluation: function setEvaluation(main, detailContent) {
+	        setEvaluation: function setEvaluation(main, detailContent, expertId) {
 	            return Api.post('/projectExpertEvaluation/upsert', {
+	                expertId: expertId,
 	                data: JSON.stringify({
 	                    evaluation: main,
 	                    details: detailContent

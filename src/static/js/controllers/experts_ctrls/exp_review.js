@@ -205,7 +205,7 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
     const submitStepOne = function () {
         let detail = getEvalDetailContent();
         $scope.updateInfo.evaluationScore = sumTotalScore(detail);
-        return ProjectExpertEvaluation.setEvaluation($scope.updateInfo,detail)
+        return ProjectExpertEvaluation.setEvaluation($scope.updateInfo,detail,expertId)
             .catch(function (e) {
                 dialogs.success(e.message,2000,'error');
             })
@@ -235,12 +235,15 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
             Utils.paginize($scope,function (page) {
                 return ProjectRelationList.getListByQuery($scope.relationListQueryInfo,page)
                     .then(function(data) {
-                        _.each(data[1],i=>{
-                            let found = _.find($scope.checkedProjects,p=>p.projectId == i.projectId);
-                            if (found) i.checked = true;
-                        })
+                        if(data && data[1]) {
+                            _.each(data[1],i=>{
+                                let found = _.find($scope.checkedProjects,p=>p.projectId == i.projectId);
+                                if (found) i.checked = true;
+                            });
+                        }
                         return data;
-                    });
+                    })
+                    .catch(e=>console.log(e));
             });
             $scope.pageChanged();
         })

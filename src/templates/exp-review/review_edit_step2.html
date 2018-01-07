@@ -15,10 +15,10 @@
             <tbody>
             <tr ng-repeat="i in list">
                 <td>{{$index+1}}</td>
-                <td><a ng-href="{{i.sourceUrl}}">{{i.title}}</a></td>
-                <td>{{i.description}}</td>
-                <td>{{i.keywords}}</td>
-                <td>{{i.source}}</td>
+                <td><a ng-href="{{i.webProjsAll.sourceUrl}}">{{i.webProjsAll.title}}</a></td>
+                <td>{{i.webProjsAll.description}}</td>
+                <td>{{i.webProjsAll.keywords}}</td>
+                <td>{{i.webProjsAll.source}}</td>
                 <td><button class="btn btn-sm" ng-class="i.checked?'btn-default':'btn-primary'" ng-click="afterAddDup(i)" ng-disabled="i.checked">{{i.checked ? '已添加':'添加'}}</button></td>
             </tr>
             </tbody>

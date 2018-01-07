@@ -109,8 +109,8 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
     $scope.submitStepOne = function () {
         ProjectGroup.upsetOne('id',$scope.groupInfo)
             .then(function (data) {
-                if (data&& data.id) {
-                    ProjectGroup.getOne(groupId)
+                if (data && data.id) {
+                    ProjectGroup.getOne(data.id)
                         .then(function (data) {
                             $scope.groupInfo = data;
                         })
@@ -150,6 +150,15 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
                 $scope.pCount = 0;
                 $scope.queryOrg = function () {
                     $scope.pageInfo.currentPage = 1;
+                    $scope.pageChanged();
+                };
+                $scope.queryCate = function (cate) {
+                    if (cate) {
+                        $scope.queryInfo.categoryId = cate.id;
+                    } else {
+                        $scope.queryInfo.categoryId = null;
+                    }
+
                     $scope.pageChanged();
                 };
                 Utils.paginize($scope,function (page) {

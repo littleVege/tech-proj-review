@@ -79,8 +79,9 @@ export default (Api) => {
                     });
             }
         },
-        setEvaluation:function (main,detailContent) {
+        setEvaluation:function (main,detailContent,expertId) {
             return Api.post('/projectExpertEvaluation/upsert',{
+                expertId:expertId,
                 data:JSON.stringify({
                     evaluation: main,
                     details: detailContent
