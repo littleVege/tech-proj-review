@@ -23,6 +23,9 @@
             </tr>
             </tbody>
         </table>
+        <div class="no-data-block" ng-if="!list || list.length == 0">
+            暂无数据
+        </div>
         <div class="clearfix">
             <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
         </div>
@@ -52,6 +55,9 @@
             </tr>
             </tbody>
         </table>
+        <div class="no-data-block" ng-if="!checkedProjects || checkedProjects.length == 0">
+            暂无数据
+        </div>
         <h4>有关建议</h4>
         <ng-ckeditor></ng-ckeditor>
     </div>

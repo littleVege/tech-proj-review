@@ -19,6 +19,7 @@
         <th>机构</th>
         <th>负责人</th>
         <th>所属领域</th>
+        <th>评估状态</th>
         <th>提交时间</th>
         <th>操作</th>
     </tr>
@@ -31,13 +32,19 @@
         <td>{{i.orgName}}</td>
         <td>{{i.manager}}</td>
         <td>{{i.categoryId | category}}</td>
+        <td>{{i.evaluationStatus | evaluationStatus}}</td>
         <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
         <td ng-if="i.projectStatus == 3">
-            <button class="btn btn-clear btn-sm" ui-sref="reviewEdit.step1({projectId:i.id,expertId:$root.User.expert.id,from:fromLocation})">评估</button>
+                    <span ng-if="!i.evaluationStatus">
+                        <button class="btn btn-clear btn-sm" ui-sref="reviewEdit.step1({projectId:i.id,expertId:$root.User.expert.id,from:fromLocation})">评估</button>
+                    </span>
+            <span ng-if="i.evaluationStatus">
+                        <button class="btn btn-clear btn-sm" ui-sref="reviewDetail({projectId:i.id,expertId:$root.User.expert.id})">查看</button>
+                        <button class="btn btn-clear btn-sm" ui-sref="reviewEdit.step1({projectId:i.id,expertId:$root.User.expert.id,from:fromLocation})">重新评估</button>
+                    </span>
         </td>
         <td ng-if="i.projectStatus == 4">
             <button class="btn btn-clear btn-sm" ui-sref="reviewDetail({projectId:i.id,expertId:$root.User.expert.id})">查看</button>
-            <button class="btn btn-clear btn-sm" ui-sref="reviewEdit.step1({projectId:i.id,expertId:$root.User.expert.id,from:fromLocation})">重新评估</button>
         </td>
     </tr>
     </tbody>

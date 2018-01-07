@@ -43184,14 +43184,16 @@
 	    Task.getOne(taskId).then(function (data) {
 	        $scope.taskInfo = data;
 	    });
-	
-	    if (groupId) {
+	    $scope.loadGroupInfo = function () {
 	        ProjectGroup.getOne(groupId).then(function (data) {
 	            $scope.groupInfo = data;
 	        }).then(function () {
 	            $scope.loadGroupProjects();
 	            $scope.loadGroupExperts();
 	        });
+	    };
+	    if (groupId) {
+	        $scope.loadGroupInfo();
 	    } else {
 	        $scope.groupInfo = {
 	            taskId: taskId
@@ -43212,15 +43214,19 @@
 	
 	    $scope.submitStepOne = function () {
 	        ProjectGroup.upsetOne('id', $scope.groupInfo).then(function (data) {
-	            var params = _.clone($stateParams);
-	            if (_.isObject(data)) {
-	                params['grouId'] = data.id;
+	            if (data && data.id) {
+	                ProjectGroup.getOne(groupId).then(function (data) {
+	                    $scope.groupInfo = data;
+	                }).then(function () {
+	                    $scope.loadGroupProjects().then(function () {
+	                        $state.go('groupEdit.step2');
+	                    });
+	                });
 	            } else {
-	                params['groupId'] = $scope.groupInfo.id;
+	                $scope.loadGroupProjects().then(function () {
+	                    $state.go('groupEdit.step2');
+	                });
 	            }
-	            $scope.loadGroupProjects().then(function () {
-	                $state.go('groupEdit.step2', params);
-	            });
 	        });
 	    };
 	
@@ -43238,7 +43244,7 @@
 	            templateUrl: 'templates/sys-group/select-project-modal.html',
 	            size: 'lg',
 	            controller: function controller($scope, $uibModalInstance, Project, $q, Utils) {
-	                $scope.queryInfo = { isSys: 1 };
+	                $scope.queryInfo = { isSys: 1, projectStatus: 2 };
 	                $scope.selectedProjects = {};
 	                $scope.pCount = 0;
 	                $scope.queryOrg = function () {
@@ -43260,7 +43266,9 @@
 	                };
 	                $scope.submitEdit = function () {
 	                    $q.all(_.map($scope.selectedProjects, function (i) {
-	                        return Project.updateOne(i.id, { taskId: $stateParams['taskId'], groupId: $stateParams['groupId'], projectStatus: 3 });
+	                        if (i) {
+	                            return Project.updateOne(i.id, { taskId: $ps.taskInfo.id, groupId: $ps.groupInfo.id, projectStatus: 3 });
+	                        }
 	                    })).then(function () {
 	                        $ps.loadGroupProjects();
 	                        $scope.cancel();
@@ -43328,7 +43336,9 @@
 	                };
 	                $scope.submitEdit = function () {
 	                    $q.all(_.map($scope.selectedExperts, function (i) {
-	                        return ProjectGroupExpert.upsetOne('id', { expertId: i.id, groupId: $stateParams['groupId'] });
+	                        if (i) {
+	                            return ProjectGroupExpert.upsetOne('id', { expertId: i.id, groupId: $ps.groupInfo.id });
+	                        }
 	                    })).then(function () {
 	                        $ps.loadGroupExperts();
 	                        $scope.cancel();

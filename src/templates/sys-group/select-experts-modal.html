@@ -51,6 +51,9 @@
             </tbody>
         </table>
     </div>
+    <div class="clearfix">
+        <ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>
+    </div>
     <div class="modal-footer">
         <button class="btn btn-default" ng-click="cancel()">放弃</button>
         <button class="btn btn-line" ng-click="submitEdit()">保存选择</button>
