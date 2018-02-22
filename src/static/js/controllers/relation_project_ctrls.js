@@ -11,8 +11,13 @@ let relationProjectListCtrl = ($scope,WebProjsAll,Utils) => {
     $scope.pageChanged();
 };
 
-let reationProjectDetailCtrl = ($scope,WebProjsAll,Utils) => {
-
+let relationProjectDetailCtrl = ($scope, WebProjsAll, Utils, $stateParams,$sce) => {
+    let pid = $stateParams['pid'];
+    WebProjsAll.getOne(pid)
+        .then(project=>{
+            $scope.item = project;
+            $scope.currentProjectUrl = $sce.trustAsResourceUrl($scope.item.sourceUrl);
+        });
 };
 
-export {reationProjectDetailCtrl,relationProjectListCtrl}
+export {relationProjectDetailCtrl,relationProjectListCtrl}

@@ -8,8 +8,8 @@ let controllers = angular.module('tpr.controllers',[
     orgCtrls.name,
     sysCtrls.name
 ])
-    .controller('RelationProjectListCtrl',relationProjectCtrls.relationProjectListCtrl)
-    .controller('RelationProjectDetailCtrl',relationProjectCtrls.reationProjectDetailCtrl)
+.controller('RelationProjectListCtrl',relationProjectCtrls.relationProjectListCtrl)
+.controller('RelationProjectDetailCtrl',relationProjectCtrls.relationProjectDetailCtrl)
 ;
 
 export default controllers;

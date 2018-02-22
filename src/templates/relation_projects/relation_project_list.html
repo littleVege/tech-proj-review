@@ -32,12 +32,12 @@
             <tbody>
             <tr ng-repeat="i in list">
                 <td>{{$index+1}}</td>
-                <td  style="text-align: left" title="{{i.description}}">{{i.title}}</td>
-                <td  style="text-align: left">{{i.reportType || '--'}}</td>
+                <td style="text-align: left" title="{{i.description}}">{{i.title}}</td>
+                <td style="text-align: left">{{i.reportType || '--'}}</td>
                 <td style="text-align: left">{{i.keywords}}</td>
                 <td>{{i.source}}</td>
                 <td>{{i.addedDate | date: 'yyyy.MM.dd'}}</td>
-                <td><button class="btn btn-clear" ui-sref="relationProjectDetail({rProjectId:i.id})">查看详情</button></td>
+                <td><button class="btn btn-clear" ui-sref="relationProjectDetail({pid:i.id})">查看详情</button></td>
             </tr>
             </tbody>
         </table>

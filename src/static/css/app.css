@@ -952,6 +952,44 @@ aside.submenu {
       .guideline-steps > ul li:last-child:after {
         background: transparent; }
 
+.page-relation-project-detail .frame-page-wrapper {
+  padding-top: 46px;
+  position: relative;
+  height: 100%; }
+  .page-relation-project-detail .frame-page-wrapper h1 {
+    font-size: 24px;
+    color: #4A90E2;
+    margin: 0 0 20px 0;
+    position: absolute;
+    left: 0;
+    top: 0; }
+.page-relation-project-detail .project-detail-wrapper {
+  padding-right: 200px;
+  position: relative;
+  height: 100%; }
+  .page-relation-project-detail .project-detail-wrapper .left-view {
+    height: 100%; }
+  .page-relation-project-detail .project-detail-wrapper .project-detail {
+    height: 100%; }
+  .page-relation-project-detail .project-detail-wrapper .right-view {
+    width: 200px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-left: 10px; }
+.page-relation-project-detail .r-panel {
+  border-radius: 3px;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+  min-height: 100px;
+  background: #fff;
+  overflow: auto; }
+  .page-relation-project-detail .r-panel .panel-title {
+    padding: 20px 10px; }
+    .page-relation-project-detail .r-panel .panel-title h3 {
+      font-size: 14px;
+      font-weight: normal;
+      margin: 0; }
+
 .page-project-detail h3 {
   font-size: 20px;
   margin-bottom: 20px;

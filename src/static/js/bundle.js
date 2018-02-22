@@ -42453,7 +42453,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var controllers = angular.module('tpr.controllers', [_experts_ctrls2.default.name, _org_ctrls2.default.name, _system_ctrls2.default.name]).controller('RelationProjectListCtrl', relationProjectCtrls.relationProjectListCtrl).controller('RelationProjectDetailCtrl', relationProjectCtrls.reationProjectDetailCtrl);
+	var controllers = angular.module('tpr.controllers', [_experts_ctrls2.default.name, _org_ctrls2.default.name, _system_ctrls2.default.name]).controller('RelationProjectListCtrl', relationProjectCtrls.relationProjectListCtrl).controller('RelationProjectDetailCtrl', relationProjectCtrls.relationProjectDetailCtrl);
 	
 	exports.default = controllers;
 
@@ -43953,7 +43953,7 @@
 /* 27 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -43971,9 +43971,15 @@
 	    $scope.pageChanged();
 	};
 	
-	var reationProjectDetailCtrl = function reationProjectDetailCtrl($scope, WebProjsAll, Utils) {};
+	var relationProjectDetailCtrl = function relationProjectDetailCtrl($scope, WebProjsAll, Utils, $stateParams, $sce) {
+	    var pid = $stateParams['pid'];
+	    WebProjsAll.getOne(pid).then(function (project) {
+	        $scope.item = project;
+	        $scope.currentProjectUrl = $sce.trustAsResourceUrl($scope.item.sourceUrl);
+	    });
+	};
 	
-	exports.reationProjectDetailCtrl = reationProjectDetailCtrl;
+	exports.relationProjectDetailCtrl = relationProjectDetailCtrl;
 	exports.relationProjectListCtrl = relationProjectListCtrl;
 
 /***/ }),
@@ -47550,6 +47556,10 @@
 	        url: '/relation-project/list',
 	        templateUrl: 'templates/relation_projects/relation_project_list.html',
 	        controller: 'RelationProjectListCtrl'
+	    }).state('relationProjectDetail', {
+	        url: '/relation-project/detail?pid',
+	        templateUrl: 'templates/relation_projects/relation_project_detail.html',
+	        controller: 'RelationProjectDetailCtrl'
 	    });
 	};
 
