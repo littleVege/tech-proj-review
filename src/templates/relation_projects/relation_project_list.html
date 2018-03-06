@@ -3,8 +3,8 @@
     <div class="page">
         <div class="query-action-wrapper">
             <div class="searcher">
-                <input class="form-control" placeholder="输入关键字进行搜索">
-                <button class="btn btn-primary btn-right">搜索</button>
+                <input class="form-control" placeholder="输入关键字进行搜索" ng-model="queryInfo.title">
+                <button class="btn btn-primary btn-right" ng-click="search()">搜索</button>
             </div>
         </div>
         <div class="form-item">
@@ -13,8 +13,8 @@
                 <li ng-click="setSource(null)" ng-class="queryInfo.source == null && 'active'">全部</li>
                 <li ng-click="setSource('国家科技成果转化项目库')" ng-class="queryInfo.source == '国家科技成果转化项目库' && 'active'">国家科技成果转化项目库</li>
                 <li ng-click="setSource('国家科技报告数据库')" ng-class="queryInfo.source == '国家科技报告数据库' && 'active'">国家科技报告数据库</li>
-                <li ng-click="setSource('国家科技成果库')" ng-class="queryInfo.source == '国家科技成果库' && 'active'">国家科技成果库</li>
-                <li ng-click="setSource('国家自然科学基金库')" ng-class="queryInfo.source == '国家自然科学基金库' && 'active'">国家自然科学基金库</li>
+                <li ng-click="setSource('国家科技成果网')" ng-class="queryInfo.source == '国家科技成果网' && 'active'">国家科技成果库</li>
+                <li ng-click="setSource('自然科学基金结题项目')" ng-class="queryInfo.source == '自然科学基金结题项目' && 'active'">国家自然科学基金库</li>
             </ul>
         </div>
         <table class="table">

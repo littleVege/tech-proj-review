@@ -42805,7 +42805,7 @@
 	                if (data && data[1]) {
 	                    _.each(data[1], function (i) {
 	                        var found = _.find($scope.checkedProjects, function (p) {
-	                            return p.projectId == i.projectId;
+	                            return p.relateProjectId === i.relateProjectId;
 	                        });
 	                        if (found) i.checked = true;
 	                    });
@@ -42822,6 +42822,9 @@
 	        dialogs.confirm('是否要删除此重复项目', '', '好的', '取消', true).then(function (isConfirm) {
 	            if (isConfirm) {
 	                ProjectRelation.deleteOne(i.id).then(function () {
+	                    _.remove($scope.checkedProjects, function (cp) {
+	                        return cp.id === i.id;
+	                    });
 	                    console.log('内容已删除');
 	                });
 	            }
@@ -42870,6 +42873,7 @@
 	        });
 	    };
 	    $scope.afterAddDup = function (projectInfo) {
+	        var $ps = $scope;
 	        $uibModal.open({
 	            ariaLabelledBy: 'modal-title',
 	            ariaDescribedBy: 'modal-body',
@@ -42878,17 +42882,19 @@
 	                $scope.updateInfo = {
 	                    projectId: projectId,
 	                    expertId: $rootScope.User.expert.id,
-	                    relateProjectId: projectInfo.id,
+	                    relateProjectId: projectInfo.relateProjectId,
 	                    dataSource: 'internal',
-	                    projectSource: projectInfo.source
+	                    projectSource: projectInfo.webProjsAll.source,
+	                    relateProjectName: projectInfo.webProjsAll.title,
+	                    relateProjectUrl: projectInfo.webProjsAll.sourceUrl
 	                };
 	                $scope.cancel = function () {
 	                    $uibModalInstance.dismiss();
 	                };
 	                $scope.submitEdit = function () {
-	                    ProjectRelation.upsetOne('id', $scope.updateInfo).then(function () {
+	                    ProjectRelation.upsetOne('id', $scope.updateInfo).then(function (info) {
 	                        projectInfo.checked = true;
-	                        $scope.checkedProjects.push(projectInfo);
+	                        $ps.checkedProjects.push(info);
 	                        $scope.cancel();
 	                    });
 	                };

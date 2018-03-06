@@ -237,7 +237,7 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
                     .then(function(data) {
                         if(data && data[1]) {
                             _.each(data[1],i=>{
-                                let found = _.find($scope.checkedProjects,p=>p.projectId == i.projectId);
+                                let found = _.find($scope.checkedProjects,p=>p.relateProjectId === i.relateProjectId);
                                 if (found) i.checked = true;
                             });
                         }
@@ -256,6 +256,7 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
                 if (isConfirm) {
                     ProjectRelation.deleteOne(i.id)
                         .then(function () {
+                            _.remove($scope.checkedProjects,cp=>cp.id === i.id);
                             console.log('内容已删除');
                         })
                 }
@@ -307,6 +308,7 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
         });
     };
     $scope.afterAddDup = function (projectInfo) {
+        let $ps = $scope;
         $uibModal.open({
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
@@ -315,18 +317,20 @@ const reviewEditCtrl = ($scope,Project,EvaluationTemplateCategory,dialogs,Utils,
                 $scope.updateInfo = {
                     projectId:projectId,
                     expertId:$rootScope.User.expert.id,
-                    relateProjectId:projectInfo.id,
+                    relateProjectId:projectInfo.relateProjectId,
                     dataSource:'internal',
-                    projectSource:projectInfo.source
+                    projectSource:projectInfo.webProjsAll.source,
+                    relateProjectName:projectInfo.webProjsAll.title,
+                    relateProjectUrl:projectInfo.webProjsAll.sourceUrl,
                 };
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss();
                 };
                 $scope.submitEdit = function () {
                     ProjectRelation.upsetOne('id',$scope.updateInfo)
-                        .then(function () {
+                        .then(function (info) {
                             projectInfo.checked = true;
-                            $scope.checkedProjects.push(projectInfo);
+                            $ps.checkedProjects.push(info);
                             $scope.cancel();
                         })
                 }

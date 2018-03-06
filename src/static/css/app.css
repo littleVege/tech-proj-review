@@ -964,7 +964,7 @@ aside.submenu {
     left: 0;
     top: 0; }
 .page-relation-project-detail .project-detail-wrapper {
-  padding-right: 200px;
+  padding-right: 300px;
   position: relative;
   height: 100%; }
   .page-relation-project-detail .project-detail-wrapper .left-view {
@@ -972,7 +972,7 @@ aside.submenu {
   .page-relation-project-detail .project-detail-wrapper .project-detail {
     height: 100%; }
   .page-relation-project-detail .project-detail-wrapper .right-view {
-    width: 200px;
+    width: 300px;
     position: absolute;
     right: 0;
     top: 0;
@@ -989,6 +989,8 @@ aside.submenu {
       font-size: 14px;
       font-weight: normal;
       margin: 0; }
+.page-relation-project-detail .table > tbody > tr > td {
+  font-size: 12px !important; }
 
 .page-project-detail h3 {
   font-size: 20px;

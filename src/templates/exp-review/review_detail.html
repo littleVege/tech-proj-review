@@ -107,7 +107,7 @@
             <tbody>
             <tr ng-repeat="i in checkedProjects">
                 <td>{{index+1}}</td>
-                <td></td>
+                <td><a target="_blank" ng-href="{{i.relateProjectUrl}}">{{i.relateProjectName}}</a></td>
                 <td>{{i.projectSource}}</td>
                 <td>{{i.relateContent}}</td>
             </tr>
