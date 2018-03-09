@@ -66,7 +66,13 @@ let orgListCtrl = ($scope,Organization,User,Utils,$uibModal) => {
     $scope.selectType = function (i) {
         $scope.queryInfo.nature = i;
         $scope.resetPage();
-    }
+    };
+
+    $scope.search = function () {
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    };
+
 };
 export {
     orgListCtrl

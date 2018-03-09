@@ -35,5 +35,10 @@ export default () => {
                 scope.pageChanged();
             }
         },
+        searchnize:function (scope, promiseFunc) {
+            scope.search = () => {
+
+            }
+        }
     }
 }

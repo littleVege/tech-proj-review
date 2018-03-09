@@ -2,17 +2,8 @@
     <div class="page">
         <div class="query-action-wrapper">
             <div class="searcher">
-                <input class="form-control" placeholder="输入关键字进行搜索">
-                <button class="btn btn-primary btn-right">搜索</button>
-            </div>
-            <div class="form-item">
-                <label>项目状态</label>
-                <ul>
-                    <li>全部</li>
-                    <li>待评估</li>
-                    <li>评估中</li>
-                    <li>评估结束</li>
-                </ul>
+                <input class="form-control" placeholder="输入关键字进行搜索" ng-model="queryInfo.name">
+                <button class="btn btn-primary btn-right" ng-click="search()">搜索</button>
             </div>
         </div>
         <div class="table-actions">

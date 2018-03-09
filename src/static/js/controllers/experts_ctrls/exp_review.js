@@ -4,7 +4,13 @@ const reviewListCtrl = ($scope,Project,$stateParams,$rootScope,Utils) => {
         $scope.queryInfo.evaluationStatus = status;
         $scope.pageInfo.currentPage = 1;
         $scope.pageChanged();
-    }
+    };
+
+    $scope.search = function () {
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    };
+
 
     $scope.queryCate = function (cate) {
         if (cate) {

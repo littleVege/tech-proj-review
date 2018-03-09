@@ -5,8 +5,6 @@ let taskListCtrl = ($scope,$uibModal,Task,Utils,$stateParams,EvaluationTemplateC
     });
     $scope.pageChanged();
 
-
-
     $scope.editTask = function (task) {
         let $ps = $scope;
         $uibModal.open({
@@ -46,6 +44,12 @@ let taskListCtrl = ($scope,$uibModal,Task,Utils,$stateParams,EvaluationTemplateC
             }
         });
     };
+
+    $scope.search = function () {
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    };
+
 };
 
 let taskDetailCtrl = ($scope,Task,Project,ProjectGroup,$stateParams,Utils) => {

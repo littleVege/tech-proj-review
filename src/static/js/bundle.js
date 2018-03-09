@@ -42502,6 +42502,11 @@
 	        return ProjectGroup.getListByQuery($scope.queryInfo, page);
 	    });
 	    $scope.pageChanged();
+	
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	};
 	
 	exports.groupListCtrl = groupListCtrl;
@@ -42521,6 +42526,11 @@
 	        return Task.queryListByExpertId($scope.queryInfo, page);
 	    });
 	    $scope.pageChanged();
+	
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	};
 	var taskDetailCtrl = function taskDetailCtrl($scope, Task, Utils, $stateParams) {
 	    Task.getOne($stateParams['taskId']).then(function (data) {
@@ -42568,6 +42578,11 @@
 	        return Project.getListByQuery($scope.queryInfo, page);
 	    });
 	    $scope.pageChanged();
+	
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	};
 	
 	var reviewStepCtrl = function reviewStepCtrl($scope, Project, ProjectExpertEvaluation) {};
@@ -42589,6 +42604,11 @@
 	    $scope.queryInfo = { expertId: $rootScope.User.expert.id };
 	    $scope.setStatus = function (status) {
 	        $scope.queryInfo.evaluationStatus = status;
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
+	
+	    $scope.search = function () {
 	        $scope.pageInfo.currentPage = 1;
 	        $scope.pageChanged();
 	    };
@@ -43158,6 +43178,11 @@
 	            });
 	        }
 	    };
+	
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	};
 	
 	var groupDetailCtrl = function groupDetailCtrl($scope, $stateParams, ProjectGroup, Utils, Project) {
@@ -43501,6 +43526,11 @@
 	        $scope.queryInfo.nature = i;
 	        $scope.resetPage();
 	    };
+	
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	};
 	exports.orgListCtrl = orgListCtrl;
 
@@ -43627,6 +43657,11 @@
 	            }
 	        });
 	    };
+	
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	};
 	
 	var taskDetailCtrl = function taskDetailCtrl($scope, Task, Project, ProjectGroup, $stateParams, Utils) {
@@ -43709,6 +43744,11 @@
 	        return EvaluationTemplateCategory.getListByQuery($scope.queryInfo, page);
 	    });
 	    $scope.pageChanged();
+	
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
 	
 	    $scope.removeTmpl = function (info) {
 	        if (confirm('请确认是否要删除')) {
@@ -43947,6 +43987,11 @@
 	});
 	var expertListCtrl = function expertListCtrl($scope, Expert, Utils, $uibModal) {
 	    $scope.queryInfo = {};
+	    $scope.search = function () {
+	        $scope.pageInfo.currentPage = 1;
+	        $scope.pageChanged();
+	    };
+	
 	    Utils.paginize($scope, function (page) {
 	        return Expert.getListByQuery($scope.queryInfo, page);
 	    });
@@ -47100,6 +47145,9 @@
 	                scope.pageInfo.currentPage = 1;
 	                scope.pageChanged();
 	            };
+	        },
+	        searchnize: function searchnize(scope, promiseFunc) {
+	            scope.search = function () {};
 	        }
 	    };
 	};

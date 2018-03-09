@@ -4,6 +4,13 @@ let taskListCtrl = ($scope,$uibModal,Task,Utils,$rootScope) => {
         return Task.queryListByExpertId($scope.queryInfo,page)
     });
     $scope.pageChanged();
+
+    $scope.search = function () {
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    };
+
+
 };
 let taskDetailCtrl = ($scope,Task,Utils,$stateParams) => {
     Task.getOne($stateParams['taskId'])

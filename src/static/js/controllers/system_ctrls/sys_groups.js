@@ -36,6 +36,12 @@ let groupListCtrl = ($scope,ProjectGroup,Utils,$uibModal) => {
                 })
         }
     };
+
+    $scope.search = function () {
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    };
+
 };
 
 let groupDetailCtrl = ($scope,$stateParams,ProjectGroup,Utils,Project) => {

@@ -5,6 +5,12 @@ let reviewTmplListCtrl = ($scope,EvaluationTemplateCategory,Utils,$stateParams,$
     });
     $scope.pageChanged();
 
+    $scope.search = function () {
+        $scope.pageInfo.currentPage = 1;
+        $scope.pageChanged();
+    };
+
+
     $scope.removeTmpl = function (info) {
         if (confirm('请确认是否要删除')) {
             MailTemplate.deleteOne(info.id)
