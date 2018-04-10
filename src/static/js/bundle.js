@@ -45666,7 +45666,10 @@
 	            }
 	        },
 	        createOrgAndAccount: function createOrgAndAccount(updateInfo) {
-	            return Api.post('/agent/register/createOrgAndAccount', updateInfo);
+	            // return Api.post('/agent/register/createOrgAndAccount',updateInfo)
+	            return Api.post('/register/createOrgAndAccount', updateInfo, {
+	                baseURL: 'http://localhost:3001'
+	            });
 	        }
 	
 	    };

@@ -4,15 +4,15 @@
         <table class="info-table">
             <tbody>
             <tr>
-                <td colspan="3"><label>项目编号</label> {{updateInfo.projectSerialNumber}}</td>
+                <td colspan="3"><label>项目编号</label> {{updateInfo.projectSerialNumber || '--'}}</td>
             </tr>
             <tr>
                 <td><label>项目标题</label> {{updateInfo.name}}</td>
-                <td><label>项目负责人</label> {{updateInfo.manager}}</td>
-                <td><label>分类</label> {{updateInfo.category}}</td>
+                <td><label>项目负责人</label> {{updateInfo.manager || '--'}}</td>
+                <td><label>分类</label> {{updateInfo.categoryId | category}}</td>
             </tr>
             <tr>
-                <td><label>机构</label> {{updateInfo.category}}</td>
+                <td><label>机构</label> {{updateInfo.orgName}}</td>
                 <td><label>内容关键字</label> {{updateInfo.keywords}}</td>
                 <td></td>
             </tr>

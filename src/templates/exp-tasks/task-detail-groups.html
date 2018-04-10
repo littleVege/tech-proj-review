@@ -13,8 +13,8 @@
     <tr ng-repeat="i in list">
         <td>{{$index+1}}</td>
         <td>{{i.name}}</td>
-        <td>{{i.projectCnt}}</td>
-        <td>{{i.majorCategoryId}}</td>
+        <td>{{i.majorCategoryId | category}}</td>
+        <td>{{i.projectCnt || '--'}}</td>
         <td>{{i.addedDate | date: 'yyyy-MM-dd'}}</td>
         <!--<td><button class="btn btn-clear btn-sm">项目列表</button></td>-->
     </tr>

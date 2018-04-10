@@ -17,13 +17,13 @@
     <tr ng-repeat="i in list">
         <td>{{$index+1}}</td>
         <td>{{i.name}}</td>
-        <td>{{i.sex}}</td>
-        <td>{{i.age}}</td>
-        <td>{{i.university}}</td>
-        <td>{{i.jobTitle}}</td>
-        <td>{{i.phone}}</td>
-        <td>{{i.major}}</td>
-        <td>{{i.researchArea}}</td>
+        <td>{{i.sex || '--'}}</td>
+        <td>{{i.age || '--'}}</td>
+        <td>{{i.university || '--'}}</td>
+        <td>{{i.jobTitle || '--'}}</td>
+        <td>{{i.phone || '--'}}</td>
+        <td>{{i.major || '--'}}</td>
+        <td>{{i.researchArea || '--'}}</td>
         <td>
             <button class="btn btn-clear btn-sm">邮件通知</button>
         </td>

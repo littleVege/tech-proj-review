@@ -18,7 +18,7 @@
         <td>{{i.projectSerialNumber}}</td>
         <td>{{i.name}}</td>
         <td>{{i.orgName}}</td>
-        <td>{{i.manager}}</td>
+        <td>{{i.manager || '--'}}</td>
         <td>{{i.categoryId | category}}</td>
         <td>{{i.projectStatus | projectStatus}}</td>
         <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
