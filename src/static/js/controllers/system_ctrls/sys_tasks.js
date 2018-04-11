@@ -12,6 +12,13 @@ let taskListCtrl = ($scope,$uibModal,Task,Utils,$stateParams,EvaluationTemplateC
             ariaDescribedBy: 'modal-body',
             templateUrl: 'templates/sys-tasks/edit-task-modal.html',
             controller: function ($scope,$uibModalInstance) {
+                $scope.maxDate = new Date();
+                $scope.maxDate.setFullYear($scope.maxDate.getFullYear()+1);
+                $scope.minDateOfEnd = new Date();
+                $scope.maxDateOfStart = new Date();
+                $scope.maxDateOfStart.setMonth($scope.maxDateOfStart.getMonth()+3);
+                $scope.minDateOfStart = new Date();
+                $scope.minDateOfStart.setFullYear($scope.minDateOfStart.getFullYear()-1);
                 $scope.updateInfo = task?_.cloneDeep(task):{};
                 $scope.cancel = function () {
                     $uibModalInstance.dismiss();
@@ -49,6 +56,8 @@ let taskListCtrl = ($scope,$uibModal,Task,Utils,$stateParams,EvaluationTemplateC
         $scope.pageInfo.currentPage = 1;
         $scope.pageChanged();
     };
+
+
 
 };
 

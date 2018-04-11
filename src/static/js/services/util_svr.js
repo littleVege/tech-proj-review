@@ -3,10 +3,10 @@
  */
 export default () => {
     return {
-        paginize:function (scope, promiseFunc) {
+        paginize:function (scope, promiseFunc,initPage=1) {
             scope.pageInfo = {
-                currentPage:1,
-                numPage:2,
+                currentPage:initPage,
+                numPage:initPage+1,
                 isLoading:false,
                 totalItems:10
             };

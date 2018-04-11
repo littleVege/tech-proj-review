@@ -110,4 +110,17 @@ let app = angular.module('tpr', [
         uibPaginationConfig.previousText = '上一页';
         uibPaginationConfig.nextText = '下一页';
     })
-    .constant('Config',config);
+    .constant('Config',config)
+    .factory('skipReload', [
+        '$state',
+        '$rootScope',
+        function ($state, $rootScope) {
+            return function () {
+                var lastRoute = $state.current;
+                var un = $rootScope.$on('$stateChangeSuccess', function () {
+                    $state.current = lastRoute;
+                    un();
+                });
+            };
+        }
+    ]);

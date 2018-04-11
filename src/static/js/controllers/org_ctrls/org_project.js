@@ -1,4 +1,5 @@
-let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope) => {
+let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope,$location,$stateParams) => {
+
     console.log($state.current);
     switch ($state.current.name.split('.')[1]) {
         case 'unchecked':
@@ -15,7 +16,12 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
     // $scope.queryInfo.isSys = 0;
     Utils.paginize($scope,function (page) {
         return Project.getListByQuery($scope.queryInfo,page)
-    });
+            .then(data=>{
+                $location.search('page', page);
+                // $state.transitionTo($state.current.name, _.merge(_.clone($scope.queryInfo),{page:page}), { reload: false, notify: false,location: 'replace' });
+                return data;
+            })
+    },$stateParams['page'] ?+$stateParams['page']:1 );
 
     $scope.pageChanged();
 
@@ -26,7 +32,7 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
             $scope.queryInfo.categoryId = null;
         }
 
-        $scope.pageChanged();
+        $scope.resetPage();
     };
 
     $scope.queryStatus = function (status) {
@@ -35,13 +41,13 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
         } else {
             $scope.queryInfo.projectStatus = null;
         }
-        $scope.pageChanged();
+        $scope.resetPage();
 
     };
 
     $scope.search = function () {
         $scope.pageInfo.currentPage = 1;
-        $scope.pageChanged();
+        $scope.resetPage();
     };
 
     $scope.editProject = function (project) {
@@ -66,12 +72,21 @@ let orgProjectsCtrl = ($scope,Project,Utils,$uibModal,dialogs,$state,$rootScope)
                     let fileIds = _.map(files,function (i) {
                         return i.id;
                     });
+                    _.remove(fileIds,i=>!i);
                     $scope.updateInfo.fileIds = fileIds.join(',');
+                    swal({
+                        title: "请稍候...",
+                        text: "系统正在匹配相关内容，需等待10秒",
+                        icon: "info",
+                        showCancelButton: false,
+                        showConfirmButton: false
+                    });
                     return Project.upsetOne('id',$scope.updateInfo)
                         .then(function () {
-                            if (notify) {
-                                dialogs.success('项目信息编辑成功!');
-                            }
+                            dialogs.success('项目信息编辑成功!');
+                        })
+                        .catch(e=>{
+                            dialogs.info(e.message,2000,'error');
                         })
 
                 };
@@ -128,6 +143,10 @@ let orgProjectDetailCtrl = ($scope,$stateParams,Project,ProjectExpertEvaluation)
         .then(function (data) {
             $scope.reviews = data[1];
         });
+
+    $scope.goBack = function () {
+        $state.go('groupEdit.step2');
+    }
 };
 
 export {

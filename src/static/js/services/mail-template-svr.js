@@ -23,7 +23,7 @@ export default (Api) => {
             params = params || {};
             params['page'] = page || 1;
             params['rows'] = rows || 10;
-            return Api.get('/mailTemplate/select',params)
+            return Api.get('/mailTemplate/fuzzyselect',params)
         },
         /**
          * 获取一条mailTemplate记录

@@ -5,10 +5,22 @@
     </div>
     <div class="modal-body">
         <form>
-            <div class="form-item">
-                <label>项目负责人</label>
-                <input type="text" class="form-control" ng-model="updateInfo.manager" placeholder="请输入">
+            <div class="row">
+                <div class="col">
+                    <div class="form-item">
+                        <label>项目编号</label>
+                        <input type="text" class="form-control" ng-model="updateInfo.projectSerialNumber" placeholder="请输入">
+                        <p class="item-desc">* 不填写则使用系统默认编号格式</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-item">
+                        <label>项目负责人</label>
+                        <input type="text" class="form-control" ng-model="updateInfo.manager" placeholder="请输入">
+                    </div>
+                </div>
             </div>
+
             <div class="form-item">
                 <label>项目标题</label>
                 <input type="text" class="form-control" ng-model="updateInfo.name" placeholder="请输入">
@@ -18,6 +30,7 @@
                 <input type="text" class="form-control" ng-model="updateInfo.keywords" placeholder="请输入">
                 <p class="item-desc">关键词以分号;分隔</p>
             </div>
+
             <div class="form-item with-action-right" style="width: 500px">
                 <label>所属领域</label>
                 <select class="form-control" ng-model="updateInfo.categoryId">

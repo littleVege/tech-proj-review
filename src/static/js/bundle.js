@@ -70,15 +70,15 @@
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _routes = __webpack_require__(62);
+	var _routes = __webpack_require__(61);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _config = __webpack_require__(75);
+	var _config = __webpack_require__(74);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _filters = __webpack_require__(76);
+	var _filters = __webpack_require__(75);
 	
 	var _filters2 = _interopRequireDefault(_filters);
 	
@@ -156,7 +156,15 @@
 	    uibPaginationConfig.maxSize = 5;
 	    uibPaginationConfig.previousText = '上一页';
 	    uibPaginationConfig.nextText = '下一页';
-	}).constant('Config', _config2.default);
+	}).constant('Config', _config2.default).factory('skipReload', ['$state', '$rootScope', function ($state, $rootScope) {
+	    return function () {
+	        var lastRoute = $state.current;
+	        var un = $rootScope.$on('$stateChangeSuccess', function () {
+	            $state.current = lastRoute;
+	            un();
+	        });
+	    };
+	}]);
 
 /***/ }),
 /* 1 */
@@ -42962,7 +42970,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var orgProjectsCtrl = function orgProjectsCtrl($scope, Project, Utils, $uibModal, dialogs, $state, $rootScope) {
+	var orgProjectsCtrl = function orgProjectsCtrl($scope, Project, Utils, $uibModal, dialogs, $state, $rootScope, $location, $stateParams) {
+	
 	    console.log($state.current);
 	    switch ($state.current.name.split('.')[1]) {
 	        case 'unchecked':
@@ -42978,8 +42987,12 @@
 	    $scope.queryInfo.orgId = $rootScope.User.organization.id;
 	    // $scope.queryInfo.isSys = 0;
 	    Utils.paginize($scope, function (page) {
-	        return Project.getListByQuery($scope.queryInfo, page);
-	    });
+	        return Project.getListByQuery($scope.queryInfo, page).then(function (data) {
+	            $location.search('page', page);
+	            // $state.transitionTo($state.current.name, _.merge(_.clone($scope.queryInfo),{page:page}), { reload: false, notify: false,location: 'replace' });
+	            return data;
+	        });
+	    }, $stateParams['page'] ? +$stateParams['page'] : 1);
 	
 	    $scope.pageChanged();
 	
@@ -42990,7 +43003,7 @@
 	            $scope.queryInfo.categoryId = null;
 	        }
 	
-	        $scope.pageChanged();
+	        $scope.resetPage();
 	    };
 	
 	    $scope.queryStatus = function (status) {
@@ -42999,12 +43012,12 @@
 	        } else {
 	            $scope.queryInfo.projectStatus = null;
 	        }
-	        $scope.pageChanged();
+	        $scope.resetPage();
 	    };
 	
 	    $scope.search = function () {
 	        $scope.pageInfo.currentPage = 1;
-	        $scope.pageChanged();
+	        $scope.resetPage();
 	    };
 	
 	    $scope.editProject = function (project) {
@@ -43030,11 +43043,21 @@
 	                    var fileIds = _.map(files, function (i) {
 	                        return i.id;
 	                    });
+	                    _.remove(fileIds, function (i) {
+	                        return !i;
+	                    });
 	                    $scope.updateInfo.fileIds = fileIds.join(',');
+	                    swal({
+	                        title: "请稍候...",
+	                        text: "系统正在匹配相关内容，需等待10秒",
+	                        icon: "info",
+	                        showCancelButton: false,
+	                        showConfirmButton: false
+	                    });
 	                    return Project.upsetOne('id', $scope.updateInfo).then(function () {
-	                        if (notify) {
-	                            dialogs.success('项目信息编辑成功!');
-	                        }
+	                        dialogs.success('项目信息编辑成功!');
+	                    }).catch(function (e) {
+	                        dialogs.info(e.message, 2000, 'error');
 	                    });
 	                };
 	                $scope.submitAndPublish = function () {
@@ -43082,6 +43105,10 @@
 	    ProjectExpertEvaluation.getListByQuery({ projectId: projectId }).then(function (data) {
 	        $scope.reviews = data[1];
 	    });
+	
+	    $scope.goBack = function () {
+	        $state.go('groupEdit.step2');
+	    };
 	};
 	
 	exports.orgProjectsCtrl = orgProjectsCtrl;
@@ -43630,6 +43657,13 @@
 	            ariaDescribedBy: 'modal-body',
 	            templateUrl: 'templates/sys-tasks/edit-task-modal.html',
 	            controller: function controller($scope, $uibModalInstance) {
+	                $scope.maxDate = new Date();
+	                $scope.maxDate.setFullYear($scope.maxDate.getFullYear() + 1);
+	                $scope.minDateOfEnd = new Date();
+	                $scope.maxDateOfStart = new Date();
+	                $scope.maxDateOfStart.setMonth($scope.maxDateOfStart.getMonth() + 3);
+	                $scope.minDateOfStart = new Date();
+	                $scope.minDateOfStart.setFullYear($scope.minDateOfStart.getFullYear() - 1);
 	                $scope.updateInfo = task ? _.cloneDeep(task) : {};
 	                $scope.cancel = function () {
 	                    $uibModalInstance.dismiss();
@@ -44153,7 +44187,18 @@
 	 * @param {Date=} max-date
 	 * @param {Date=} min-date
 	 */
-	.directive('ngFlatpicker', _ngFlatpickr2.default);
+	.directive('ngFlatpicker', _ngFlatpickr2.default).directive('backButton', ['$window', function ($window) {
+	  return {
+	    restrict: 'A',
+	    link: function link(scope, elem, attrs) {
+	      elem.bind('click', function () {
+	        $window.history.back();
+	      });
+	    }
+	  };
+	}]);
+	
+	;
 	
 	exports.default = directives;
 
@@ -44656,95 +44701,95 @@
 	
 	var _api_factory2 = _interopRequireDefault(_api_factory);
 	
-	var _categorySvr = __webpack_require__(39);
+	var _categorySvr = __webpack_require__(38);
 	
 	var _categorySvr2 = _interopRequireDefault(_categorySvr);
 	
-	var _evaluationTemplateCategorySvr = __webpack_require__(40);
+	var _evaluationTemplateCategorySvr = __webpack_require__(39);
 	
 	var _evaluationTemplateCategorySvr2 = _interopRequireDefault(_evaluationTemplateCategorySvr);
 	
-	var _evaluationTemplateLevelSvr = __webpack_require__(41);
+	var _evaluationTemplateLevelSvr = __webpack_require__(40);
 	
 	var _evaluationTemplateLevelSvr2 = _interopRequireDefault(_evaluationTemplateLevelSvr);
 	
-	var _fileSvr = __webpack_require__(42);
+	var _fileSvr = __webpack_require__(41);
 	
 	var _fileSvr2 = _interopRequireDefault(_fileSvr);
 	
-	var _importBatchSvr = __webpack_require__(43);
+	var _importBatchSvr = __webpack_require__(42);
 	
 	var _importBatchSvr2 = _interopRequireDefault(_importBatchSvr);
 	
-	var _mailTemplateSvr = __webpack_require__(44);
+	var _mailTemplateSvr = __webpack_require__(43);
 	
 	var _mailTemplateSvr2 = _interopRequireDefault(_mailTemplateSvr);
 	
-	var _organizationSvr = __webpack_require__(45);
+	var _organizationSvr = __webpack_require__(44);
 	
 	var _organizationSvr2 = _interopRequireDefault(_organizationSvr);
 	
-	var _projectSvr = __webpack_require__(46);
+	var _projectSvr = __webpack_require__(45);
 	
 	var _projectSvr2 = _interopRequireDefault(_projectSvr);
 	
-	var _projectExpertEvaluationSvr = __webpack_require__(47);
+	var _projectExpertEvaluationSvr = __webpack_require__(46);
 	
 	var _projectExpertEvaluationSvr2 = _interopRequireDefault(_projectExpertEvaluationSvr);
 	
-	var _projectExpertEvaluationDetailSvr = __webpack_require__(48);
+	var _projectExpertEvaluationDetailSvr = __webpack_require__(47);
 	
 	var _projectExpertEvaluationDetailSvr2 = _interopRequireDefault(_projectExpertEvaluationDetailSvr);
 	
-	var _projectFileSvr = __webpack_require__(49);
+	var _projectFileSvr = __webpack_require__(48);
 	
 	var _projectFileSvr2 = _interopRequireDefault(_projectFileSvr);
 	
-	var _projectGroupSvr = __webpack_require__(50);
+	var _projectGroupSvr = __webpack_require__(49);
 	
 	var _projectGroupSvr2 = _interopRequireDefault(_projectGroupSvr);
 	
-	var _projectGroupExpertSvr = __webpack_require__(51);
+	var _projectGroupExpertSvr = __webpack_require__(50);
 	
 	var _projectGroupExpertSvr2 = _interopRequireDefault(_projectGroupExpertSvr);
 	
-	var _projectKeywordSvr = __webpack_require__(52);
+	var _projectKeywordSvr = __webpack_require__(51);
 	
 	var _projectKeywordSvr2 = _interopRequireDefault(_projectKeywordSvr);
 	
-	var _projectRelationSvr = __webpack_require__(53);
+	var _projectRelationSvr = __webpack_require__(52);
 	
 	var _projectRelationSvr2 = _interopRequireDefault(_projectRelationSvr);
 	
-	var _projectRelationListSvr = __webpack_require__(54);
+	var _projectRelationListSvr = __webpack_require__(53);
 	
 	var _projectRelationListSvr2 = _interopRequireDefault(_projectRelationListSvr);
 	
-	var _taskSvr = __webpack_require__(55);
+	var _taskSvr = __webpack_require__(54);
 	
 	var _taskSvr2 = _interopRequireDefault(_taskSvr);
 	
-	var _tdProjectKeywordSvr = __webpack_require__(56);
+	var _tdProjectKeywordSvr = __webpack_require__(55);
 	
 	var _tdProjectKeywordSvr2 = _interopRequireDefault(_tdProjectKeywordSvr);
 	
-	var _userSvr = __webpack_require__(57);
+	var _userSvr = __webpack_require__(56);
 	
 	var _userSvr2 = _interopRequireDefault(_userSvr);
 	
-	var _webProjsAllSvr = __webpack_require__(58);
+	var _webProjsAllSvr = __webpack_require__(57);
 	
 	var _webProjsAllSvr2 = _interopRequireDefault(_webProjsAllSvr);
 	
-	var _expertSvr = __webpack_require__(59);
+	var _expertSvr = __webpack_require__(58);
 	
 	var _expertSvr2 = _interopRequireDefault(_expertSvr);
 	
-	var _util_svr = __webpack_require__(60);
+	var _util_svr = __webpack_require__(59);
 	
 	var _util_svr2 = _interopRequireDefault(_util_svr);
 	
-	var _dialogs = __webpack_require__(61);
+	var _dialogs = __webpack_require__(60);
 	
 	var _dialogs2 = _interopRequireDefault(_dialogs);
 	
@@ -44762,10 +44807,10 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
-	var _excption = __webpack_require__(38);
+	var _excption = __webpack_require__(76);
 	
 	var _excption2 = _interopRequireDefault(_excption);
 	
@@ -44773,138 +44818,138 @@
 	
 	var apiSvr = function apiSvr($q, $http, $rootScope, Config) {
 	
-	  var checkAndProvideAuth = function checkAndProvideAuth(conf, deferred) {
-	    conf.params = conf.params || {};
-	    if (!conf.noNeedAuth) {
-	      // let user = $localStorage.user;
-	      // if (!user || !user.userId || !user.token) {
-	      //   deferred.reject(new errors['-401']);
-	      //   return;
-	      // }
+	    var checkAndProvideAuth = function checkAndProvideAuth(conf, deferred) {
+	        conf.params = conf.params || {};
+	        if (!conf.noNeedAuth) {
+	            // let user = $localStorage.user;
+	            // if (!user || !user.userId || !user.token) {
+	            //   deferred.reject(new errors['-401']);
+	            //   return;
+	            // }
 	
-	      // if (!conf.headers.common) {conf.headers.common = {}}
-	      conf.params['X-RHINO-AUTH-TOKEN'] = $rootScope.User.token;
-	    }
-	    conf.params['t'] = new Date().getTime();
-	  };
-	
-	  var handleError = function handleError(deferred) {
-	    return function (resp) {
-	      var error = void 0;
-	      switch (resp.status) {
-	        case 504:
-	        case 408:
-	          error = new _excption2.default['504']();
-	          break;
-	        case 500:
-	          error = new _excption2.default['500']();
-	          break;
-	        case 404:
-	          error = new _excption2.default['404']();
-	          break;
-	        default:
-	          error = _excption2.default.def(resp.statusText, resp.status, 'HTTP-ERROR');
-	      }
-	      deferred.reject(error);
-	    };
-	  };
-	
-	  var handleSuccess = function handleSuccess(deferred) {
-	    return function (resp) {
-	      resp = resp.data;
-	      if (resp.code && resp.info) {}
-	      if (resp.code != 200) {
-	        var err = new Error(resp.errorMessage || resp.info);
-	        if (resp.code == 401) {
-	          return $rootScope.$emit('token-unauthorized');
-	        } else {
-	          return deferred.reject(err);
+	            // if (!conf.headers.common) {conf.headers.common = {}}
+	            conf.params['X-RHINO-AUTH-TOKEN'] = $rootScope.User.token;
 	        }
-	      }
-	      deferred.resolve([resp.count, resp.data]);
+	        conf.params['t'] = new Date().getTime();
 	    };
-	  };
 	
-	  var translateData = function translateData(data) {
-	    _.each(data, function (i, key) {
-	      if (_.isDate(i)) {
-	        data[key] = i.getTime();
-	      }
-	    });
-	  };
-	
-	  return {
-	    /**
-	     * 发送Post请求,请求都以Form形式发送
-	     * @param {String} url url相对路径
-	     * @param {Object} form 发送内容
-	     * @param {Object} httpConfig 其他配置
-	     */
-	    post: function post(url, form, httpConfig) {
-	      httpConfig = httpConfig || {};
-	      var deferred = $q.defer();
-	      var prefix = httpConfig.baseURL || Config.apiBaseURL;
-	      var conf = {
-	        headers: {
-	          'Content-Type': 'application/x-www-form-urlencoded'
-	        },
-	        transformRequest: function transformRequest(obj) {
-	          var str = [];
-	          for (var p in obj) {
-	            if (!_.isUndefined(obj[p]) && !_.isNull(obj[p])) {
-	              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+	    var handleError = function handleError(deferred) {
+	        return function (resp) {
+	            var error = void 0;
+	            switch (resp.status) {
+	                case 504:
+	                case 408:
+	                    error = new _excption2.default['504']();
+	                    break;
+	                case 500:
+	                    error = new _excption2.default['500']();
+	                    break;
+	                case 404:
+	                    error = new _excption2.default['404']();
+	                    break;
+	                default:
+	                    error = _excption2.default.def(resp.statusText, resp.status, 'HTTP-ERROR');
 	            }
-	          }
-	          return str.join("&");
-	        }
-	      };
-	      conf = _.merge(conf, httpConfig);
-	      checkAndProvideAuth(conf, deferred);
-	      translateData(form);
-	      $http.post(prefix + url, form, conf).then(handleSuccess(deferred), handleError(deferred));
-	      return deferred.promise;
-	    },
+	            deferred.reject(error);
+	        };
+	    };
 	
-	    file: function file(url, data, httpConfig) {
-	      httpConfig = httpConfig || {};
-	      var deferred = $q.defer();
-	      var prefix = httpConfig.baseURL || Config.apiBaseURL;
-	      var conf = _.merge({ 'Content-Type': undefined }, httpConfig);
-	      checkAndProvideAuth(conf, deferred);
-	      translateData(form);
-	      $http.post(prefix + url, data, conf).then(handleSuccess(deferred), handleError(deferred));
-	      return deferred.promise;
-	    },
-	    /**
-	     * GET,请求都以params形式发送
-	     * @param {String} url url相对路径
-	     * @param {Object} params 发送内容
-	     * @param {Object} httpConfig 其他配置
-	     */
-	    get: function get(url, params, httpConfig) {
-	      httpConfig = httpConfig || {};
-	      var deferred = $q.defer();
-	      var prefix = httpConfig.baseURL || Config.apiBaseURL;
-	      var conf = _.merge({ params: params }, httpConfig);
-	      checkAndProvideAuth(conf, deferred);
-	      translateData(params);
-	      $http.get(prefix + url, conf).then(handleSuccess(deferred), handleError(deferred));
-	      return deferred.promise;
-	    },
-	    jsonp: function jsonp(url, params, httpConfig) {
-	      httpConfig = httpConfig || {};
-	      var deferred = $q.defer();
-	      var prefix = httpConfig.baseURL || Config.apiBaseURL;
-	      $http.jsonp(prefix + url, {
-	        params: params
-	      }).then(function (resp) {
-	        deferred.resolve(resp);
-	      }, function (resp) {
-	        deferred.reject(msg);
-	      });
-	      return deferred.promise;
-	    }
-	  };
+	    var handleSuccess = function handleSuccess(deferred) {
+	        return function (resp) {
+	            resp = resp.data;
+	            if (resp.code && resp.info) {}
+	            if (resp.code != 200) {
+	                var err = new Error(resp.errorMessage || resp.info);
+	                if (resp.code == 401) {
+	                    return $rootScope.$emit('token-unauthorized');
+	                } else {
+	                    return deferred.reject(err);
+	                }
+	            }
+	            deferred.resolve([resp.count, resp.data]);
+	        };
+	    };
+	
+	    var translateData = function translateData(data) {
+	        _.each(data, function (i, key) {
+	            if (_.isDate(i)) {
+	                data[key] = i.getTime();
+	            }
+	        });
+	    };
+	
+	    return {
+	        /**
+	         * 发送Post请求,请求都以Form形式发送
+	         * @param {String} url url相对路径
+	         * @param {Object} form 发送内容
+	         * @param {Object} httpConfig 其他配置
+	         */
+	        post: function post(url, form, httpConfig) {
+	            httpConfig = httpConfig || {};
+	            var deferred = $q.defer();
+	            var prefix = httpConfig.baseURL || Config.apiBaseURL;
+	            var conf = {
+	                headers: {
+	                    'Content-Type': 'application/x-www-form-urlencoded'
+	                },
+	                transformRequest: function transformRequest(obj) {
+	                    var str = [];
+	                    for (var p in obj) {
+	                        if (!_.isUndefined(obj[p]) && !_.isNull(obj[p])) {
+	                            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+	                        }
+	                    }
+	                    return str.join("&");
+	                }
+	            };
+	            conf = _.merge(conf, httpConfig);
+	            checkAndProvideAuth(conf, deferred);
+	            translateData(form);
+	            $http.post(prefix + url, form, conf).then(handleSuccess(deferred), handleError(deferred));
+	            return deferred.promise;
+	        },
+	
+	        file: function file(url, data, httpConfig) {
+	            httpConfig = httpConfig || {};
+	            var deferred = $q.defer();
+	            var prefix = httpConfig.baseURL || Config.apiBaseURL;
+	            var conf = _.merge({ 'Content-Type': undefined }, httpConfig);
+	            checkAndProvideAuth(conf, deferred);
+	            translateData(form);
+	            $http.post(prefix + url, data, conf).then(handleSuccess(deferred), handleError(deferred));
+	            return deferred.promise;
+	        },
+	        /**
+	         * GET,请求都以params形式发送
+	         * @param {String} url url相对路径
+	         * @param {Object} params 发送内容
+	         * @param {Object} httpConfig 其他配置
+	         */
+	        get: function get(url, params, httpConfig) {
+	            httpConfig = httpConfig || {};
+	            var deferred = $q.defer();
+	            var prefix = httpConfig.baseURL || Config.apiBaseURL;
+	            var conf = _.merge({ params: params }, httpConfig);
+	            checkAndProvideAuth(conf, deferred);
+	            translateData(params);
+	            $http.get(prefix + url, conf).then(handleSuccess(deferred), handleError(deferred));
+	            return deferred.promise;
+	        },
+	        jsonp: function jsonp(url, params, httpConfig) {
+	            httpConfig = httpConfig || {};
+	            var deferred = $q.defer();
+	            var prefix = httpConfig.baseURL || Config.apiBaseURL;
+	            $http.jsonp(prefix + url, {
+	                params: params
+	            }).then(function (resp) {
+	                deferred.resolve(resp);
+	            }, function (resp) {
+	                deferred.reject(msg);
+	            });
+	            return deferred.promise;
+	        }
+	    };
 	}; /**
 	    * Created by caidi on 2017/1/9.
 	    */
@@ -44913,52 +44958,6 @@
 
 /***/ }),
 /* 38 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Created by caidi on 2017/1/23.
-	 */
-	var ErrorMaker = function ErrorMaker(name, code, defaultMessage) {
-	  return function (name, code, defaultMessage) {
-	    var Err = function Err(message) {
-	      this.name = name;
-	      this.code = code;
-	      this.message = defaultMessage || message;
-	      this.stack = new Error().stack;
-	    };
-	    Err.prototype = Object.create(Error.prototype);
-	    Err.prototype.constructor = Err;
-	    return Err;
-	  }(name, code, defaultMessage);
-	};
-	var UnAuthError = ErrorMaker('UnAuthError', 4011, '您的登录信息已过期，请重新登录！');
-	var NoTokenError = ErrorMaker('NoTokenError', -401, '手机号或密码错误');
-	var PasswordInvalidError = ErrorMaker('PasswordInvalidError', 401, '请先登录');
-	var TimeoutError = ErrorMaker('TimeoutError', 504, '请求超时，请稍后再试');
-	var ServerError = ErrorMaker('ServerError', 500, '服务器开小差了！');
-	var NotFoundError = ErrorMaker('NotFoundError', 404, '接口不存在，请检查');
-	var ErrorMap = {
-	  '4011': UnAuthError,
-	  '-401': NoTokenError,
-	  '401': PasswordInvalidError,
-	  '504': TimeoutError,
-	  '500': ServerError,
-	  '404': NotFoundError,
-	  '1011': ErrorMaker('NotInstallQQError', 1011, '未检测到手机QQ客户端'),
-	  '1012': ErrorMaker('NotInstallWeChatError', 1012, '未检测到微信客户端'),
-	  '1013': ErrorMaker('NotInstallWeiboError', 1013, '未检测到微博客户端'),
-	  '1021': ErrorMaker('OAuthLoginError', 1021, '第三方登录失败'),
-	  'def': ErrorMaker
-	};
-	exports.default = ErrorMap;
-
-/***/ }),
-/* 39 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45057,7 +45056,7 @@
 	};
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45175,7 +45174,7 @@
 	};
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45274,7 +45273,7 @@
 	};
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45373,7 +45372,7 @@
 	};
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45472,7 +45471,7 @@
 	};
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45507,7 +45506,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/mailTemplate/select', params);
+	            return Api.get('/mailTemplate/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条mailTemplate记录
@@ -45571,7 +45570,7 @@
 	};
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45606,7 +45605,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/organization/select', params);
+	            return Api.get('/organization/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条organization记录
@@ -45676,7 +45675,7 @@
 	};
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45711,7 +45710,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/project/select', params);
+	            return Api.get('/project/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条project记录
@@ -45781,7 +45780,7 @@
 	};
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45889,7 +45888,7 @@
 	};
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45988,7 +45987,7 @@
 	};
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46087,7 +46086,7 @@
 	};
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46122,7 +46121,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/projectGroup/select', params);
+	            return Api.get('/projectGroup/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条projectGroup记录
@@ -46192,7 +46191,7 @@
 	};
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46291,7 +46290,7 @@
 	};
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46390,7 +46389,7 @@
 	};
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46489,7 +46488,7 @@
 	};
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46588,7 +46587,7 @@
 	};
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46623,7 +46622,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/task/select', params);
+	            return Api.get('/task/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条task记录
@@ -46693,7 +46692,7 @@
 	};
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46792,7 +46791,7 @@
 	};
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46827,7 +46826,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/user/select', params);
+	            return Api.get('/user/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条user记录
@@ -46892,7 +46891,7 @@
 	};
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46927,7 +46926,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/webProjsAll/select', params);
+	            return Api.get('/webProjsAll/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条webProjsAll记录
@@ -46991,7 +46990,7 @@
 	};
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47026,7 +47025,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/expert/select', params);
+	            return Api.get('/expert/fuzzyselect', params);
 	        },
 	        /**
 	         * 获取一条expert记录
@@ -47104,7 +47103,7 @@
 	};
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -47119,9 +47118,11 @@
 	exports.default = function () {
 	    return {
 	        paginize: function paginize(scope, promiseFunc) {
+	            var initPage = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+	
 	            scope.pageInfo = {
-	                currentPage: 1,
-	                numPage: 2,
+	                currentPage: initPage,
+	                numPage: initPage + 1,
 	                isLoading: false,
 	                totalItems: 10
 	            };
@@ -47156,7 +47157,7 @@
 	};
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -47221,7 +47222,7 @@
 	};
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47230,51 +47231,51 @@
 	    value: true
 	});
 	
-	var _project_routes = __webpack_require__(63);
+	var _project_routes = __webpack_require__(62);
 	
 	var _project_routes2 = _interopRequireDefault(_project_routes);
 	
-	var _gourp_routes = __webpack_require__(64);
+	var _gourp_routes = __webpack_require__(63);
 	
 	var _gourp_routes2 = _interopRequireDefault(_gourp_routes);
 	
-	var _mail_tmpl_routes = __webpack_require__(65);
+	var _mail_tmpl_routes = __webpack_require__(64);
 	
 	var _mail_tmpl_routes2 = _interopRequireDefault(_mail_tmpl_routes);
 	
-	var _sys_project_view_routes = __webpack_require__(66);
+	var _sys_project_view_routes = __webpack_require__(65);
 	
 	var _sys_project_view_routes2 = _interopRequireDefault(_sys_project_view_routes);
 	
-	var _task_routes = __webpack_require__(67);
+	var _task_routes = __webpack_require__(66);
 	
 	var _task_routes2 = _interopRequireDefault(_task_routes);
 	
-	var _review_routes = __webpack_require__(68);
+	var _review_routes = __webpack_require__(67);
 	
 	var _review_routes2 = _interopRequireDefault(_review_routes);
 	
-	var _expert_routes = __webpack_require__(69);
+	var _expert_routes = __webpack_require__(68);
 	
 	var _expert_routes2 = _interopRequireDefault(_expert_routes);
 	
-	var _org_routes = __webpack_require__(70);
+	var _org_routes = __webpack_require__(69);
 	
 	var _org_routes2 = _interopRequireDefault(_org_routes);
 	
-	var _review_tmpl_routes = __webpack_require__(71);
+	var _review_tmpl_routes = __webpack_require__(70);
 	
 	var _review_tmpl_routes2 = _interopRequireDefault(_review_tmpl_routes);
 	
-	var _exp_task_routes = __webpack_require__(72);
+	var _exp_task_routes = __webpack_require__(71);
 	
 	var _exp_task_routes2 = _interopRequireDefault(_exp_task_routes);
 	
-	var _sys_setting_routes = __webpack_require__(73);
+	var _sys_setting_routes = __webpack_require__(72);
 	
 	var _sys_setting_routes2 = _interopRequireDefault(_sys_setting_routes);
 	
-	var _relation_project_routes = __webpack_require__(74);
+	var _relation_project_routes = __webpack_require__(73);
 	
 	var _relation_project_routes2 = _interopRequireDefault(_relation_project_routes);
 	
@@ -47283,7 +47284,7 @@
 	exports.default = angular.module('tpr.routes', []).config(_project_routes2.default).config(_gourp_routes2.default).config(_mail_tmpl_routes2.default).config(_sys_project_view_routes2.default).config(_task_routes2.default).config(_expert_routes2.default).config(_review_routes2.default).config(_org_routes2.default).config(_review_tmpl_routes2.default).config(_exp_task_routes2.default).config(_sys_setting_routes2.default).config(_relation_project_routes2.default);
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47298,17 +47299,20 @@
 	        templateUrl: 'templates/projects/index.html'
 	
 	    }).state('projects.unchecked', {
-	        url: '/list/unchecked',
+	        url: '/list/unchecked?categoryId&page&row&name',
 	        templateUrl: 'templates/projects/project_list_unchecked.html',
-	        controller: 'OrgProjectListCtrl'
+	        controller: 'OrgProjectListCtrl',
+	        reloadOnSearch: false
 	    }).state('projects.checking', {
-	        url: '/list/checking',
+	        url: '/list/checking?categoryId&page&row&name',
 	        templateUrl: 'templates/projects/project_list_checking.html',
-	        controller: 'OrgProjectListCtrl'
+	        controller: 'OrgProjectListCtrl',
+	        reloadOnSearch: false
 	    }).state('projects.checked', {
-	        url: '/list/checked',
+	        url: '/list/checked?categoryId&page&row&name',
 	        templateUrl: 'templates/projects/project_list_checked.html',
-	        controller: 'OrgProjectListCtrl'
+	        controller: 'OrgProjectListCtrl',
+	        reloadOnSearch: false
 	    }).state('projectDetail', {
 	        url: '/org/project/detail/:projectId',
 	        templateUrl: 'templates/projects/project_detail.html',
@@ -47317,7 +47321,7 @@
 	};
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47360,7 +47364,7 @@
 	};
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47378,7 +47382,7 @@
 	};
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47404,7 +47408,7 @@
 	};
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47426,7 +47430,7 @@
 	};
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47458,7 +47462,7 @@
 	};
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47479,7 +47483,7 @@
 	};
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47503,7 +47507,7 @@
 	};
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47529,7 +47533,7 @@
 	};
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47559,7 +47563,7 @@
 	};
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47599,7 +47603,7 @@
 	};
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47621,7 +47625,7 @@
 	};
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47634,7 +47638,7 @@
 	};
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47709,6 +47713,52 @@
 	});
 	
 	exports.default = filters;
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by caidi on 2017/1/23.
+	 */
+	var ErrorMaker = function ErrorMaker(name, code, defaultMessage) {
+	  return function (name, code, defaultMessage) {
+	    var Err = function Err(message) {
+	      this.name = name;
+	      this.code = code;
+	      this.message = defaultMessage || message;
+	      this.stack = new Error().stack;
+	    };
+	    Err.prototype = Object.create(Error.prototype);
+	    Err.prototype.constructor = Err;
+	    return Err;
+	  }(name, code, defaultMessage);
+	};
+	var UnAuthError = ErrorMaker('UnAuthError', 4011, '您的登录信息已过期，请重新登录！');
+	var NoTokenError = ErrorMaker('NoTokenError', -401, '手机号或密码错误');
+	var PasswordInvalidError = ErrorMaker('PasswordInvalidError', 401, '请先登录');
+	var TimeoutError = ErrorMaker('TimeoutError', 504, '请求超时，请稍后再试');
+	var ServerError = ErrorMaker('ServerError', 500, '服务器开小差了！');
+	var NotFoundError = ErrorMaker('NotFoundError', 404, '接口不存在，请检查');
+	var ErrorMap = {
+	  '4011': UnAuthError,
+	  '-401': NoTokenError,
+	  '401': PasswordInvalidError,
+	  '504': TimeoutError,
+	  '500': ServerError,
+	  '404': NotFoundError,
+	  '1011': ErrorMaker('NotInstallQQError', 1011, '未检测到手机QQ客户端'),
+	  '1012': ErrorMaker('NotInstallWeChatError', 1012, '未检测到微信客户端'),
+	  '1013': ErrorMaker('NotInstallWeiboError', 1013, '未检测到微博客户端'),
+	  '1021': ErrorMaker('OAuthLoginError', 1021, '第三方登录失败'),
+	  'def': ErrorMaker
+	};
+	exports.default = ErrorMap;
 
 /***/ })
 /******/ ]);

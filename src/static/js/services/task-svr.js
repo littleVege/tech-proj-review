@@ -23,7 +23,7 @@ export default (Api) => {
             params = params || {};
             params['page'] = page || 1;
             params['rows'] = rows || 10;
-            return Api.get('/task/select',params)
+            return Api.get('/task/fuzzyselect',params)
         },
         /**
          * 获取一条task记录

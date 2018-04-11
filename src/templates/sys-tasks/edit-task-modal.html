@@ -5,10 +5,6 @@
     <div class="modal-body">
         <form>
             <div class="form-item">
-                <label>任务编号</label>
-                <input type="text" class="form-control" placeholder="请输入" disabled>
-            </div>
-            <div class="form-item">
                 <label>任务名称</label>
                 <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.name">
             </div>
@@ -19,18 +15,24 @@
                         <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.manager">
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <div class="form-item">
+                        <label>承担单位</label>
+                        <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.organization">
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-item">
                         <label>开始时间</label>
-                        <input type="text" class="form-control" placeholder="请输入" select-date="updateInfo.startDate" ng-flatpicker>
+                        <input type="text" class="form-control" placeholder="请输入" min-date="minDateOfStart" max-date="maxDateOfStart" select-date="updateInfo.startDate" ng-flatpicker>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-item">
                         <label>结束时间</label>
-                        <input type="text" class="form-control" placeholder="请输入" select-date="updateInfo.endDate" ng-flatpicker>
+                        <input type="text" class="form-control" placeholder="请输入" min-date="updateInfo.startDate" max-date="maxDate" select-date="updateInfo.endDate" ng-flatpicker>
                     </div>
                 </div>
             </div>
