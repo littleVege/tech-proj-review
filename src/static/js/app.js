@@ -62,6 +62,41 @@ let app = angular.module('tpr', [
             {id:0,name:'其他'},
         ];
 
+
+        $rootScope.dataTableNameList = {
+            category:'项目分类字典',
+            dic_keyword_config:'项目配置',
+            duplicate_proejct_match:'匹配重复的项目',
+            evaluation_level:'项目分级',
+            evaluation_template_category:'评分模板',
+            evaluation_template_item:'评分模板详情',
+            evaluation_template_level:'评分模板等级',
+            expert:'专家信息',
+            file:'上传文件',
+            import_batch:'上传批次',
+            mail_template:'邮件模板',
+            organization:'组织机构',
+            project:'科技项目',
+            project_expert_evaluation:'专家评分',
+            project_expert_evaluation_detail:'专家详情',
+            project_file:'项目文件',
+            project_group:'项目分组',
+            project_group_expert:'专家从属分组',
+            project_keyword:'项目关键词',
+            project_relation_list:'项目相关性',
+            task:'评估任务',
+            td_project_keyword:'查重关键词',
+            user:'用户',
+            web_projs_all:'三库数据',
+        }
+
+        $rootScope.methodNameList = {
+            select:'查询',
+            insert:'创建',
+            delete:'删除',
+            update:'更新',
+        }
+
         $rootScope.goBack = function () {
             history.back();
         }
@@ -103,6 +138,16 @@ let app = angular.module('tpr', [
             if (found) {return found.categoryName} else {
                 return '--'
             }
+        }
+    })
+    .filter('dataTableName',($rootScope)=> {
+        return (cid)=> {
+            return !!$rootScope.dataTableNameList[cid] ? $rootScope.dataTableNameList[cid] : '暂无'
+        }
+    })
+    .filter('methodName',($rootScope)=> {
+        return (cid)=> {
+            return !!$rootScope.methodNameList[cid] ? $rootScope.methodNameList[cid] : '暂无'
         }
     })
     .config(function (uibPaginationConfig) {

@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="query-action-wrapper">
+    <div class="form-item">
+        <label>操作类型</label>
+        <ul>
+            <li ng-class="queryInfo.method == null && 'active'" ng-click="setParams('method',null)">全部</li>
+            <li ng-class="queryInfo.method == key && 'active'" ng-repeat="(key,val) in $root.methodNameList" ng-click="setParams('method',key)">{{val}}</li>
+        </ul>
+    </div>
+    <div class="form-item">
+        <label>操作类型</label>
 
-</body>
-</html>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>用户ID</th>
+        <th>用户名</th>
+        <th>操作数据</th>
+        <th>操作类型</th>
+        <th>操作时间</th>
+        <th>IP地址</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="i in list">
+        <td>{{$index+1}}</td>
+        <td>{{i.addedUserId}}</td>
+        <td>{{i.userName}}</td>
+        <td>{{i.tableName | dataTableName}}</td>
+        <td>{{i.method | methodName}}</td>
+        <td>{{i.addedDate | date:'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{i.ip}}</td>
+    </tr>
+    </tbody>
+</table>
+<ul uib-pagination  max-size="5" total-items="pageInfo.totalItems" ng-model="pageInfo.currentPage" ng-change="pageChanged()"></ul>

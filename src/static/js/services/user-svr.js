@@ -23,7 +23,7 @@ export default (Api) => {
             params = params || {};
             params['page'] = page || 1;
             params['rows'] = rows || 10;
-            return Api.get('/user/fuzzyselect',params)
+            return Api.get('/user/select',params)
         },
         /**
          * 获取一条user记录
@@ -79,6 +79,12 @@ export default (Api) => {
                         return data;
                     });
             }
+        },
+        getUserLogs:function (params,page,rows) {
+            params = params || {};
+            params['page'] = page || 1;
+            params['rows'] = rows || 10;
+            return Api.get('/userLog/select',params)
         }
 
     }

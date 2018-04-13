@@ -31,6 +31,7 @@
                 <th>负责人</th>
                 <th>所属领域</th>
                 <th>状态</th>
+                <th>已评估次数</th>
                 <th>提交时间</th>
                 <th>反馈时间</th>
                 <th>操作</th>
@@ -45,6 +46,7 @@
                 <td>{{i.manager || '--'}}</td>
                 <td>{{i.categoryId | category}}</td>
                 <td>{{i.projectStatus | projectStatus}}</td>
+                <td>{{i.evaluationCount||0}}</td>
                 <td>{{i.updatedDate | date: 'yyyy.MM.dd'}}</td>
                 <td>{{i.evaluationTime | date: 'yyyy.MM.dd'}}</td>
                 <td ng-if="i.projectStatus == 1">

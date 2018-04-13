@@ -52,8 +52,16 @@ let accountCtrl = ($scope,$uibModal,User,$state,Utils) => {
     }
     $scope.pageChanged();
 };
-let logsCtrl = ($scope) => {
-
+let logsCtrl = ($scope,Utils,User) => {
+    $scope.queryInfo = {};
+    $scope.setParams = (name,val) => {
+        $scope.queryInfo[name] = val;
+        $scope.resetPage();
+    };
+    Utils.paginize($scope,function (page) {
+        return User.getUserLogs($scope.queryInfo,page);
+    });
+    $scope.resetPage();
 };
 
 let settingCtrl = ($scope) => {

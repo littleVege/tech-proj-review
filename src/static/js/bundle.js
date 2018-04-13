@@ -70,15 +70,15 @@
 	
 	var _services2 = _interopRequireDefault(_services);
 	
-	var _routes = __webpack_require__(61);
+	var _routes = __webpack_require__(62);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _config = __webpack_require__(74);
+	var _config = __webpack_require__(75);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _filters = __webpack_require__(75);
+	var _filters = __webpack_require__(76);
 	
 	var _filters2 = _interopRequireDefault(_filters);
 	
@@ -106,6 +106,40 @@
 	    $rootScope.orgNature = [{ id: 1, name: '国家部门' }, { id: 2, name: '地方科技厅（委、局）' }, { id: 3, name: '高校院所' }, { id: 4, name: '企业' }, { id: 5, name: '其他' }];
 	
 	    $rootScope.areas = [{ id: 1, name: '长三角' }, { id: 2, name: '珠三角' }, { id: 3, name: '京津冀' }, { id: 4, name: '东部' }, { id: 5, name: '西部' }, { id: 6, name: '中部' }, { id: 0, name: '其他' }];
+	
+	    $rootScope.dataTableNameList = {
+	        category: '项目分类字典',
+	        dic_keyword_config: '项目配置',
+	        duplicate_proejct_match: '匹配重复的项目',
+	        evaluation_level: '项目分级',
+	        evaluation_template_category: '评分模板',
+	        evaluation_template_item: '评分模板详情',
+	        evaluation_template_level: '评分模板等级',
+	        expert: '专家信息',
+	        file: '上传文件',
+	        import_batch: '上传批次',
+	        mail_template: '邮件模板',
+	        organization: '组织机构',
+	        project: '科技项目',
+	        project_expert_evaluation: '专家评分',
+	        project_expert_evaluation_detail: '专家详情',
+	        project_file: '项目文件',
+	        project_group: '项目分组',
+	        project_group_expert: '专家从属分组',
+	        project_keyword: '项目关键词',
+	        project_relation_list: '项目相关性',
+	        task: '评估任务',
+	        td_project_keyword: '查重关键词',
+	        user: '用户',
+	        web_projs_all: '三库数据'
+	    };
+	
+	    $rootScope.methodNameList = {
+	        select: '查询',
+	        insert: '创建',
+	        delete: '删除',
+	        update: '更新'
+	    };
 	
 	    $rootScope.goBack = function () {
 	        history.back();
@@ -151,6 +185,14 @@
 	        } else {
 	            return '--';
 	        }
+	    };
+	}).filter('dataTableName', function ($rootScope) {
+	    return function (cid) {
+	        return !!$rootScope.dataTableNameList[cid] ? $rootScope.dataTableNameList[cid] : '暂无';
+	    };
+	}).filter('methodName', function ($rootScope) {
+	    return function (cid) {
+	        return !!$rootScope.methodNameList[cid] ? $rootScope.methodNameList[cid] : '暂无';
 	    };
 	}).config(function (uibPaginationConfig) {
 	    uibPaginationConfig.maxSize = 5;
@@ -44002,7 +44044,17 @@
 	    };
 	    $scope.pageChanged();
 	};
-	var logsCtrl = function logsCtrl($scope) {};
+	var logsCtrl = function logsCtrl($scope, Utils, User) {
+	    $scope.queryInfo = {};
+	    $scope.setParams = function (name, val) {
+	        $scope.queryInfo[name] = val;
+	        $scope.resetPage();
+	    };
+	    Utils.paginize($scope, function (page) {
+	        return User.getUserLogs($scope.queryInfo, page);
+	    });
+	    $scope.resetPage();
+	};
 	
 	var settingCtrl = function settingCtrl($scope) {};
 	
@@ -44701,95 +44753,95 @@
 	
 	var _api_factory2 = _interopRequireDefault(_api_factory);
 	
-	var _categorySvr = __webpack_require__(38);
+	var _categorySvr = __webpack_require__(39);
 	
 	var _categorySvr2 = _interopRequireDefault(_categorySvr);
 	
-	var _evaluationTemplateCategorySvr = __webpack_require__(39);
+	var _evaluationTemplateCategorySvr = __webpack_require__(40);
 	
 	var _evaluationTemplateCategorySvr2 = _interopRequireDefault(_evaluationTemplateCategorySvr);
 	
-	var _evaluationTemplateLevelSvr = __webpack_require__(40);
+	var _evaluationTemplateLevelSvr = __webpack_require__(41);
 	
 	var _evaluationTemplateLevelSvr2 = _interopRequireDefault(_evaluationTemplateLevelSvr);
 	
-	var _fileSvr = __webpack_require__(41);
+	var _fileSvr = __webpack_require__(42);
 	
 	var _fileSvr2 = _interopRequireDefault(_fileSvr);
 	
-	var _importBatchSvr = __webpack_require__(42);
+	var _importBatchSvr = __webpack_require__(43);
 	
 	var _importBatchSvr2 = _interopRequireDefault(_importBatchSvr);
 	
-	var _mailTemplateSvr = __webpack_require__(43);
+	var _mailTemplateSvr = __webpack_require__(44);
 	
 	var _mailTemplateSvr2 = _interopRequireDefault(_mailTemplateSvr);
 	
-	var _organizationSvr = __webpack_require__(44);
+	var _organizationSvr = __webpack_require__(45);
 	
 	var _organizationSvr2 = _interopRequireDefault(_organizationSvr);
 	
-	var _projectSvr = __webpack_require__(45);
+	var _projectSvr = __webpack_require__(46);
 	
 	var _projectSvr2 = _interopRequireDefault(_projectSvr);
 	
-	var _projectExpertEvaluationSvr = __webpack_require__(46);
+	var _projectExpertEvaluationSvr = __webpack_require__(47);
 	
 	var _projectExpertEvaluationSvr2 = _interopRequireDefault(_projectExpertEvaluationSvr);
 	
-	var _projectExpertEvaluationDetailSvr = __webpack_require__(47);
+	var _projectExpertEvaluationDetailSvr = __webpack_require__(48);
 	
 	var _projectExpertEvaluationDetailSvr2 = _interopRequireDefault(_projectExpertEvaluationDetailSvr);
 	
-	var _projectFileSvr = __webpack_require__(48);
+	var _projectFileSvr = __webpack_require__(49);
 	
 	var _projectFileSvr2 = _interopRequireDefault(_projectFileSvr);
 	
-	var _projectGroupSvr = __webpack_require__(49);
+	var _projectGroupSvr = __webpack_require__(50);
 	
 	var _projectGroupSvr2 = _interopRequireDefault(_projectGroupSvr);
 	
-	var _projectGroupExpertSvr = __webpack_require__(50);
+	var _projectGroupExpertSvr = __webpack_require__(51);
 	
 	var _projectGroupExpertSvr2 = _interopRequireDefault(_projectGroupExpertSvr);
 	
-	var _projectKeywordSvr = __webpack_require__(51);
+	var _projectKeywordSvr = __webpack_require__(52);
 	
 	var _projectKeywordSvr2 = _interopRequireDefault(_projectKeywordSvr);
 	
-	var _projectRelationSvr = __webpack_require__(52);
+	var _projectRelationSvr = __webpack_require__(53);
 	
 	var _projectRelationSvr2 = _interopRequireDefault(_projectRelationSvr);
 	
-	var _projectRelationListSvr = __webpack_require__(53);
+	var _projectRelationListSvr = __webpack_require__(54);
 	
 	var _projectRelationListSvr2 = _interopRequireDefault(_projectRelationListSvr);
 	
-	var _taskSvr = __webpack_require__(54);
+	var _taskSvr = __webpack_require__(55);
 	
 	var _taskSvr2 = _interopRequireDefault(_taskSvr);
 	
-	var _tdProjectKeywordSvr = __webpack_require__(55);
+	var _tdProjectKeywordSvr = __webpack_require__(56);
 	
 	var _tdProjectKeywordSvr2 = _interopRequireDefault(_tdProjectKeywordSvr);
 	
-	var _userSvr = __webpack_require__(56);
+	var _userSvr = __webpack_require__(57);
 	
 	var _userSvr2 = _interopRequireDefault(_userSvr);
 	
-	var _webProjsAllSvr = __webpack_require__(57);
+	var _webProjsAllSvr = __webpack_require__(58);
 	
 	var _webProjsAllSvr2 = _interopRequireDefault(_webProjsAllSvr);
 	
-	var _expertSvr = __webpack_require__(58);
+	var _expertSvr = __webpack_require__(59);
 	
 	var _expertSvr2 = _interopRequireDefault(_expertSvr);
 	
-	var _util_svr = __webpack_require__(59);
+	var _util_svr = __webpack_require__(60);
 	
 	var _util_svr2 = _interopRequireDefault(_util_svr);
 	
-	var _dialogs = __webpack_require__(60);
+	var _dialogs = __webpack_require__(61);
 	
 	var _dialogs2 = _interopRequireDefault(_dialogs);
 	
@@ -44810,7 +44862,7 @@
 	    value: true
 	});
 	
-	var _excption = __webpack_require__(76);
+	var _excption = __webpack_require__(38);
 	
 	var _excption2 = _interopRequireDefault(_excption);
 	
@@ -44963,6 +45015,52 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Created by caidi on 2017/1/23.
+	 */
+	var ErrorMaker = function ErrorMaker(name, code, defaultMessage) {
+	  return function (name, code, defaultMessage) {
+	    var Err = function Err(message) {
+	      this.name = name;
+	      this.code = code;
+	      this.message = defaultMessage || message;
+	      this.stack = new Error().stack;
+	    };
+	    Err.prototype = Object.create(Error.prototype);
+	    Err.prototype.constructor = Err;
+	    return Err;
+	  }(name, code, defaultMessage);
+	};
+	var UnAuthError = ErrorMaker('UnAuthError', 4011, '您的登录信息已过期，请重新登录！');
+	var NoTokenError = ErrorMaker('NoTokenError', -401, '手机号或密码错误');
+	var PasswordInvalidError = ErrorMaker('PasswordInvalidError', 401, '请先登录');
+	var TimeoutError = ErrorMaker('TimeoutError', 504, '请求超时，请稍后再试');
+	var ServerError = ErrorMaker('ServerError', 500, '服务器开小差了！');
+	var NotFoundError = ErrorMaker('NotFoundError', 404, '接口不存在，请检查');
+	var ErrorMap = {
+	  '4011': UnAuthError,
+	  '-401': NoTokenError,
+	  '401': PasswordInvalidError,
+	  '504': TimeoutError,
+	  '500': ServerError,
+	  '404': NotFoundError,
+	  '1011': ErrorMaker('NotInstallQQError', 1011, '未检测到手机QQ客户端'),
+	  '1012': ErrorMaker('NotInstallWeChatError', 1012, '未检测到微信客户端'),
+	  '1013': ErrorMaker('NotInstallWeiboError', 1013, '未检测到微博客户端'),
+	  '1021': ErrorMaker('OAuthLoginError', 1021, '第三方登录失败'),
+	  'def': ErrorMaker
+	};
+	exports.default = ErrorMap;
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	
@@ -45056,7 +45154,7 @@
 	};
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45174,7 +45272,7 @@
 	};
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45273,7 +45371,7 @@
 	};
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45372,7 +45470,7 @@
 	};
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45471,7 +45569,7 @@
 	};
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45570,7 +45668,7 @@
 	};
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45675,7 +45773,7 @@
 	};
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45780,7 +45878,7 @@
 	};
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45888,7 +45986,7 @@
 	};
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -45987,7 +46085,7 @@
 	};
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46086,7 +46184,7 @@
 	};
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46121,7 +46219,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/projectGroup/fuzzyselect', params);
+	            return Api.get('/projectGroup/select', params);
 	        },
 	        /**
 	         * 获取一条projectGroup记录
@@ -46191,7 +46289,7 @@
 	};
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46290,7 +46388,7 @@
 	};
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46389,7 +46487,7 @@
 	};
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46488,7 +46586,7 @@
 	};
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46587,7 +46685,7 @@
 	};
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46692,7 +46790,7 @@
 	};
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46791,7 +46889,7 @@
 	};
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46826,7 +46924,7 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/user/fuzzyselect', params);
+	            return Api.get('/user/select', params);
 	        },
 	        /**
 	         * 获取一条user记录
@@ -46885,13 +46983,19 @@
 	                    return data;
 	                });
 	            }
+	        },
+	        getUserLogs: function getUserLogs(params, page, rows) {
+	            params = params || {};
+	            params['page'] = page || 1;
+	            params['rows'] = rows || 10;
+	            return Api.get('/userLog/select', params);
 	        }
 	
 	    };
 	};
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -46990,7 +47094,7 @@
 	};
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47103,7 +47207,7 @@
 	};
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -47157,7 +47261,7 @@
 	};
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -47222,7 +47326,7 @@
 	};
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47231,51 +47335,51 @@
 	    value: true
 	});
 	
-	var _project_routes = __webpack_require__(62);
+	var _project_routes = __webpack_require__(63);
 	
 	var _project_routes2 = _interopRequireDefault(_project_routes);
 	
-	var _gourp_routes = __webpack_require__(63);
+	var _gourp_routes = __webpack_require__(64);
 	
 	var _gourp_routes2 = _interopRequireDefault(_gourp_routes);
 	
-	var _mail_tmpl_routes = __webpack_require__(64);
+	var _mail_tmpl_routes = __webpack_require__(65);
 	
 	var _mail_tmpl_routes2 = _interopRequireDefault(_mail_tmpl_routes);
 	
-	var _sys_project_view_routes = __webpack_require__(65);
+	var _sys_project_view_routes = __webpack_require__(66);
 	
 	var _sys_project_view_routes2 = _interopRequireDefault(_sys_project_view_routes);
 	
-	var _task_routes = __webpack_require__(66);
+	var _task_routes = __webpack_require__(67);
 	
 	var _task_routes2 = _interopRequireDefault(_task_routes);
 	
-	var _review_routes = __webpack_require__(67);
+	var _review_routes = __webpack_require__(68);
 	
 	var _review_routes2 = _interopRequireDefault(_review_routes);
 	
-	var _expert_routes = __webpack_require__(68);
+	var _expert_routes = __webpack_require__(69);
 	
 	var _expert_routes2 = _interopRequireDefault(_expert_routes);
 	
-	var _org_routes = __webpack_require__(69);
+	var _org_routes = __webpack_require__(70);
 	
 	var _org_routes2 = _interopRequireDefault(_org_routes);
 	
-	var _review_tmpl_routes = __webpack_require__(70);
+	var _review_tmpl_routes = __webpack_require__(71);
 	
 	var _review_tmpl_routes2 = _interopRequireDefault(_review_tmpl_routes);
 	
-	var _exp_task_routes = __webpack_require__(71);
+	var _exp_task_routes = __webpack_require__(72);
 	
 	var _exp_task_routes2 = _interopRequireDefault(_exp_task_routes);
 	
-	var _sys_setting_routes = __webpack_require__(72);
+	var _sys_setting_routes = __webpack_require__(73);
 	
 	var _sys_setting_routes2 = _interopRequireDefault(_sys_setting_routes);
 	
-	var _relation_project_routes = __webpack_require__(73);
+	var _relation_project_routes = __webpack_require__(74);
 	
 	var _relation_project_routes2 = _interopRequireDefault(_relation_project_routes);
 	
@@ -47284,7 +47388,7 @@
 	exports.default = angular.module('tpr.routes', []).config(_project_routes2.default).config(_gourp_routes2.default).config(_mail_tmpl_routes2.default).config(_sys_project_view_routes2.default).config(_task_routes2.default).config(_expert_routes2.default).config(_review_routes2.default).config(_org_routes2.default).config(_review_tmpl_routes2.default).config(_exp_task_routes2.default).config(_sys_setting_routes2.default).config(_relation_project_routes2.default);
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47321,7 +47425,7 @@
 	};
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47364,7 +47468,7 @@
 	};
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47382,7 +47486,7 @@
 	};
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47408,7 +47512,7 @@
 	};
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47430,7 +47534,7 @@
 	};
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47462,7 +47566,7 @@
 	};
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47483,7 +47587,7 @@
 	};
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47507,7 +47611,7 @@
 	};
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47533,7 +47637,7 @@
 	};
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47563,7 +47667,7 @@
 	};
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47603,7 +47707,7 @@
 	};
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47625,7 +47729,7 @@
 	};
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47638,7 +47742,7 @@
 	};
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -47713,52 +47817,6 @@
 	});
 	
 	exports.default = filters;
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/**
-	 * Created by caidi on 2017/1/23.
-	 */
-	var ErrorMaker = function ErrorMaker(name, code, defaultMessage) {
-	  return function (name, code, defaultMessage) {
-	    var Err = function Err(message) {
-	      this.name = name;
-	      this.code = code;
-	      this.message = defaultMessage || message;
-	      this.stack = new Error().stack;
-	    };
-	    Err.prototype = Object.create(Error.prototype);
-	    Err.prototype.constructor = Err;
-	    return Err;
-	  }(name, code, defaultMessage);
-	};
-	var UnAuthError = ErrorMaker('UnAuthError', 4011, '您的登录信息已过期，请重新登录！');
-	var NoTokenError = ErrorMaker('NoTokenError', -401, '手机号或密码错误');
-	var PasswordInvalidError = ErrorMaker('PasswordInvalidError', 401, '请先登录');
-	var TimeoutError = ErrorMaker('TimeoutError', 504, '请求超时，请稍后再试');
-	var ServerError = ErrorMaker('ServerError', 500, '服务器开小差了！');
-	var NotFoundError = ErrorMaker('NotFoundError', 404, '接口不存在，请检查');
-	var ErrorMap = {
-	  '4011': UnAuthError,
-	  '-401': NoTokenError,
-	  '401': PasswordInvalidError,
-	  '504': TimeoutError,
-	  '500': ServerError,
-	  '404': NotFoundError,
-	  '1011': ErrorMaker('NotInstallQQError', 1011, '未检测到手机QQ客户端'),
-	  '1012': ErrorMaker('NotInstallWeChatError', 1012, '未检测到微信客户端'),
-	  '1013': ErrorMaker('NotInstallWeiboError', 1013, '未检测到微博客户端'),
-	  '1021': ErrorMaker('OAuthLoginError', 1021, '第三方登录失败'),
-	  'def': ErrorMaker
-	};
-	exports.default = ErrorMap;
 
 /***/ })
 /******/ ]);

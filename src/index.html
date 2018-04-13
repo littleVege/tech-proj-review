@@ -24,7 +24,7 @@
         <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^expert(.+)$" active-class="active" ui-sref="expert.list"><span class="iconset icon-line1-6"></span>专家管理</a></li>
         <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^org(.+)$" active-class="active" ui-sref="org.list"><span class="iconset icon-line1-10"></span>机构管理</a></li>
         <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysMailTmpls(.*)$" active-class="active" ui-sref="sysMailTmpls"><span class="iconset icon-line1-11"></span>邮件模板</a></li>
-        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysManager(.+)$" active-class="active" ui-sref="sysManager.account"><span class="iconset icon-line1-12"></span>系统管理</a></li>
+        <li  ng-if="$root.User.roleId == 3"><a ui-sref-active-reg="^sysManager(.+)$" active-class="active" ui-sref="sysManager.account.org"><span class="iconset icon-line1-12"></span>系统管理</a></li>
 
 
         <li ng-if="$root.User.roleId == 2"><a ui-sref-active-reg="^expTask(.*)$" active-class="active" ui-sref="expTaskList"><span class="iconset icon-line1-7"></span>评审任务</a></li>

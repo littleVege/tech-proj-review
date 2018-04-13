@@ -3,6 +3,7 @@
     <thead>
     <tr>
         <th>序号</th>
+        <th>用户ID</th>
         <th>专家名称</th>
         <th>用户名</th>
         <th>最后登录时间</th>
@@ -15,6 +16,7 @@
     <tbody>
     <tr ng-repeat="i in list">
         <td>{{$index+1}}</td>
+        <td>{{i.id}}</td>
         <td>{{i.expertName}}</td>
         <td>{{i.userName}}</td>
         <td>{{i.lastLoginTime?(i.lastLoginTime | date:'yyyy-MM-dd HH:mm'):'--'}}</td>

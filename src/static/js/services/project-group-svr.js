@@ -23,7 +23,7 @@ export default (Api) => {
             params = params || {};
             params['page'] = page || 1;
             params['rows'] = rows || 10;
-            return Api.get('/projectGroup/fuzzyselect',params)
+            return Api.get('/projectGroup/select',params)
         },
         /**
          * 获取一条projectGroup记录
