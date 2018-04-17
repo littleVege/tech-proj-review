@@ -28,7 +28,8 @@ const reviewListCtrl = ($scope,Project,$stateParams,$rootScope,Utils) => {
     $scope.pageChanged();
 };
 
-const reviewDetailCtrl = ($scope,Project,ProjectExpertEvaluation,EvaluationTemplateCategory,ProjectExpertEvaluationDetail,Task,ProjectRelation,$stateParams) => {
+const reviewDetailCtrl = ($scope,Project,ProjectExpertEvaluation,EvaluationTemplateCategory,ProjectExpertEvaluationDetail,
+                          Task,ProjectRelation,$stateParams) => {
     let projectId = $stateParams['projectId'];
     let expertId = $stateParams['expertId'];
     ProjectExpertEvaluation

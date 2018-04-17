@@ -51,6 +51,17 @@ export default ($uibModal,$q) => {
                 showConfirmButton: false,
                 type: type || "success",
             })
+        },
+        loading:function (msg) {
+            swal({
+                title: "请稍候...",
+                text: msg,
+                icon: "info",
+                showCancelButton: false,
+                showConfirmButton: false
+            });
+            return ()=>{swal.close()}
+
         }
     }
 }

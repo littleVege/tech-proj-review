@@ -1,4 +1,4 @@
-let orgListCtrl = ($scope,Organization,User,Utils,$uibModal) => {
+let orgListCtrl = ($scope,Organization,User,Utils,$uibModal,dialogs) => {
     $scope.queryInfo = {};
     Utils.paginize($scope,function (page) {
         return Organization.getListByQuery($scope.queryInfo,page);
@@ -39,9 +39,14 @@ let orgListCtrl = ($scope,Organization,User,Utils,$uibModal) => {
                     $ps.pageChanged();
                 };
                 $scope.submitEdit = function () {
-                    Organization.createOrgAndAccount($scope.updateInfo)
+                    let closeLoading = dialogs.loading('机构正在创建中，请稍候');
+                    Organization.createOne($scope.updateInfo)
                         .then(function (data) {
-                            $scope.orgAccountInfo = data[1];
+                            $scope.orgAccountInfo = data;
+                            closeLoading();
+                        })
+                        .catch(e=>{
+                            dialogs.info(e.message,2000,'error')
                         })
                 }
             }

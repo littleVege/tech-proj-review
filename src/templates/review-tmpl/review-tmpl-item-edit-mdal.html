@@ -10,7 +10,7 @@
             </div>
             <div class="form-item">
                 <label>总分</label>
-                <input type="number" class="form-control" placeholder="请输入" ng-model="updateInfo.maxScore" style="width: 100px">
+                <input type="number" class="form-control" placeholder="请输入" ng-blur="validVal(updateInfo.maxScore)" ng-model="updateInfo.maxScore" style="width: 100px">
             </div>
             <div class="form-item">
                 <label>描述信息</label>

@@ -12,7 +12,7 @@
                 <div class="form-item">
                     <label>机构简称</label>
                     <input type="text" class="form-control" placeholder="请输入" ng-model="updateInfo.shortName">
-                    <p class="description">* 机构简称的拼音全拼将成为机构的登录账户名</p>
+                    <!--<p class="description">* 机构简称的拼音全拼将成为机构的登录账户名</p>-->
                 </div>
                 <div class="form-item">
                     <label>所属区域</label>
@@ -62,27 +62,27 @@
             <table class="info-table">
                 <tr>
                     <td>机构名称</td>
-                    <td>{{orgAccountInfo.org.name}}</td>
+                    <td>{{orgAccountInfo.name}}</td>
                     <td>机构简称</td>
-                    <td>{{orgAccountInfo.org.shortName}}</td>
+                    <td>{{orgAccountInfo.shortName}}</td>
                 </tr>
                 <tr>
                     <td>机构性质</td>
-                    <td colspan="3">{{orgAccountInfo.org.nature | orgType}}</td>
+                    <td colspan="3">{{orgAccountInfo.nature | orgType}}</td>
                 </tr>
                 <tr>
                     <td>联系人</td>
-                    <td colspan="3">{{orgAccountInfo.org.contactName}}</td>
+                    <td colspan="3">{{orgAccountInfo.contactName}}</td>
                 </tr>
                 <tr>
                     <td>联系电话</td>
-                    <td>{{orgAccountInfo.org.contactPhoneNumber}}</td>
+                    <td>{{orgAccountInfo.contactPhoneNumber}}</td>
                     <td>Email</td>
-                    <td>{{orgAccountInfo.org.email}}</td>
+                    <td>{{orgAccountInfo.email}}</td>
                 </tr>
                 <tr>
                     <td>简介</td>
-                    <td colspan="3">{{orgAccountInfo.org.remark}}</td>
+                    <td colspan="3">{{orgAccountInfo.remark}}</td>
                 </tr>
             </table>
             <h4>用户信息</h4>
@@ -90,13 +90,13 @@
             <table class="info-table">
                 <tr>
                     <td>用户ID</td>
-                    <td colspan="3">{{orgAccountInfo.account.id}}</td>
+                    <td colspan="3">{{orgAccountInfo.user.id}}</td>
                 </tr>
                 <tr>
                     <td>用户名</td>
-                    <td>{{orgAccountInfo.account.userName}}</td>
+                    <td>{{orgAccountInfo.user.userName}}</td>
                     <td>密码</td>
-                    <td>{{orgAccountInfo.account.userName}}@2017</td>
+                    <td>{{orgAccountInfo.user.password}}</td>
                 </tr>
             </table>
         </div>

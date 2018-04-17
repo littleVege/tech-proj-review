@@ -43280,7 +43280,7 @@
 	    $scope.pageChanged();
 	};
 	
-	var groupEditCtrl = function groupEditCtrl($scope, $stateParams, Task, ProjectGroup, Utils, Project, $uibModal, $state, Expert, dialogs) {
+	var groupEditCtrl = function groupEditCtrl($scope, $stateParams, Task, ProjectGroup, Utils, Project, $uibModal, $state, Expert, dialogs, ProjectGroupExpert) {
 	    var taskId = $stateParams['taskId'];
 	    var groupId = $stateParams['groupId'];
 	    $scope.taskId = taskId;
@@ -43397,8 +43397,8 @@
 	                };
 	                $scope.toggleSelectAll = function () {
 	                    _.each($scope.list, function (i) {
-	                        i.selected = true;
 	                        if (i.checked) {
+	                            i.selected = true;
 	                            $scope.selectedProjects[i.id] = i;
 	                        }
 	                    });
@@ -43468,8 +43468,9 @@
 	                };
 	                $scope.toggleSelectAll = function () {
 	                    _.each($scope.list, function (i) {
-	                        i.selected = true;
+	
 	                        if (i.checked) {
+	                            i.selected = true;
 	                            $scope.selectedExperts[i.id] = i;
 	                        }
 	                    });
@@ -43490,6 +43491,10 @@
 	                $scope.getCount = function () {
 	                    return _.toArray($scope.selectedExperts).length;
 	                };
+	                $scope.queryExpert = function () {
+	                    $scope.pageInfo.currentPage = 1;
+	                    $scope.pageChanged();
+	                };
 	            }
 	        });
 	    };
@@ -43507,7 +43512,7 @@
 	    $scope.removeExpertFromGroup = function (expertRelation) {
 	        dialogs.confirm('移除此专家？', '是否从此项目组中移除此专家', '好的', '取消', true).then(function (isConfirm) {
 	            if (isConfirm) {
-	                ProjectGroupExpert.deleteOne(expertRelation.id).then(function () {
+	                ProjectGroupExpert.deleteExpertFromGroup(expertRelation.groupId, expertRelation.expertId).then(function () {
 	                    $scope.loadGroupExperts();
 	                });
 	            }
@@ -43529,7 +43534,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var orgListCtrl = function orgListCtrl($scope, Organization, User, Utils, $uibModal) {
+	var orgListCtrl = function orgListCtrl($scope, Organization, User, Utils, $uibModal, dialogs) {
 	    $scope.queryInfo = {};
 	    Utils.paginize($scope, function (page) {
 	        return Organization.getListByQuery($scope.queryInfo, page);
@@ -43569,8 +43574,12 @@
 	                    $ps.pageChanged();
 	                };
 	                $scope.submitEdit = function () {
-	                    Organization.createOrgAndAccount($scope.updateInfo).then(function (data) {
-	                        $scope.orgAccountInfo = data[1];
+	                    var closeLoading = dialogs.loading('机构正在创建中，请稍候');
+	                    Organization.createOne($scope.updateInfo).then(function (data) {
+	                        $scope.orgAccountInfo = data;
+	                        closeLoading();
+	                    }).catch(function (e) {
+	                        dialogs.info(e.message, 2000, 'error');
 	                    });
 	                };
 	            }
@@ -43767,7 +43776,9 @@
 	var mailTmplListCtrl = function mailTmplListCtrl($scope, MailTemplate, User, Utils, $stateParams, $uibModal) {
 	    $scope.queryInfo = { type: $stateParams['type'] };
 	    Utils.paginize($scope, function (page) {
-	        return MailTemplate.getListByQuery($scope.queryInfo, page);
+	        return MailTemplate.getListByQuery($scope.queryInfo, page).catch(function (e) {
+	            console.log(e);
+	        });
 	    });
 	    $scope.pageChanged();
 	
@@ -43875,6 +43886,8 @@
 	        });
 	    };
 	
+	    $scope.lastVal = 100;
+	
 	    $scope.editTmpl = function (info) {
 	        var $ps = $scope;
 	        $uibModal.open({
@@ -43883,6 +43896,14 @@
 	            size: 'lg',
 	            templateUrl: 'templates/review-tmpl/review-tmpl-item-edit-mdal.html',
 	            controller: function controller($scope, $uibModalInstance) {
+	
+	                $scope.validVal = function (val, checkSumVal) {
+	                    var lastVal = checkSumVal || $ps.lastVal;
+	                    if (lastVal - val < 0) {
+	                        dialogs.info('输入分数必须小于' + lastVal, 2000, 'warning');
+	                        return false;
+	                    }
+	                };
 	                $scope.updateInfo = _.cloneDeep(info) || {};
 	                if ($scope.updateInfo.id) {
 	                    $scope.updateInfo.status = 'update';
@@ -44011,9 +44032,7 @@
 	                    if ($scope.updateInfo.newPassword !== $scope.updateInfo.repeatNewPassword) {
 	                        return swal('新密码验证错误！');
 	                    }
-	                    promise = User.updateOne(user.id, {
-	                        password: $scope.updateInfo.newPassword
-	                    });
+	                    promise = User.resetPassword(user.id, $scope.updateInfo.newPassword);
 	                    promise.then(function (data) {
 	                        $uibModalInstance.close(data);
 	                    });
@@ -44945,6 +44964,9 @@
 	                headers: {
 	                    'Content-Type': 'application/x-www-form-urlencoded'
 	                },
+	                data: form,
+	                url: prefix + url,
+	                method: 'POST',
 	                transformRequest: function transformRequest(obj) {
 	                    var str = [];
 	                    for (var p in obj) {
@@ -44969,7 +44991,7 @@
 	            var conf = _.merge({ 'Content-Type': undefined }, httpConfig);
 	            checkAndProvideAuth(conf, deferred);
 	            translateData(form);
-	            $http.post(prefix + url, data, conf).then(handleSuccess(deferred), handleError(deferred));
+	            $http(conf).then(handleSuccess(deferred), handleError(deferred));
 	            return deferred.promise;
 	        },
 	        /**
@@ -44982,10 +45004,15 @@
 	            httpConfig = httpConfig || {};
 	            var deferred = $q.defer();
 	            var prefix = httpConfig.baseURL || Config.apiBaseURL;
-	            var conf = _.merge({ params: params }, httpConfig);
+	            var conf = _.merge({
+	                params: params,
+	                responseType: 'text',
+	                url: prefix + url,
+	                method: 'GET'
+	            }, httpConfig);
 	            checkAndProvideAuth(conf, deferred);
 	            translateData(params);
-	            $http.get(prefix + url, conf).then(handleSuccess(deferred), handleError(deferred));
+	            $http(conf).then(handleSuccess(deferred), handleError(deferred));
 	            return deferred.promise;
 	        },
 	        jsonp: function jsonp(url, params, httpConfig) {
@@ -46382,6 +46409,9 @@
 	                    return data;
 	                });
 	            }
+	        },
+	        deleteExpertFromGroup: function deleteExpertFromGroup(groupId, expertId) {
+	            return Api.get('/projectGroupExpert/deleteExpert', { groupId: groupId, expertId: expertId });
 	        }
 	
 	    };
@@ -46989,6 +47019,9 @@
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
 	            return Api.get('/userLog/select', params);
+	        },
+	        resetPassword: function resetPassword(updateUserId, newPassword) {
+	            return Api.post('/user/resetUserPassword', { updateUserId: updateUserId, newPassword: newPassword });
 	        }
 	
 	    };
@@ -47321,6 +47354,18 @@
 	                showConfirmButton: false,
 	                type: type || "success"
 	            });
+	        },
+	        loading: function loading(msg) {
+	            swal({
+	                title: "请稍候...",
+	                text: msg,
+	                icon: "info",
+	                showCancelButton: false,
+	                showConfirmButton: false
+	            });
+	            return function () {
+	                swal.close();
+	            };
 	        }
 	    };
 	};

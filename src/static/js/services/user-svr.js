@@ -85,6 +85,9 @@ export default (Api) => {
             params['page'] = page || 1;
             params['rows'] = rows || 10;
             return Api.get('/userLog/select',params)
+        },
+        resetPassword:(updateUserId,newPassword)=>{
+            return Api.post('/user/resetUserPassword',{updateUserId,newPassword})
         }
 
     }

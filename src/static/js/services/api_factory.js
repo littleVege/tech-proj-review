@@ -85,6 +85,9 @@ let apiSvr = function ($q, $http, $rootScope, Config) {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
+                data:form,
+                url:prefix + url,
+                method:'POST',
                 transformRequest: function (obj) {
                     let str = [];
                     for (let p in obj) {
@@ -109,7 +112,7 @@ let apiSvr = function ($q, $http, $rootScope, Config) {
             let conf = _.merge({'Content-Type': undefined}, httpConfig);
             checkAndProvideAuth(conf, deferred);
             translateData(form);
-            $http.post(prefix + url, data, conf).then(handleSuccess(deferred), handleError(deferred));
+            $http(conf).then(handleSuccess(deferred), handleError(deferred));
             return deferred.promise;
         },
         /**
@@ -122,10 +125,15 @@ let apiSvr = function ($q, $http, $rootScope, Config) {
             httpConfig = httpConfig || {};
             let deferred = $q.defer();
             let prefix = httpConfig.baseURL || Config.apiBaseURL;
-            let conf = _.merge({params: params}, httpConfig);
+            let conf = _.merge({
+                params: params,
+                responseType:'text',
+                url:prefix + url,
+                method:'GET'
+                }, httpConfig);
             checkAndProvideAuth(conf, deferred);
             translateData(params);
-            $http.get(prefix + url, conf)
+            $http(conf)
                 .then(handleSuccess(deferred), handleError(deferred));
             return deferred.promise;
         },

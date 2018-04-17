@@ -71,7 +71,7 @@ let groupDetailProjectsCtrl = ($scope,$stateParams,Utils,Project) => {
     $scope.pageChanged();
 };
 
-let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibModal,$state,Expert,dialogs) => {
+let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibModal,$state,Expert,dialogs,ProjectGroupExpert) => {
     let taskId = $stateParams['taskId'];
     let groupId = $stateParams['groupId'];
     $scope.taskId = taskId;
@@ -205,8 +205,8 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
                 }
                 $scope.toggleSelectAll = function () {
                     _.each($scope.list,function (i) {
-                        i.selected = true;
                         if (i.checked) {
+                            i.selected = true;
                             $scope.selectedProjects[i.id] = i;
                         }
                     })
@@ -282,8 +282,9 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
                 }
                 $scope.toggleSelectAll = function () {
                     _.each($scope.list,function (i) {
-                        i.selected = true;
+
                         if (i.checked) {
+                            i.selected = true;
                             $scope.selectedExperts[i.id] = i;
                         }
                     })
@@ -304,6 +305,10 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
                 $scope.getCount = function () {
                     return _.toArray($scope.selectedExperts).length;
                 }
+                $scope.queryExpert = function () {
+                    $scope.pageInfo.currentPage = 1;
+                    $scope.pageChanged();
+                };
             }
         });
     }
@@ -324,7 +329,7 @@ let groupEditCtrl = ($scope,$stateParams,Task,ProjectGroup,Utils,Project,$uibMod
         dialogs.confirm('移除此专家？','是否从此项目组中移除此专家','好的','取消',true)
             .then(isConfirm=> {
                 if (isConfirm) {
-                    ProjectGroupExpert.deleteOne(expertRelation.id)
+                    ProjectGroupExpert.deleteExpertFromGroup(expertRelation.groupId,expertRelation.expertId)
                         .then(function () {
                             $scope.loadGroupExperts();
                         })

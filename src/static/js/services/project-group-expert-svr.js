@@ -78,6 +78,9 @@ export default (Api) => {
                         return data;
                     });
             }
+        },
+        deleteExpertFromGroup:function (groupId,expertId) {
+            return Api.get('/projectGroupExpert/deleteExpert',{groupId,expertId})
         }
 
     }

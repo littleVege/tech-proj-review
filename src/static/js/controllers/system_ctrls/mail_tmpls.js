@@ -1,7 +1,10 @@
 let mailTmplListCtrl = ($scope,MailTemplate,User,Utils,$stateParams,$uibModal) => {
     $scope.queryInfo = {type:$stateParams['type']};
     Utils.paginize($scope,function (page) {
-        return MailTemplate.getListByQuery($scope.queryInfo,page);
+        return MailTemplate.getListByQuery($scope.queryInfo,page)
+            .catch(e=>{
+                console.log(e);
+            });
     });
     $scope.pageChanged();
 

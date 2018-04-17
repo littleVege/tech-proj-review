@@ -18,9 +18,7 @@ let accountCtrl = ($scope,$uibModal,User,$state,Utils) => {
                     if ($scope.updateInfo.newPassword !== $scope.updateInfo.repeatNewPassword) {
                         return swal('新密码验证错误！')
                     }
-                    promise = User.updateOne(user.id,{
-                        password:$scope.updateInfo.newPassword
-                    });
+                    promise = User.resetPassword(user.id,$scope.updateInfo.newPassword);
                     promise.then(function (data) {
                         $uibModalInstance.close(data);
                     });

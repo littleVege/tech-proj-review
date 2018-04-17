@@ -62,7 +62,9 @@ let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibMod
                 $scope.updateInfo.level = data[1].level;
                 $scope.reformatedItems = $scope.updateInfo.items;
             });
-    }
+    };
+
+    $scope.lastVal = 100;
 
 
     $scope.editTmpl = function (info) {
@@ -73,6 +75,14 @@ let reviewTmplEditCtrl = ($scope,EvaluationTemplateCategory,$stateParams,$uibMod
             size:'lg',
             templateUrl: 'templates/review-tmpl/review-tmpl-item-edit-mdal.html',
             controller: function ($scope,$uibModalInstance) {
+
+                $scope.validVal = (val,checkSumVal)=> {
+                    let lastVal = checkSumVal || $ps.lastVal;
+                    if (lastVal-val <0) {
+                        dialogs.info('输入分数必须小于'+lastVal,2000,'warning');
+                        return false;
+                    }
+                };
                 $scope.updateInfo = _.cloneDeep(info) || {};
                 if ($scope.updateInfo.id) {
                     $scope.updateInfo.status = 'update';
