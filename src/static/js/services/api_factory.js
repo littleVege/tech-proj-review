@@ -58,7 +58,6 @@ let apiSvr = function ($q, $http, $rootScope, Config) {
 
             }
             deferred.resolve([resp.count, resp.data]);
-
         }
     };
 
