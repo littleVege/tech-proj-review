@@ -9,7 +9,7 @@
             <tr>
                 <td><label>项目标题</label> {{projectInfo.name}}</td>
                 <td><label>项目负责人</label> {{projectInfo.manager}}</td>
-                <td><label>分类</label> {{projectInfo.category}}</td>
+                <td><label>分类</label> {{projectInfo.categoryId | category}}</td>
             </tr>
             <tr>
                 <td colspan="3"><label>内容关键字</label> {{projectInfo.keywords}}</td>
@@ -28,7 +28,7 @@
                 <td colspan="3">
                     <div class="form-item">
                         <label>项目附件</label>
-                        <a ng-repeat="i in projectFiles" ng-href="{{i.fileUrl}}">{{i.fileOriginName}}</a>
+                        <a ng-repeat="i in projectInfo.files" ng-href="{{i.fileUrl}}">{{i.fileOriginName}}</a>
                     </div>
                 </td>
             </tr>

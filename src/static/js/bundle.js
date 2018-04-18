@@ -43263,14 +43263,38 @@
 	    });
 	};
 	
-	var groupDetailExpertsCtrl = function groupDetailExpertsCtrl($scope, $stateParams, Utils, Expert) {
+	var groupDetailExpertsCtrl = function groupDetailExpertsCtrl($scope, $stateParams, Utils, Expert, $uibModal) {
 	    var groupId = $stateParams['groupId'];
 	    Utils.paginize($scope, function (page) {
 	        return Expert.queryListByGroupId(groupId, page);
 	    });
 	
 	    $scope.pageChanged();
+	
+	    $scope.sendMail = function (expertInfo) {
+	        var $ps = $scope;
+	        $uibModal.open({
+	            ariaLabelledBy: 'modal-title',
+	            ariaDescribedBy: 'modal-body',
+	            templateUrl: 'templates/sys-group/select-template-modal.html',
+	            controller: function controller($scope, $uibModalInstance, MailTemplate) {
+	                MailTemplate.getListByQuery().then(function (data) {
+	                    $scope.templates = data[1];
+	                });
+	                $scope.cancel = function () {
+	                    $uibModalInstance.dismiss();
+	                };
+	                $scope.submitEdit = function () {
+	                    ProjectGroup.upsetOne('id', $scope.updateInfo).then(function () {
+	                        $ps.pageChanged();
+	                        $scope.cancel();
+	                    });
+	                };
+	            }
+	        });
+	    };
 	};
+	
 	var groupDetailProjectsCtrl = function groupDetailProjectsCtrl($scope, $stateParams, Utils, Project) {
 	    var groupId = $stateParams['groupId'];
 	    Utils.paginize($scope, function (page) {
@@ -45631,7 +45655,14 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/mailTemplate/fuzzyselect', params);
+	            return Api.get('/mailTemplate/fuzzyselect', params).then(function (data) {
+	                if (data[1]) {
+	                    _.each(data[1], function (i) {
+	                        i.content = decodeURIComponent(i.content);
+	                    });
+	                }
+	                return data;
+	            });
 	        },
 	        /**
 	         * 获取一条mailTemplate记录
@@ -45822,6 +45853,11 @@
 	            params['rows'] = 1;
 	            return Api.get('/project/select', params).then(function (data) {
 	                return data[1] ? data[1][0] || {} : {};
+	            }).then(function (data) {
+	                if (data && data.evaluationSuggestion) {
+	                    data.evaluationSuggestion = decodeURIComponent(data.evaluationSuggestion);
+	                }
+	                return data;
 	            });
 	        },
 	        /**
@@ -45835,7 +45871,14 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/project/fuzzyselect', params);
+	            return Api.get('/project/fuzzyselect', params).then(function (data) {
+	                if (data[1]) {
+	                    _.each(data[1], function (i) {
+	                        i.evaluationSuggestion = decodeURIComponent(i.evaluationSuggestion);
+	                    });
+	                }
+	                return data;
+	            });
 	        },
 	        /**
 	         * 获取一条project记录
@@ -45845,6 +45888,11 @@
 	        getOne: function getOne(id) {
 	            return Api.get('/project/select/' + id).then(function (data) {
 	                return data[1];
+	            }).then(function (data) {
+	                if (data && data.evaluation_suggestion) {
+	                    data.evaluation_suggestion = decodeURIComponent(data.evaluation_suggestion);
+	                }
+	                return data;
 	            });
 	        },
 	        /**
@@ -45927,6 +45975,11 @@
 	            params['rows'] = 1;
 	            return Api.get('/projectExpertEvaluation/select', params).then(function (data) {
 	                return data[1] ? data[1][0] || {} : {};
+	            }).then(function (data) {
+	                if (data && data.evaluationSuggestion) {
+	                    data.evaluationSuggestion = decodeURIComponent(data.evaluationSuggestion);
+	                }
+	                return data;
 	            });
 	        },
 	        /**
@@ -45940,7 +45993,14 @@
 	            params = params || {};
 	            params['page'] = page || 1;
 	            params['rows'] = rows || 10;
-	            return Api.get('/projectExpertEvaluation/select', params);
+	            return Api.get('/projectExpertEvaluation/select', params).then(function (data) {
+	                if (data[1]) {
+	                    _.each(data[1], function (i) {
+	                        i.evaluationSuggestion = decodeURIComponent(i.evaluationSuggestion);
+	                    });
+	                }
+	                return data;
+	            });
 	        },
 	        /**
 	         * 获取一条projectExpertEvaluation记录
@@ -45950,6 +46010,11 @@
 	        getOne: function getOne(id) {
 	            return Api.get('/projectExpertEvaluation/select/' + id).then(function (data) {
 	                return data[1];
+	            }).then(function (data) {
+	                if (data && data.evaluationSuggestion) {
+	                    data.evaluationSuggestion = decodeURIComponent(data.evaluationSuggestion);
+	                }
+	                return data;
 	            });
 	        },
 	        /**

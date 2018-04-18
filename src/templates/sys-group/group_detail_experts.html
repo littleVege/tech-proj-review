@@ -25,7 +25,7 @@
         <td>{{i.major || '--'}}</td>
         <td>{{i.researchArea || '--'}}</td>
         <td>
-            <button class="btn btn-clear btn-sm">邮件通知</button>
+            <button class="btn btn-clear btn-sm" ng-click="sendMail(i)">邮件通知</button>
         </td>
     </tr>
     </tbody>

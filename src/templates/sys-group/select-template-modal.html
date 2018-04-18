@@ -1,0 +1,20 @@
+<div class="template-select-modal">
+    <div class="modal-header">
+        <h4 class="modal-title">邮件通知</h4>
+    </div>
+    <div class="modal-body">
+        <div class="form-item" style="width: 300px">
+            <label>选择模板</label>
+            <select ng-model="selectTemplate" class="form-control">
+                <option value="">请选择模板</option>
+                <option ng-repeat="i in templates" ng-value="i">{{i.name}}</option>
+            </select>
+        </div>
+        <h4>模板预览</h4>
+        <div class="template-content" ng-bind-html="selectTemplate.content" ng-if="selectTemplate"></div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">放弃</button>
+        <button class="btn btn-line" ng-click="submitEdit()">发送邮件</button>
+    </div>
+</div>

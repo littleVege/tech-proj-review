@@ -992,6 +992,11 @@ aside.submenu {
 .page-relation-project-detail .table > tbody > tr > td {
   font-size: 12px !important; }
 
+.template-select-modal .template-content {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 2px; }
+
 .page-project-detail h3 {
   font-size: 20px;
   margin-bottom: 20px;

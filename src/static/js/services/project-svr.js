@@ -11,6 +11,12 @@ export default (Api) => {
             params['rows'] = 1;
             return Api.get('/project/select',params)
                 .then((data)=> data[1]?data[1][0] || {} : {})
+                .then(data=>{
+                    if (data && data.evaluationSuggestion){
+                        data.evaluationSuggestion = decodeURIComponent(data.evaluationSuggestion);
+                    }
+                    return data;
+                })
         },
         /**
          * 查询project列表
@@ -24,6 +30,14 @@ export default (Api) => {
             params['page'] = page || 1;
             params['rows'] = rows || 10;
             return Api.get('/project/fuzzyselect',params)
+                .then(data=>{
+                    if (data[1]){
+                        _.each(data[1],i=>{
+                            i.evaluationSuggestion = decodeURIComponent(i.evaluationSuggestion);
+                        })
+                    }
+                    return data;
+                })
         },
         /**
          * 获取一条project记录
@@ -33,6 +47,12 @@ export default (Api) => {
         getOne:function(id) {
             return Api.get(`/project/select/${id}`)
                 .then((data)=> data[1])
+                .then(data=>{
+                    if (data && data.evaluation_suggestion){
+                        data.evaluation_suggestion = decodeURIComponent(data.evaluation_suggestion);
+                    }
+                    return data;
+                })
         },
         /**
          * 更新一条project记录

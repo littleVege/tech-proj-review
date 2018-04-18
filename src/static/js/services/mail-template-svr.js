@@ -24,6 +24,14 @@ export default (Api) => {
             params['page'] = page || 1;
             params['rows'] = rows || 10;
             return Api.get('/mailTemplate/fuzzyselect',params)
+                .then(data=>{
+                    if (data[1]){
+                        _.each(data[1],i=>{
+                            i.content = decodeURIComponent(i.content);
+                        })
+                    }
+                    return data;
+                })
         },
         /**
          * 获取一条mailTemplate记录

@@ -54,14 +54,40 @@ let groupDetailCtrl = ($scope,$stateParams,ProjectGroup,Utils,Project) => {
         });
 };
 
-let groupDetailExpertsCtrl = ($scope,$stateParams,Utils,Expert) => {
+let groupDetailExpertsCtrl = ($scope,$stateParams,Utils,Expert,$uibModal) => {
     let groupId = $stateParams['groupId'];
     Utils.paginize($scope,function (page) {
         return Expert.queryListByGroupId(groupId,page);
     });
 
     $scope.pageChanged();
+
+    $scope.sendMail = function (expertInfo) {
+        let $ps = $scope;
+        $uibModal.open({
+            ariaLabelledBy: 'modal-title',
+            ariaDescribedBy: 'modal-body',
+            templateUrl: 'templates/sys-group/select-template-modal.html',
+            controller: function ($scope,$uibModalInstance,MailTemplate) {
+                MailTemplate.getListByQuery()
+                    .then(data=>{
+                        $scope.templates = data[1];
+                    });
+                $scope.cancel = function () {
+                    $uibModalInstance.dismiss();
+                };
+                $scope.submitEdit = function () {
+                    ProjectGroup.upsetOne('id',$scope.updateInfo)
+                        .then(function () {
+                            $ps.pageChanged();
+                            $scope.cancel();
+                        })
+                }
+            }
+        });
+    };
 };
+
 let groupDetailProjectsCtrl = ($scope,$stateParams,Utils,Project) => {
     let groupId = $stateParams['groupId'];
     Utils.paginize($scope,function (page) {
