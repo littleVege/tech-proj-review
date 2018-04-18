@@ -54,7 +54,7 @@ let groupDetailCtrl = ($scope,$stateParams,ProjectGroup,Utils,Project) => {
         });
 };
 
-let groupDetailExpertsCtrl = ($scope,$stateParams,Utils,Expert,$uibModal) => {
+let groupDetailExpertsCtrl = ($scope,$stateParams,Utils,Expert,$uibModal,dialogs) => {
     let groupId = $stateParams['groupId'];
     Utils.paginize($scope,function (page) {
         return Expert.queryListByGroupId(groupId,page);
@@ -77,10 +77,15 @@ let groupDetailExpertsCtrl = ($scope,$stateParams,Utils,Expert,$uibModal) => {
                     $uibModalInstance.dismiss();
                 };
                 $scope.submitEdit = function () {
-                    ProjectGroup.upsetOne('id',$scope.updateInfo)
+                    dialogs.loading('邮件发送中，请稍后');
+                    MailTemplate.sendMail({templateId:$scope.selectTemplate.id,groupId,expertId:expertInfo.id,type:2})
                         .then(function () {
+                            dialogs.success('邮件发送成功');
                             $ps.pageChanged();
                             $scope.cancel();
+                        })
+                        .catch(e=>{
+                            dialogs.info(e.message,2000,'error');
                         })
                 }
             }

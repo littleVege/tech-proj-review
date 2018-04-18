@@ -86,6 +86,9 @@ export default (Api) => {
                         return data;
                     });
             }
+        },
+        sendMail:function (sendInfo) {
+            return Api.post('/mailTemplate/sendMail',sendInfo)
         }
 
     }
